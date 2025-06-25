@@ -101,44 +101,6 @@ public class Player : MonoBehaviour
     }
     #endregion
     
-    #region GUI Methods
-    private void InitDebugStyle()
-    {
-        _debugTextStyle = new GUIStyle
-        {
-            normal = { textColor = Color.white },
-            fontSize = 16,
-            fontStyle = FontStyle.Bold
-        };
-    }
-
-    private void OnGUI()
-    {
-        if(!showDebugInfo) return;
-
-        if (Camera.main == null) return;
-        var screenPos = Camera.main.WorldToScreenPoint(transform.position);
-        var debugPosition = new Vector2(screenPos.x, Screen.height - screenPos.y);
-    
-        // Display jump buffer time
-        GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 60, 200, 20), 
-            $"Jump Buffer: {_jumpBufferCounter:F3}", _debugTextStyle);
-    
-        // Display current state
-        GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 40, 200, 20), 
-            $"State: {_stateMachine.currentState.GetType().Name}", _debugTextStyle);
-    
-        // Display ground state
-        GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 20, 200, 20), 
-            $"Grounded: {groundDetected}", _debugTextStyle);
-            
-        GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 80, 200, 20), 
-            $"Coyote Time: {_coyoteTimeCounter:F3}", _debugTextStyle);
-        GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 100, 200, 20), 
-            $"Can Coyote Jump: {_canCoyoteJump}", _debugTextStyle);
-    }
-    #endregion
-    
     #region Methods
     #region Movement Methods
     /// <summary>
@@ -229,6 +191,44 @@ public class Player : MonoBehaviour
         _canCoyoteJump = false;
     }
     #endregion
+    #endregion
+    
+    #region GUI Methods
+    private void InitDebugStyle()
+    {
+        _debugTextStyle = new GUIStyle
+        {
+            normal = { textColor = Color.white },
+            fontSize = 16,
+            fontStyle = FontStyle.Bold
+        };
+    }
+
+    private void OnGUI()
+    {
+        if(!showDebugInfo) return;
+
+        if (Camera.main == null) return;
+        var screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        var debugPosition = new Vector2(screenPos.x, Screen.height - screenPos.y);
+    
+        // Display jump buffer time
+        GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 60, 200, 20), 
+            $"Jump Buffer: {_jumpBufferCounter:F3}", _debugTextStyle);
+    
+        // Display current state
+        GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 40, 200, 20), 
+            $"State: {_stateMachine.currentState.GetType().Name}", _debugTextStyle);
+    
+        // Display ground state
+        GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 20, 200, 20), 
+            $"Grounded: {groundDetected}", _debugTextStyle);
+            
+        GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 80, 200, 20), 
+            $"Coyote Time: {_coyoteTimeCounter:F3}", _debugTextStyle);
+        GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 100, 200, 20), 
+            $"Can Coyote Jump: {_canCoyoteJump}", _debugTextStyle);
+    }
     #endregion
     
     #region Gizmos
