@@ -437,6 +437,14 @@ MonoBehaviour:
   moveSpeed: 8
   smoothTime: 0.09
   stopSmoothTime: 0.065
+  inAirMoveMultiplier: 0.75
+  jumpForce: 12
+  jumpTime: 0.4
+  groundCheckDistance: 0.75
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  groundDetected: 0
 --- !u!50 &274070546
 Rigidbody2D:
   serializedVersion: 5
@@ -452,7 +460,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

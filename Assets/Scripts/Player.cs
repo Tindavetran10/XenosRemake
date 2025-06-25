@@ -1,3 +1,5 @@
+using System;
+using DefaultNamespace;
 using UnityEngine;
 
 /// <summary>
@@ -19,12 +21,25 @@ public class Player : MonoBehaviour
     // State references
     public PlayerIdleState idleState { get; private set; }   // Player's idle state instance
     public PlayerMoveState moveState { get; private set; }   // Player's movement state instance
+    public PlayerJumpState jumpState { get; private set; }   // Player's jump state instance
+    public PlayerFallState fallState { get; private set; }   // Player's fall state instance
     public Vector2 moveInput { get; private set; }          // Current movement input values
 
     [Header("Movement details")]
     public float moveSpeed = 10f;                           // Base movement speed
     public float smoothTime = 0.1f;                         // Time to smooth movement transitions
     public float stopSmoothTime = 0.1f;                     // Time to smooth movement when no input is active
+    
+    [Range(0, 1)] public float inAirMoveMultiplier = 0.5f;                // Multiplier applied to movement speed when in the air
+    
+    [Header("Jump details")]
+    public float jumpForce = 10f;                           // Force applied when jumping
+    public float jumpTime = 0.4f;                           // Maximum time to jump 
+    
+    [Header("Collision Detection")]
+    [SerializeField] private float groundCheckDistance = 0.4f;  // Length of the raycast used for ground detection
+    [SerializeField] private LayerMask groundLayer;             // Layer mask for ground detection
+    public bool groundDetected;          // Whether the player is grounded
     
     private bool _facingRight = true;                       // Whether the player is facing right or left
     #endregion
@@ -43,6 +58,8 @@ public class Player : MonoBehaviour
         // Create state instances
         idleState = new PlayerIdleState(this, _stateMachine, "idle");
         moveState = new PlayerMoveState(this, _stateMachine, "move");
+        jumpState = new PlayerJumpState(this, _stateMachine, "jumpFall");
+        fallState = new PlayerFallState(this, _stateMachine, "jumpFall");
     }
 
     private void OnEnable()
@@ -59,7 +76,12 @@ public class Player : MonoBehaviour
     
     private void Start() => _stateMachine.Initialize(idleState);  // Start in an idle state
     
-    private void Update() => _stateMachine.UpdateActiveState();   // Update the current state every frame
+    private void Update()
+    {
+        HandleGroundDetection();
+        // Update the current state every frame
+        _stateMachine.UpdateActiveState();
+    }
     #endregion
     
     #region Methods
@@ -68,7 +90,7 @@ public class Player : MonoBehaviour
     /// </summary>
     /// <param name="xVelocity">Desired horizontal velocity</param>
     /// <param name="yVelocity">Desired vertical velocity</param>
-    public void SetVelocity(float xVelocity, float yVelocity)
+    public void SetVelocityX(float xVelocity, float yVelocity)
     {
         // Create a new Vector2 combining the desired horizontal and vertical velocities
         var targetVelocity = new Vector2(xVelocity, yVelocity);
@@ -88,6 +110,8 @@ public class Player : MonoBehaviour
         // Update the player's facing direction based on horizontal movement
         HandleFlip(xVelocity);
     }
+    
+    public void SetVelocityY(float xVelocity, float yVelocity) => rb.linearVelocity = new Vector2(xVelocity, yVelocity);
 
     private void HandleFlip(float xVelocity)
     {
@@ -103,6 +127,18 @@ public class Player : MonoBehaviour
     {
         transform.Rotate(0f, 180f, 0f);
         _facingRight = !_facingRight;
+    }
+
+    private void HandleGroundDetection()
+    {
+        // Check if the player is grounded
+        groundDetected = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
+    }
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * groundCheckDistance);
     }
     #endregion
 }

@@ -18,6 +18,6 @@ public class PlayerMoveState : PlayerGroundState
         
         // Calculate and apply movement
         var targetXVelocity = Player.moveInput.x * Player.moveSpeed;  // Calculate horizontal velocity based on input
-        Player.SetVelocity(targetXVelocity, Rb.linearVelocity.y);    // Apply movement while preserving vertical velocity
+        Player.SetVelocityX(targetXVelocity, Rb.linearVelocity.y);    // Apply movement while preserving vertical velocity
     }
 }

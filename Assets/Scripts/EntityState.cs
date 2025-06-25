@@ -5,14 +5,16 @@ using UnityEngine;
 /// </summary>
 public abstract class EntityState
 {
+    private static readonly int YVelocity = Animator.StringToHash("yVelocity");
+
     // Protected references accessible by derived states
     protected Player Player;                // Reference to the player
     protected StateMachine StateMachine;    // Reference to the state machine
     protected string AnimBoolName;          // Animation boolean parameter name
     
-    protected readonly Animator Animator;    // Cached animator reference
-    protected readonly Rigidbody2D Rb;
-    protected readonly PlayerInputSet Input;
+    protected Animator Animator;    // Cached animator reference
+    protected Rigidbody2D Rb;
+    protected PlayerInputSet Input;
 
     /// <summary>
     /// Constructor to initialize the state
@@ -40,7 +42,7 @@ public abstract class EntityState
     /// </summary>
     public virtual void Update()
     {
-        
+        Animator.SetFloat(YVelocity, Rb.linearVelocity.y);
     }
 
     /// <summary>

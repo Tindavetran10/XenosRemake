@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace DefaultNamespace
+﻿namespace DefaultNamespace
 {
     public class PlayerGroundState : EntityState
     {
@@ -10,8 +8,11 @@ namespace DefaultNamespace
         public override void Update()
         {
             base.Update();
+            if(Rb.linearVelocity.y < 0)
+                StateMachine.ChangeState(Player.fallState);
+            
             if(Input.Player.Jump.WasPerformedThisFrame())
-                Debug.Log("Jump");
+                StateMachine.ChangeState(Player.jumpState);
         }
     }
 }
