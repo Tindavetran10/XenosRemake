@@ -33,7 +33,6 @@ public class Player : MonoBehaviour
     
     [Header("Jump details")]
     public float jumpForce = 10f;                           // Force applied when jumping
-    public float jumpTime = 0.4f;                           // Maximum time to jump 
     public float jumpBufferTime = 0.2f;                     // Time to wait before jumping again after landing
     private float _jumpBufferCounter;                       // Counter for jump buffer time
     public float coyoteTime = 0.2f;                         // Time since last jump
@@ -180,9 +179,7 @@ public class Player : MonoBehaviour
     #region Flip Character Method
     private void HandleFlip(float xVelocity)
     {
-        // if moving right and currently facing left, 
-        // Flip the character
-        // if moving left and currently facing right,
+        // if (moving right and currently facing left) or (moving left and currently facing right), 
         // Flip the character
         if (xVelocity > 0 && !_facingRight || xVelocity < 0 && _facingRight)
             Flip();
@@ -224,7 +221,8 @@ public class Player : MonoBehaviour
     #endregion
     
     #region CoyoteTime
-    public void UpdateCoyoteTime()
+
+    private void UpdateCoyoteTime()
     {
         if (groundDetected)
         {
@@ -234,9 +232,9 @@ public class Player : MonoBehaviour
         else _coyoteTimeCounter -= Time.deltaTime;
     }
     
-    public bool CanJump() => groundDetected || (_coyoteTimeCounter > 0 && _canCoyoteJump);
+    public bool CanCoyoteJump() => groundDetected || (_coyoteTimeCounter > 0 && _canCoyoteJump);
 
-    public void ConsumeJump()
+    public void ConsumeCoyoteJump()
     {
         _coyoteTimeCounter = 0;
         _canCoyoteJump = false;

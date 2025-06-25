@@ -21,9 +21,9 @@
             if(!Player.groundDetected && Rb.linearVelocity.y < 0)
                 StateMachine.ChangeState(Player.fallState);
             
-            if(Input.Player.Jump.WasPerformedThisFrame() && Player.CanJump())
+            if(Input.Player.Jump.WasPerformedThisFrame() && Player.CanCoyoteJump())
             {
-                Player.ConsumeJump();
+                Player.ConsumeCoyoteJump();
                 StateMachine.ChangeState(Player.jumpState);
             }
         }
