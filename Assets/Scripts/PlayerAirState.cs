@@ -17,7 +17,10 @@ namespace DefaultNamespace
             base.Update();
             
             if(Player.moveInput.x != 0)
-                Player.SetVelocityX(Player.moveInput.x * Player.moveSpeed * Player.inAirMoveMultiplier, Rb.linearVelocity.y);
+                Player.SetVelocityX(Player.moveInput.x * 
+                                    Player.moveSpeed * 
+                                    Player.inAirMoveMultiplier, 
+                    Rb.linearVelocity.y);
         }
     }
 }

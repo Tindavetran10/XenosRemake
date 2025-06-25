@@ -17,7 +17,7 @@ public class PlayerIdleState : PlayerGroundState
     public override void Update()
     {
         base.Update();
-        Player.SetVelocityX(0, 0);  // Stop all movement when entering an idle state
+        Player.SetVelocityX(0, Rb.linearVelocity.y);  // Stop all movement when entering an idle state
         
         // Check if you should transition to a move state
         if (Player.moveInput.x != 0)

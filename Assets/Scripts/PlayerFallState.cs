@@ -18,6 +18,13 @@
             
             if(Player.groundDetected)
                 StateMachine.ChangeState(Player.idleState);
+            
+            // Allow jumping during coyote time
+            if (Input.Player.Jump.WasPerformedThisFrame() && Player.CanJump())
+            {
+                Player.ConsumeJump();
+                StateMachine.ChangeState(Player.jumpState);
+            }
         }
     }
 }
