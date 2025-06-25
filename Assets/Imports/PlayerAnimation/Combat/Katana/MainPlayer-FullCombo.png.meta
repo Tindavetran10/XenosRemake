@@ -1,0 +1,979 @@
+fileFormatVersion: 2
+guid: 5096c199f43dd564cb54eee7914ee691
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_0
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 36
+        width: 37
+        height: 43
+      alignment: 9
+      pivot: {x: 0.513, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fb04a8365b637149b0a88e714eff943
+      internalID: 567486011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_1
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 36
+        width: 37
+        height: 43
+      alignment: 9
+      pivot: {x: 0.5965, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06433e17a432e6c4087e6f06a96c0dd2
+      internalID: -566746712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_2
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 36
+        width: 46
+        height: 43
+      alignment: 9
+      pivot: {x: 0.674, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da9dc2046b999c1479f441f5289ff64c
+      internalID: 488779435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_3
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 36
+        width: 46
+        height: 43
+      alignment: 9
+      pivot: {x: 0.674, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7e5d629e299a2b45ae052bc12a75f60
+      internalID: 2024306734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_4
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 36
+        width: 46
+        height: 43
+      alignment: 9
+      pivot: {x: 0.674, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ad3d3801186ff14380225964eae7a75
+      internalID: -17128863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_5
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 36
+        width: 46
+        height: 43
+      alignment: 9
+      pivot: {x: 0.674, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1be22be1461ee4b4ea030ac82ca6517e
+      internalID: 523629798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_6
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 34
+        width: 83
+        height: 41
+      alignment: 9
+      pivot: {x: 0.15, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef455b28243468e4fb346deb8fa9c67d
+      internalID: -267690709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_7
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 28
+        width: 86
+        height: 42
+      alignment: 9
+      pivot: {x: 0.15, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5e82e49cdc34bc4cac078275211de14
+      internalID: -1207280025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_8
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 34
+        width: 80
+        height: 43
+      alignment: 9
+      pivot: {x: 0.17, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d24f39128f1f0245a41d780ae664446
+      internalID: -2145682822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_9
+      rect:
+        serializedVersion: 2
+        x: 1090
+        y: 31
+        width: 43
+        height: 43
+      alignment: 9
+      pivot: {x: 0.17, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f8519fb2a243864bb2992e0e0702a70
+      internalID: 731355725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_10
+      rect:
+        serializedVersion: 2
+        x: 1183
+        y: 25
+        width: 51
+        height: 45
+      alignment: 9
+      pivot: {x: 0.33, y: 0.51}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d603f34cf72a9b4d95a20c1ac8f8bbc
+      internalID: 2130709463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_11
+      rect:
+        serializedVersion: 2
+        x: 1284
+        y: 26
+        width: 54
+        height: 45
+      alignment: 9
+      pivot: {x: 0.19, y: 0.48}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a2bf5d68bc29ce4b95aea34f2ac5239
+      internalID: -1681584100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_12
+      rect:
+        serializedVersion: 2
+        x: 1391
+        y: 26
+        width: 52
+        height: 45
+      alignment: 9
+      pivot: {x: 0.1, y: 0.48}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa2edce6c81ba8c4c8532fee7b790e7b
+      internalID: 825827534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_13
+      rect:
+        serializedVersion: 2
+        x: 1493
+        y: 26
+        width: 48
+        height: 45
+      alignment: 9
+      pivot: {x: 0.11, y: 0.48}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cb4cd79334f31a4bb6ec57c97a83927
+      internalID: 1153908705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_14
+      rect:
+        serializedVersion: 2
+        x: 1591
+        y: 26
+        width: 40
+        height: 45
+      alignment: 9
+      pivot: {x: 0.135, y: 0.48}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c5b3380cf2105d46a0fdf51b31c8013
+      internalID: 719982879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_15
+      rect:
+        serializedVersion: 2
+        x: 1681
+        y: 20
+        width: 40
+        height: 50
+      alignment: 9
+      pivot: {x: 0.135, y: 0.432}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eef792869690fdc4484e70e7bb331539
+      internalID: -260739402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_16
+      rect:
+        serializedVersion: 2
+        x: 1767
+        y: 32
+        width: 49
+        height: 50
+      alignment: 9
+      pivot: {x: 0.9, y: 0.432}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 061baf572164fb94486799a72be372cc
+      internalID: -1898839871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_17
+      rect:
+        serializedVersion: 2
+        x: 1866
+        y: 32
+        width: 48
+        height: 50
+      alignment: 9
+      pivot: {x: 0.9, y: 0.432}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4482785dd9d605e49968907fe27dad95
+      internalID: -1942452546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_18
+      rect:
+        serializedVersion: 2
+        x: 1959
+        y: 32
+        width: 49
+        height: 50
+      alignment: 9
+      pivot: {x: 0.902, y: 0.432}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7fcfbb1075528844ad6843ef41198b2
+      internalID: -507352033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_19
+      rect:
+        serializedVersion: 2
+        x: 2058
+        y: 32
+        width: 51
+        height: 50
+      alignment: 9
+      pivot: {x: 0.9059, y: 0.432}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef4d9fe0d1602c54faae5a7b2a48d2c2
+      internalID: 1903763940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_20
+      rect:
+        serializedVersion: 2
+        x: 2157
+        y: 32
+        width: 51
+        height: 50
+      alignment: 9
+      pivot: {x: 0.9059, y: 0.432}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f714d5a4291e534c9097175ad09229b
+      internalID: -421716916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_21
+      rect:
+        serializedVersion: 2
+        x: 2256
+        y: 32
+        width: 51
+        height: 50
+      alignment: 9
+      pivot: {x: 0.9059, y: 0.432}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5a454d107cb75546bf173ef51053b09
+      internalID: -60127747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_22
+      rect:
+        serializedVersion: 2
+        x: 2356
+        y: 31
+        width: 51
+        height: 50
+      alignment: 9
+      pivot: {x: 0.9059, y: 0.432}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82931c4271047a84fa71ec83e6d89b58
+      internalID: -158060256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_23
+      rect:
+        serializedVersion: 2
+        x: 2453
+        y: 30
+        width: 51
+        height: 50
+      alignment: 9
+      pivot: {x: 0.9059, y: 0.432}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f55aeb3a1dbb8544aa6d68636451a2b
+      internalID: -597537683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_24
+      rect:
+        serializedVersion: 2
+        x: 2554
+        y: 27
+        width: 82
+        height: 50
+      alignment: 9
+      pivot: {x: 0.379, y: 0.432}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d14d0b4fb677394d8fa67dd05f3c927
+      internalID: -591334865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_25
+      rect:
+        serializedVersion: 2
+        x: 2686
+        y: 34
+        width: 82
+        height: 50
+      alignment: 9
+      pivot: {x: 0.18, y: 0.432}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86c5a4f411db5fc4eb565f462b4d19d4
+      internalID: 896578518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_26
+      rect:
+        serializedVersion: 2
+        x: 2817
+        y: 34
+        width: 82
+        height: 50
+      alignment: 9
+      pivot: {x: 0.18, y: 0.432}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5f63d4665a1b3447b560b0201a6e3ce
+      internalID: 160977668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_27
+      rect:
+        serializedVersion: 2
+        x: 2948
+        y: 34
+        width: 82
+        height: 50
+      alignment: 9
+      pivot: {x: 0.18, y: 0.432}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 185f17e967450f74aafb8326d1ac13ba
+      internalID: 2017197589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_28
+      rect:
+        serializedVersion: 2
+        x: 3078
+        y: 34
+        width: 82
+        height: 50
+      alignment: 9
+      pivot: {x: 0.18, y: 0.432}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2810c1390ef3b3048a9206e3ec39fa97
+      internalID: -502910662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_29
+      rect:
+        serializedVersion: 2
+        x: 3183
+        y: 28
+        width: 30
+        height: 50
+      alignment: 9
+      pivot: {x: -0.64, y: 0.435}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d673cbb935b223843b5020df64af7b00
+      internalID: -901171376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_30
+      rect:
+        serializedVersion: 2
+        x: 3263
+        y: 27
+        width: 30
+        height: 50
+      alignment: 9
+      pivot: {x: -0.7, y: 0.435}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8989df9379f517a4ea8933b1e296b049
+      internalID: -1586396730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_31
+      rect:
+        serializedVersion: 2
+        x: 3336
+        y: 27
+        width: 30
+        height: 50
+      alignment: 9
+      pivot: {x: -0.7, y: 0.435}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f01ceaac76614f428b6fffa6cb87502
+      internalID: -1978985570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_32
+      rect:
+        serializedVersion: 2
+        x: 3416
+        y: 27
+        width: 30
+        height: 50
+      alignment: 9
+      pivot: {x: -0.7, y: 0.435}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b00f3fd6880aaf428f2d732c70301b1
+      internalID: -2022148438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_33
+      rect:
+        serializedVersion: 2
+        x: 3491
+        y: 27
+        width: 30
+        height: 50
+      alignment: 9
+      pivot: {x: -0.7, y: 0.435}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20a3e8452a2b2e0429dd64d40aab2c1d
+      internalID: -1415391836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_34
+      rect:
+        serializedVersion: 2
+        x: 3565
+        y: 27
+        width: 30
+        height: 50
+      alignment: 9
+      pivot: {x: -0.7, y: 0.435}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb45803026a27f44db916aa9c89d563e
+      internalID: -1928298833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainPlayer-FullCombo_35
+      rect:
+        serializedVersion: 2
+        x: 3636
+        y: 27
+        width: 30
+        height: 50
+      alignment: 9
+      pivot: {x: -0.7, y: 0.435}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc38831e26c3a4d45a642942f31b8673
+      internalID: 1564471063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MainPlayer-FullCombo_0: 567486011
+      MainPlayer-FullCombo_1: -566746712
+      MainPlayer-FullCombo_10: 2130709463
+      MainPlayer-FullCombo_11: -1681584100
+      MainPlayer-FullCombo_12: 825827534
+      MainPlayer-FullCombo_13: 1153908705
+      MainPlayer-FullCombo_14: 719982879
+      MainPlayer-FullCombo_15: -260739402
+      MainPlayer-FullCombo_16: -1898839871
+      MainPlayer-FullCombo_17: -1942452546
+      MainPlayer-FullCombo_18: -507352033
+      MainPlayer-FullCombo_19: 1903763940
+      MainPlayer-FullCombo_2: 488779435
+      MainPlayer-FullCombo_20: -421716916
+      MainPlayer-FullCombo_21: -60127747
+      MainPlayer-FullCombo_22: -158060256
+      MainPlayer-FullCombo_23: -597537683
+      MainPlayer-FullCombo_24: -591334865
+      MainPlayer-FullCombo_25: 896578518
+      MainPlayer-FullCombo_26: 160977668
+      MainPlayer-FullCombo_27: 2017197589
+      MainPlayer-FullCombo_28: -502910662
+      MainPlayer-FullCombo_29: -901171376
+      MainPlayer-FullCombo_3: 2024306734
+      MainPlayer-FullCombo_30: -1586396730
+      MainPlayer-FullCombo_31: -1978985570
+      MainPlayer-FullCombo_32: -2022148438
+      MainPlayer-FullCombo_33: -1415391836
+      MainPlayer-FullCombo_34: -1928298833
+      MainPlayer-FullCombo_35: 1564471063
+      MainPlayer-FullCombo_36: 930789722
+      MainPlayer-FullCombo_37: 186072775
+      MainPlayer-FullCombo_38: -1991203579
+      MainPlayer-FullCombo_39: 1550093742
+      MainPlayer-FullCombo_4: -17128863
+      MainPlayer-FullCombo_40: 266826587
+      MainPlayer-FullCombo_41: -1047600106
+      MainPlayer-FullCombo_42: 1504041301
+      MainPlayer-FullCombo_43: 835537768
+      MainPlayer-FullCombo_44: -1443030373
+      MainPlayer-FullCombo_45: -1385710010
+      MainPlayer-FullCombo_46: -1869488718
+      MainPlayer-FullCombo_47: 1061555509
+      MainPlayer-FullCombo_48: 1359339765
+      MainPlayer-FullCombo_49: 1835278008
+      MainPlayer-FullCombo_5: 523629798
+      MainPlayer-FullCombo_50: -954597963
+      MainPlayer-FullCombo_51: 1995761877
+      MainPlayer-FullCombo_52: 877419701
+      MainPlayer-FullCombo_53: 2045781763
+      MainPlayer-FullCombo_54: 1715532850
+      MainPlayer-FullCombo_55: -217956744
+      MainPlayer-FullCombo_56: -1615992751
+      MainPlayer-FullCombo_6: -267690709
+      MainPlayer-FullCombo_7: -1207280025
+      MainPlayer-FullCombo_8: -2145682822
+      MainPlayer-FullCombo_9: 731355725
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
