@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
     
     [Header("Debug")]
     [SerializeField] private bool showDebugInfo = true;         // Whether to draw debug lines
+    [SerializeField] private bool showDebugGizmos = true;       // Whether to draw debug gizmos
     private GUIStyle _debugTextStyle;                           // Style for debug lines
     
     [Header("Collision Detection")]
@@ -115,30 +116,26 @@ public class Player : MonoBehaviour
     {
         if(!showDebugInfo) return;
 
-        if (Camera.main != null)
-        {
-            var screenPos = Camera.main.WorldToScreenPoint(transform.position);
-            var debugPosition = new Vector2(screenPos.x, Screen.height - screenPos.y);
+        if (Camera.main == null) return;
+        var screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        var debugPosition = new Vector2(screenPos.x, Screen.height - screenPos.y);
     
-            // Display jump buffer time
-            GUI.Label(new Rect(debugPosition.x - 50, debugPosition.y - 60, 200, 20), 
-                $"Jump Buffer: {_jumpBufferCounter:F3}", _debugTextStyle);
+        // Display jump buffer time
+        GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 60, 200, 20), 
+            $"Jump Buffer: {_jumpBufferCounter:F3}", _debugTextStyle);
     
-            // Display current state
-            GUI.Label(new Rect(debugPosition.x - 50, debugPosition.y - 40, 200, 20), 
-                $"State: {_stateMachine.currentState.GetType().Name}", _debugTextStyle);
+        // Display current state
+        GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 40, 200, 20), 
+            $"State: {_stateMachine.currentState.GetType().Name}", _debugTextStyle);
     
-            // Display ground state
-            GUI.Label(new Rect(debugPosition.x - 50, debugPosition.y - 20, 200, 20), 
-                $"Grounded: {groundDetected}", _debugTextStyle);
+        // Display ground state
+        GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 20, 200, 20), 
+            $"Grounded: {groundDetected}", _debugTextStyle);
             
-            // In the OnGUI method of Player.cs
-            GUI.Label(new Rect(debugPosition.x - 50, debugPosition.y - 80, 200, 20), 
-                $"Coyote Time: {_coyoteTimeCounter:F3}", _debugTextStyle);
-            GUI.Label(new Rect(debugPosition.x - 50, debugPosition.y - 100, 200, 20), 
-                $"Can Coyote Jump: {_canCoyoteJump}", _debugTextStyle);
-
-        }
+        GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 80, 200, 20), 
+            $"Coyote Time: {_coyoteTimeCounter:F3}", _debugTextStyle);
+        GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 100, 200, 20), 
+            $"Can Coyote Jump: {_canCoyoteJump}", _debugTextStyle);
     }
     #endregion
     
@@ -193,6 +190,7 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Ground Detection
+    // Shoot a ray downward from the character position with the length of groundCheckDistance to detect the value of groundLayer
     private void HandleGroundDetection() =>
         // Check if the player is grounded
         groundDetected = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, 
@@ -203,17 +201,9 @@ public class Player : MonoBehaviour
     private void UpdateJumpBuffer()
     {
         //If jump was pressed this frame, start the buffer timer
-        if(input.Player.Jump.WasPerformedThisFrame())
-        {
+        if (input.Player.Jump.WasPerformedThisFrame())
             _jumpBufferCounter = jumpBufferTime;
-            Debug.Log($"Jump buffer started: {jumpBufferTime} seconds");
-        }
-        else
-        {
-            _jumpBufferCounter -= Time.deltaTime;
-            if(_jumpBufferCounter <= 0 && _jumpBufferCounter + Time.deltaTime > 0)
-                Debug.Log($"Jump buffer ended: {_jumpBufferCounter} seconds");
-        }
+        else _jumpBufferCounter -= Time.deltaTime;
     }
     
     public bool HasJumpBuffer() => _jumpBufferCounter > 0;
@@ -221,7 +211,6 @@ public class Player : MonoBehaviour
     #endregion
     
     #region CoyoteTime
-
     private void UpdateCoyoteTime()
     {
         if (groundDetected)
@@ -245,17 +234,41 @@ public class Player : MonoBehaviour
     #region Gizmos
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        if (!showDebugGizmos) return;
+        
+        // Ground check visualization
+        Gizmos.color = groundDetected ? Color.green : Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * groundCheckDistance);
+
+        if (!Application.isPlaying) return;
         
         // Jump Buffer visualization
-        if (Application.isPlaying && _jumpBufferCounter > 0)
+        if (_jumpBufferCounter > 0)
         {
             Gizmos.color = Color.yellow;
             float bufferRatio = _jumpBufferCounter / jumpBufferTime;
             float circleSize = 0.5f * bufferRatio;
             Gizmos.DrawWireSphere(transform.position, circleSize);
         }
+        
+        // Coyote time visualization
+        if (_coyoteTimeCounter > 0)
+        {
+            Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f); // Orange
+            var coyoteRatio = _coyoteTimeCounter / coyoteTime;
+            // Draw a shrinking circle representing remaining coyote time
+            Gizmos.DrawWireSphere(transform.position, 0.7f * coyoteRatio);
+        }
+        
+        // Can coyote jump indicator
+        if (_canCoyoteJump)
+        {
+            Gizmos.color = new Color(0f, 1f, 1f, 1f); // Cyan
+            var upOffset = Vector3.up * 0.5f;
+            Gizmos.DrawLine(transform.position + upOffset - Vector3.right * 0.25f,
+                transform.position + upOffset + Vector3.right * 0.25f);
+        }
+
     }
     #endregion
 }
