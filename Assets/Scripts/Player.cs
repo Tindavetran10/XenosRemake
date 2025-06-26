@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     public PlayerFallState fallState { get; private set; }   // Player's fall state instance
     public PlayerWallSlideState wallSlideState { get; private set; }   // Player's wall slide state instance
     public PlayerWallJumpState wallJumpState { get; private set; }   // Player's wall jump state instance
+    public PlayerDashState dashState { get; private set; }   // Player's dash state instance
     public Vector2 moveInput { get; private set; }           // Current movement input values
 
     [Header("Movement details")]
@@ -44,11 +45,6 @@ public class Player : MonoBehaviour
     
     public Vector2 wallJumpForce = new(6f, 12f);    // Force applied when jumping off a wall
     
-    [Header("Debug")]
-    [SerializeField] private bool showDebugInfo = true;         // Whether to draw debug lines
-    [SerializeField] private bool showDebugGizmos = true;       // Whether to draw debug gizmos
-    private GUIStyle _debugTextStyle;                           // Style for debug lines
-    
     [Header("Collision Detection")]
     [SerializeField] private LayerMask groundLayer;             // Layer mask for ground detection
     [SerializeField] private float groundCheckDistance = 0.4f;  // Length of the raycast used for ground detection
@@ -58,6 +54,11 @@ public class Player : MonoBehaviour
     
     public int facingDirection { get; private set; } = 1;                           // 1 for right, -1 for the left
     public bool facingRight { get; private set; } = true;                           // Whether the player is facing right or left
+    
+    [Header("Debug")]
+    [SerializeField] private bool showDebugInfo = true;         // Whether to draw debug lines
+    [SerializeField] private bool showDebugGizmos = true;       // Whether to draw debug gizmos
+    private GUIStyle _debugTextStyle;                           // Style for debug lines
     #endregion
 
     #region Unity Callback Methods
@@ -78,6 +79,7 @@ public class Player : MonoBehaviour
         fallState = new PlayerFallState(this, _stateMachine, "jumpFall");
         wallSlideState = new PlayerWallSlideState(this, _stateMachine, "wallSlide");
         wallJumpState = new PlayerWallJumpState(this, _stateMachine, "jumpFall");
+        dashState = new PlayerDashState(this, _stateMachine, "dash");
     }
 
     private void OnEnable()

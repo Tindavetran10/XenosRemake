@@ -43,6 +43,9 @@ public abstract class EntityState
     public virtual void Update()
     {
         Animator.SetFloat(YVelocity, Rb.linearVelocity.y);
+        
+        if(Input.Player.Dash.WasPerformedThisFrame())
+            StateMachine.ChangeState(Player.dashState);
     }
 
     /// <summary>
