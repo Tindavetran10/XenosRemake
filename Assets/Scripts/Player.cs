@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     public PlayerMoveState moveState { get; private set; }   // Player's movement state instance
     public PlayerJumpState jumpState { get; private set; }   // Player's jump state instance
     public PlayerFallState fallState { get; private set; }   // Player's fall state instance
+    public PlayerWallSlideState wallSlideState { get; private set; }   // Player's wall slide state instance
+    public PlayerWallJumpState wallJumpState { get; private set; }   // Player's wall jump state instance
     public Vector2 moveInput { get; private set; }           // Current movement input values
 
     [Header("Movement details")]
@@ -30,6 +32,7 @@ public class Player : MonoBehaviour
     public float stopSmoothTime = 0.1f;                     // Time to smooth movement when no input is active
     
     [Range(0, 1)] public float inAirMoveMultiplier = 0.5f;                // Multiplier applied to movement speed when in the air
+    [Range(0, 1)] public float wallSlideMultiplier = 0.7f;               // Multiplier applied to movement speed when wall sliding
     
     [Header("Jump details")]
     public float jumpForce = 10f;                           // Force applied when jumping
@@ -39,17 +42,22 @@ public class Player : MonoBehaviour
     private float _coyoteTimeCounter;                       // Counter for coyote time
     private bool _canCoyoteJump;                            // Flag to prevent double coyote jumps
     
+    public Vector2 wallJumpForce = new(6f, 12f);    // Force applied when jumping off a wall
+    
     [Header("Debug")]
     [SerializeField] private bool showDebugInfo = true;         // Whether to draw debug lines
     [SerializeField] private bool showDebugGizmos = true;       // Whether to draw debug gizmos
     private GUIStyle _debugTextStyle;                           // Style for debug lines
     
     [Header("Collision Detection")]
-    [SerializeField] private float groundCheckDistance = 0.4f;  // Length of the raycast used for ground detection
     [SerializeField] private LayerMask groundLayer;             // Layer mask for ground detection
-    public bool groundDetected;                                 // Whether the player is grounded
+    [SerializeField] private float groundCheckDistance = 0.4f;  // Length of the raycast used for ground detection
+    [SerializeField] private float wallCheckDistance = 0.4f;     // Length of the raycast used for wall detection
+    public bool groundDetected { get; private set; }                               // Whether the player is grounded
+    public bool wallDetected { get; private set; }                               // Whether the player is on a wall
     
-    private bool _facingRight = true;                           // Whether the player is facing right or left
+    public int facingDirection { get; private set; } = 1;                           // 1 for right, -1 for the left
+    public bool facingRight { get; private set; } = true;                           // Whether the player is facing right or left
     #endregion
 
     #region Unity Callback Methods
@@ -68,6 +76,8 @@ public class Player : MonoBehaviour
         moveState = new PlayerMoveState(this, _stateMachine, "move");
         jumpState = new PlayerJumpState(this, _stateMachine, "jumpFall");
         fallState = new PlayerFallState(this, _stateMachine, "jumpFall");
+        wallSlideState = new PlayerWallSlideState(this, _stateMachine, "wallSlide");
+        wallJumpState = new PlayerWallJumpState(this, _stateMachine, "jumpFall");
     }
 
     private void OnEnable()
@@ -140,23 +150,29 @@ public class Player : MonoBehaviour
     {
         // if (moving right and currently facing left) or (moving left and currently facing right), 
         // Flip the character
-        if (xVelocity > 0 && !_facingRight || xVelocity < 0 && _facingRight)
+        if (xVelocity > 0 && !facingRight || xVelocity < 0 && facingRight)
             Flip();
     }
     
-    private void Flip()
+    public void Flip()
     {
         transform.Rotate(0f, 180f, 0f);
-        _facingRight = !_facingRight;
+        facingRight = !facingRight;
+        facingDirection *= -1;
     }
     #endregion
 
-    #region Ground Detection
+    #region Environment Detection
     // Shoot a ray downward from the character position with the length of groundCheckDistance to detect the value of groundLayer
-    private void HandleGroundDetection() =>
+    private void HandleGroundDetection()
+    {
         // Check if the player is grounded
-        groundDetected = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, 
+        groundDetected = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance,
             groundLayer);
+        wallDetected = Physics2D.Raycast(transform.position, Vector2.right * facingDirection, 
+            wallCheckDistance, groundLayer);
+    }
+
     #endregion
     
     #region JumpBuffer 
@@ -234,20 +250,23 @@ public class Player : MonoBehaviour
     #region Gizmos
     private void OnDrawGizmos()
     {
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * wallCheckDistance * facingDirection);
+        
         if (!showDebugGizmos) return;
         
         // Ground check visualization
         Gizmos.color = groundDetected ? Color.green : Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * groundCheckDistance);
-
+        
+        // Only show if the game is started
         if (!Application.isPlaying) return;
         
         // Jump Buffer visualization
         if (_jumpBufferCounter > 0)
         {
             Gizmos.color = Color.yellow;
-            float bufferRatio = _jumpBufferCounter / jumpBufferTime;
-            float circleSize = 0.5f * bufferRatio;
+            var bufferRatio = _jumpBufferCounter / jumpBufferTime;
+            var circleSize = 0.5f * bufferRatio;
             Gizmos.DrawWireSphere(transform.position, circleSize);
         }
         
@@ -261,14 +280,13 @@ public class Player : MonoBehaviour
         }
         
         // Can coyote jump indicator
-        if (_canCoyoteJump)
-        {
-            Gizmos.color = new Color(0f, 1f, 1f, 1f); // Cyan
-            var upOffset = Vector3.up * 0.5f;
-            Gizmos.DrawLine(transform.position + upOffset - Vector3.right * 0.25f,
-                transform.position + upOffset + Vector3.right * 0.25f);
-        }
+        if (!_canCoyoteJump) return;
+        Gizmos.color = new Color(0f, 1f, 1f, 1f); // Cyan
+        var upOffset = Vector3.up * 0.5f;
+        Gizmos.DrawLine(transform.position + upOffset - Vector3.right * 0.25f,
+            transform.position + upOffset + Vector3.right * 0.25f);
 
+        
     }
     #endregion
 }
