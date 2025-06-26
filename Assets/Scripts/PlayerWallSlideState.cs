@@ -1,8 +1,12 @@
-﻿namespace DefaultNamespace
+﻿using UnityEngine;
+
+namespace DefaultNamespace
 {
     // This class handles the state when a player is sliding along a wall
     public class PlayerWallSlideState : EntityState
     {
+        private readonly float _minSlideSpeed = 0.1f;
+        
         // Constructor that initializes the wall slide state
         // - player: Reference to the main player object
         // - stateMachine: Reference to the state management system
@@ -31,27 +35,24 @@
                 StateMachine.ChangeState(Player.fallState);
             
             // If the player touches the ground while wall sliding
-            if(Player.groundDetected)
-            {
-                // Change to idle state since we're on the ground
-                StateMachine.ChangeState(Player.idleState);
-                // Flip the player's direction since they were facing the wall
-                Player.Flip();
-            }
+            if (!Player.groundDetected) return;
+            // Change to idle state since we're on the ground
+            StateMachine.ChangeState(Player.idleState);
+            // Flip the player's direction since they were facing the wall
+            Player.Flip();
         }
         
         // Handles the wall sliding movement mechanics
         private void HandleWallSlide()
         {
-            // If the player is holding down (negative Y input)
-            if(Player.moveInput.y < 0)
-                // Allow full vertical movement based on current velocity
-                // This lets the player slide down faster by holding down
-                Player.SetVelocityY(Player.moveInput.x, Rb.linearVelocity.y);
-            else 
-                // If not holding down, apply wall slide multiplier to slow the fall
-                // multiplier is typically < 1 to create a slower sliding effect
-                Player.SetVelocityY(Player.moveInput.x, Rb.linearVelocity.y * Player.wallSlideMultiplier);
+            var targetVelocity = Player.moveInput.y < 0 
+                ? Rb.linearVelocity.y 
+                : Rb.linearVelocity.y * Player.wallSlideMultiplier;
+
+            // Only update velocity if there's a significant change
+            if (Mathf.Abs(targetVelocity - Rb.linearVelocity.y) > _minSlideSpeed)
+                Player.SetVelocityY(Player.moveInput.x, targetVelocity);
+
         }
     }
 }

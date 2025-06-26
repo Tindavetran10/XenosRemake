@@ -8,12 +8,12 @@ public class Player : MonoBehaviour
 {
     #region Variables
     // Core components
-    public Animator animator { get; private set; }     // Reference to the player's animator component
+    public Animator animator { get; private set; }    // Reference to the player's animator component
     public Rigidbody2D rb { get; private set; }       // Reference to the player's rigidbody2D component
-
-    public PlayerInputSet input { get; private set; }
+    public PlayerInputSet input { get; private set; } // Reference to the player's input system
+    
     private StateMachine _stateMachine;               // Manages player states
-    private Vector2 _currentVelocity;                 // Used for SmoothDamp calculations
+    private Vector2 _currentVelocity;                 // Used for SmoothDamp calculations of player on-ground movement
     #endregion
 
     #region Properties
@@ -31,9 +31,9 @@ public class Player : MonoBehaviour
     public float moveSpeed = 10f;                           // Base movement speed
     public float smoothTime = 0.1f;                         // Time to smooth movement transitions
     public float stopSmoothTime = 0.1f;                     // Time to smooth movement when no input is active
-    
-    [Range(0, 1)] public float inAirMoveMultiplier = 0.5f;                // Multiplier applied to movement speed when in the air
-    [Range(0, 1)] public float wallSlideMultiplier = 0.7f;               // Multiplier applied to movement speed when wall sliding
+
+    [Range(0, 1)] public float inAirMoveMultiplier = 0.5f;  // Multiplier applied to movement speed when in the air
+    [Range(0, 1)] public float wallSlideMultiplier = 0.7f;  // Multiplier applied to movement speed when wall sliding
     
     [Header("Jump details")]
     public float jumpForce = 10f;                           // Force applied when jumping
@@ -48,12 +48,12 @@ public class Player : MonoBehaviour
     [Header("Collision Detection")]
     [SerializeField] private LayerMask groundLayer;             // Layer mask for ground detection
     [SerializeField] private float groundCheckDistance = 0.4f;  // Length of the raycast used for ground detection
-    [SerializeField] private float wallCheckDistance = 0.4f;     // Length of the raycast used for wall detection
-    public bool groundDetected { get; private set; }                               // Whether the player is grounded
-    public bool wallDetected { get; private set; }                               // Whether the player is on a wall
-    
-    public int facingDirection { get; private set; } = 1;                           // 1 for right, -1 for the left
-    public bool facingRight { get; private set; } = true;                           // Whether the player is facing right or left
+    [SerializeField] private float wallCheckDistance = 0.4f;    // Length of the raycast used for wall detection
+    public bool groundDetected { get; private set; }            // Whether the player is grounded
+    public bool wallDetected { get; private set; }              // Whether the player is on a wall
+
+    public int facingDirection { get; private set; } = 1;       // 1 for right, -1 for the left
+    public bool facingRight { get; private set; } = true;       // Whether the player is facing right or left
     
     [Header("Debug")]
     [SerializeField] private bool showDebugInfo = true;         // Whether to draw debug lines
@@ -201,7 +201,8 @@ public class Player : MonoBehaviour
         else _coyoteTimeCounter -= Time.deltaTime;
     }
     
-    public bool CanCoyoteJump() => groundDetected || (_coyoteTimeCounter > 0 && _canCoyoteJump);
+    public bool CanCoyoteJump() => 
+        groundDetected || (_coyoteTimeCounter > 0 && _canCoyoteJump);
 
     public void ConsumeCoyoteJump()
     {
@@ -287,8 +288,6 @@ public class Player : MonoBehaviour
         var upOffset = Vector3.up * 0.5f;
         Gizmos.DrawLine(transform.position + upOffset - Vector3.right * 0.25f,
             transform.position + upOffset + Vector3.right * 0.25f);
-
-        
     }
     #endregion
 }

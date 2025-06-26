@@ -1,8 +1,10 @@
 ﻿namespace DefaultNamespace
 {
+    /// <summary>
+    /// Class for all state of when the player falling
+    /// </summary>
     public class PlayerFallState : PlayerAirState
     {
-        
         public PlayerFallState(Player player, StateMachine stateMachine, string animBoolName) 
             : base(player, stateMachine, animBoolName) {}
         
@@ -10,6 +12,7 @@
         {
             base.Update();
             
+            // Change back to idle when the player is on the ground
             if(Player.groundDetected)
             {
                 StateMachine.ChangeState(Player.idleState);
@@ -23,17 +26,18 @@
                 StateMachine.ChangeState(Player.jumpState);
                 return;
             }
-            
-            if(Player.wallDetected)
+
+            // Check for the opposite wall during wall jump
+            if (!Player.wallDetected) return;
+            // If the player presses Jump while detecting a wall
+            if(Input.Player.Jump.WasPerformedThisFrame())
             {
-                if(Input.Player.Jump.WasPerformedThisFrame())
-                {
-                    StateMachine.ChangeState(Player.wallJumpState);
-                    return;
-                }
-                
-                StateMachine.ChangeState(Player.wallSlideState);
+                // Change to wall jump state
+                StateMachine.ChangeState(Player.wallJumpState);
+                return;
             }
+            // If there is no jump input, change to wall slide state
+            StateMachine.ChangeState(Player.wallSlideState);
         }
     }
 }

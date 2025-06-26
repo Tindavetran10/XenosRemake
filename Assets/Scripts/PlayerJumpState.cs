@@ -1,5 +1,8 @@
 ﻿namespace DefaultNamespace
 {
+    /// <summary>
+    /// Handles player state when he's jumping
+    /// </summary>
     public class PlayerJumpState : PlayerAirState
     {
         private bool _jumpInputReleased;
@@ -19,16 +22,19 @@
         {
             base.Update();
 
-            if (!_jumpInputReleased && !Input.Player.Jump.IsPressed())
+            if (Rb.linearVelocity.y < 0)
             {
-                _jumpInputReleased = true;
-                if(Rb.linearVelocity.y > 0)
-                    Player.SetVelocityY(Rb.linearVelocity.x, Rb.linearVelocity.y * 0.5f);
-            }
-            
-            // If Y velocity goes down, character is falling, transfer to fall state
-            if(Rb.linearVelocity.y < 0)
                 StateMachine.ChangeState(Player.fallState);
+                return;
+            }
+
+            if (_jumpInputReleased || Input.Player.Jump.IsPressed()) 
+                return;
+
+            _jumpInputReleased = true;
+            if(Rb.linearVelocity.y > 0)
+                Player.SetVelocityY(Rb.linearVelocity.x, Rb.linearVelocity.y * 0.5f);
+
         }
     }
 }

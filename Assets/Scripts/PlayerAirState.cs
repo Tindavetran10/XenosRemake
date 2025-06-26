@@ -1,21 +1,18 @@
-﻿using UnityEngine;
-
-namespace DefaultNamespace
+﻿namespace DefaultNamespace
 {
+    /// <summary>
+    /// Base class for all states in the Air, providing common state functionality
+    /// </summary>
     public class PlayerAirState : EntityState
     {
         protected PlayerAirState(Player player, StateMachine stateMachine, string animBoolName) 
             : base(player, stateMachine, animBoolName) {}
         
-        public override void Enter()
-        {
-            base.Enter();
-        }
-        
         public override void Update()
         {
             base.Update();
             
+            // Apply horizontal movement while in the air so that the player can move left or right
             if(Player.moveInput.x != 0)
                 Player.SetVelocityX(Player.moveInput.x * 
                                     Player.moveSpeed * 

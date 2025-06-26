@@ -1,4 +1,5 @@
 using DefaultNamespace;
+using UnityEngine;
 
 /// <summary>
 /// Handles player idle state logic
@@ -17,7 +18,11 @@ public class PlayerIdleState : PlayerGroundState
     public override void Update()
     {
         base.Update();
-        Player.SetVelocityX(0, Rb.linearVelocity.y);  // Stop all movement when entering an idle state
+        // Remove the redundant SetVelocityX call since it's already done in Enter
+        // Only set velocity if there's drift or external forces
+        if (Mathf.Abs(Rb.linearVelocity.x) > 0.01f)
+            Player.SetVelocityX(0, Rb.linearVelocity.y);
+
         
         // Check if you should transition to a move state
         if (Player.moveInput.x != 0)

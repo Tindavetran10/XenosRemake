@@ -1,5 +1,8 @@
 ﻿namespace DefaultNamespace
 {
+    /// <summary>
+    /// Handles player state when he's making a wall jump
+    /// </summary>
     public class PlayerWallJumpState : EntityState
     {
         private bool _wallJumpPerformed;
@@ -14,7 +17,7 @@
             _wallJumpPerformed = false;
             _wallJumpDirection = -Player.facingDirection;
             
-            // Apply the wall jump force
+            // Apply the wall jump force to the opposite side
             Player.SetVelocityY(Player.wallJumpForce.x * _wallJumpDirection, 
                                 Player.wallJumpForce.y);
             
@@ -28,6 +31,7 @@
         public override void Update()
         {
             base.Update();
+            // If the player jumps to the air and falling, change to fall state afterward
             if(Rb.linearVelocity.y < 0)
             {
                 StateMachine.ChangeState(Player.fallState);
@@ -35,16 +39,17 @@
             }
             
             //Check for the opposite wall during wall jump
-            if(Player.wallDetected)
+            if (!Player.wallDetected) return;
+            // If the player presses Jump while detecting a wall
+            if (Input.Player.Jump.WasPerformedThisFrame() && !_wallJumpPerformed)
             {
-                if (Input.Player.Jump.WasPerformedThisFrame() && !_wallJumpPerformed)
-                {
-                    _wallJumpPerformed = true;
-                    StateMachine.ChangeState(Player.wallJumpState);
-                    return;
-                }
-                StateMachine.ChangeState(Player.wallSlideState);
+                _wallJumpPerformed = true;
+                // Change to wall jump state
+                StateMachine.ChangeState(Player.wallJumpState);
+                return;
             }
+            // Change to the player's wall slide state if he doesn't has any jump input
+            StateMachine.ChangeState(Player.wallSlideState);
         }
     }
 }
