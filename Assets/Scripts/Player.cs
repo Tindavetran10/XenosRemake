@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     public PlayerWallSlideState wallSlideState { get; private set; }   // Player's wall slide state instance
     public PlayerWallJumpState wallJumpState { get; private set; }   // Player's wall jump state instance
     public PlayerDashState dashState { get; private set; }   // Player's dash state instance
+    public PlayerBasicAttackState basicAttackState { get; private set; }    // Player's basic attack state instance
+    
     public Vector2 moveInput { get; private set; }           // Current movement input values
 
     [Header("Movement details")]
@@ -45,7 +47,11 @@ public class Player : MonoBehaviour
     private float _coyoteTimeCounter;                       // Counter for coyote time
     private bool _canCoyoteJump;                            // Flag to prevent double coyote jumps
     
-    public Vector2 wallJumpForce = new(6f, 12f);    // Force applied when jumping off a wall
+    public Vector2 wallJumpForce = new(6f, 12f);            // Force applied when jumping off a wall
+
+    [Header("Attack details")] 
+    public Vector2 attackVelocity;
+    public float attackVelocityDuration = 0.1f;
     
     [Header("Collision Detection")]
     [SerializeField] private LayerMask groundLayer;             // Layer mask for ground detection
@@ -84,6 +90,7 @@ public class Player : MonoBehaviour
         wallSlideState = new PlayerWallSlideState(this, _stateMachine, "wallSlide");
         wallJumpState = new PlayerWallJumpState(this, _stateMachine, "jumpFall");
         dashState = new PlayerDashState(this, _stateMachine, "dash");
+        basicAttackState = new PlayerBasicAttackState(this, _stateMachine, "basicAttack");
     }
 
     private void OnEnable()
@@ -145,7 +152,11 @@ public class Player : MonoBehaviour
         // Update the player's facing direction based on horizontal movement
         HandleFlip(xVelocity);
     }
-    
+
+    public void CallAnimationTrigger() => _stateMachine.currentState.CallAnimationTrigger();
+    public void CallVelocityAnimationTrigger() => _stateMachine.currentState.CallVelocityAnimationTrigger();
+    public void CallStopVelocityAnimationTrigger() => _stateMachine.currentState.CallStopVelocityAnimationTrigger();
+
     /// <summary>
     /// Sets the VERTICAL velocity of the player with smooth movement transitions
     /// </summary>

@@ -21,6 +21,11 @@
         public override void Update()
         {
             base.Update();
+            
+            // Change to basic attack state if there is attack input
+            if(Input.Player.Attack.WasPerformedThisFrame())
+                StateMachine.ChangeState(Player.basicAttackState);
+            
             // Change to fall state if the player is not on the ground
             // Prevent the player staying in idle state
             if(!Player.groundDetected && Rb.linearVelocity.y < 0)
@@ -30,6 +35,8 @@
             if (!Input.Player.Jump.WasPerformedThisFrame() || !Player.CanCoyoteJump()) return;
             Player.ConsumeCoyoteJump();
             StateMachine.ChangeState(Player.jumpState);
+            
+            
         }
     }
 }

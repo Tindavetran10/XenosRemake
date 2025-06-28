@@ -5,8 +5,8 @@ namespace DefaultNamespace
     // This class handles the state when a player is sliding along a wall
     public class PlayerWallSlideState : EntityState
     {
-        private readonly float _minSlideSpeed = 0.1f;
-        
+        private const float MinSlideSpeed = 0.1f;
+
         // Constructor that initializes the wall slide state
         // - player: Reference to the main player object
         // - stateMachine: Reference to the state management system
@@ -50,7 +50,7 @@ namespace DefaultNamespace
                 : Rb.linearVelocity.y * Player.wallSlideMultiplier;
 
             // Only update velocity if there's a significant change
-            if (Mathf.Abs(targetVelocity - Rb.linearVelocity.y) > _minSlideSpeed)
+            if (Mathf.Abs(targetVelocity - Rb.linearVelocity.y) > MinSlideSpeed)
                 Player.SetVelocityY(Player.moveInput.x, targetVelocity);
 
         }

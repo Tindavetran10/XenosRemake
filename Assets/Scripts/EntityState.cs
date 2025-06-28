@@ -17,6 +17,10 @@ public abstract class EntityState
     protected PlayerInputSet Input;
 
     protected float StateTimer;
+    
+    protected bool TriggerCalled;
+    protected bool VelocityTriggerCalled;
+    protected bool StopVelocityTriggerCalled;
 
     /// <summary>
     /// Constructor to initialize the state
@@ -36,8 +40,13 @@ public abstract class EntityState
     /// <summary>
     /// Called when entering this state
     /// </summary>
-    public virtual void Enter() => 
-        Animator.SetBool(AnimBoolName, true); // Activate this state's animation
+    public virtual void Enter()
+    {
+        TriggerCalled = false;
+        
+        // Activate this state's animation
+        Animator.SetBool(AnimBoolName, true);
+    }
 
     /// <summary>
     /// Called every frame while in this state
@@ -57,14 +66,16 @@ public abstract class EntityState
     public virtual void Exit() => 
         Animator.SetBool(AnimBoolName, false); // Deactivate this state's animation
 
+
+    public void CallAnimationTrigger() => TriggerCalled = true;
+    public void CallVelocityAnimationTrigger() => VelocityTriggerCalled = true;
+    public void CallStopVelocityAnimationTrigger() => StopVelocityTriggerCalled = true;
+
     private bool CanDash()
     {
         if(Player.wallDetected)
             return false;
         
-        if(StateMachine.currentState == Player.dashState)
-            return false;
-        
-        return true;
-}
+        return StateMachine.currentState != Player.dashState;
+    }
 }
