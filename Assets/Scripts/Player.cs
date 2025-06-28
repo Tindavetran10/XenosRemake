@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
 
     [Range(0, 1)] public float inAirMoveMultiplier = 0.5f;  // Multiplier applied to movement speed when in the air
     [Range(0, 1)] public float wallSlideMultiplier = 0.7f;  // Multiplier applied to movement speed when wall sliding
+    [Space(10)] public float dashDuration = 0.25f;    // Speed of the dash
+    public float dashSpeed = 10f;                           // Speed of the dash
     
     [Header("Jump details")]
     public float jumpForce = 10f;                           // Force applied when jumping
@@ -48,6 +50,8 @@ public class Player : MonoBehaviour
     [Header("Collision Detection")]
     [SerializeField] private LayerMask groundLayer;             // Layer mask for ground detection
     [SerializeField] private float groundCheckDistance = 0.4f;  // Length of the raycast used for ground detection
+    
+    [SerializeField] private LayerMask wallLayer;               // Layer mask for wall detection
     [SerializeField] private float wallCheckDistance = 0.4f;    // Length of the raycast used for wall detection
     public bool groundDetected { get; private set; }            // Whether the player is grounded
     public bool wallDetected { get; private set; }              // Whether the player is on a wall
@@ -105,6 +109,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         HandleGroundDetection();
+        HandleWallDetection();
         UpdateJumpBuffer();
         UpdateCoyoteTime();
         
@@ -171,10 +176,14 @@ public class Player : MonoBehaviour
         // Check if the player is grounded
         groundDetected = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance,
             groundLayer);
-        wallDetected = Physics2D.Raycast(transform.position, Vector2.right * facingDirection, 
-            wallCheckDistance, groundLayer);
     }
 
+    private void HandleWallDetection()
+    {
+        // Check if the player hit a wall
+        wallDetected = Physics2D.Raycast(transform.position, Vector2.right * facingDirection, 
+            wallCheckDistance, wallLayer);
+    }
     #endregion
     
     #region JumpBuffer 

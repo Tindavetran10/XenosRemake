@@ -16,6 +16,8 @@ public abstract class EntityState
     protected Rigidbody2D Rb;
     protected PlayerInputSet Input;
 
+    protected float StateTimer;
+
     /// <summary>
     /// Constructor to initialize the state
     /// </summary>
@@ -42,9 +44,10 @@ public abstract class EntityState
     /// </summary>
     public virtual void Update()
     {
+        StateTimer -= Time.deltaTime;
         Animator.SetFloat(YVelocity, Rb.linearVelocity.y);
         
-        if(Input.Player.Dash.WasPerformedThisFrame())
+        if(Input.Player.Dash.WasPerformedThisFrame() && CanDash())
             StateMachine.ChangeState(Player.dashState);
     }
 
@@ -53,4 +56,15 @@ public abstract class EntityState
     /// </summary>
     public virtual void Exit() => 
         Animator.SetBool(AnimBoolName, false); // Deactivate this state's animation
+
+    private bool CanDash()
+    {
+        if(Player.wallDetected)
+            return false;
+        
+        if(StateMachine.currentState == Player.dashState)
+            return false;
+        
+        return true;
+}
 }

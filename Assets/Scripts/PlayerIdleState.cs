@@ -18,6 +18,7 @@ public class PlayerIdleState : PlayerGroundState
     public override void Update()
     {
         base.Update();
+        
         // Remove the redundant SetVelocityX call since it's already done in Enter
         // Only set velocity if there's drift or external forces
         if (Mathf.Abs(Rb.linearVelocity.x) > 0.01f)

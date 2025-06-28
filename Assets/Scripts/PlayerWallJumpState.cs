@@ -39,17 +39,20 @@
             }
             
             //Check for the opposite wall during wall jump
-            if (!Player.wallDetected) return;
-            // If the player presses Jump while detecting a wall
-            if (Input.Player.Jump.WasPerformedThisFrame() && !_wallJumpPerformed)
+            if (Player.wallDetected)
             {
-                _wallJumpPerformed = true;
-                // Change to wall jump state
-                StateMachine.ChangeState(Player.wallJumpState);
-                return;
+                if (Input.Player.Jump.WasPerformedThisFrame() && !_wallJumpPerformed)
+                {
+                    _wallJumpPerformed = true;
+                    // Change to wall jump state
+                    StateMachine.ChangeState(Player.wallJumpState);
+                    return;
+                }
+
+                // Change to the player's wall slide state if he doesn't have any jump input
+                StateMachine.ChangeState(Player.wallSlideState);
             }
-            // Change to the player's wall slide state if he doesn't has any jump input
-            StateMachine.ChangeState(Player.wallSlideState);
+            // If the player presses Jump while detecting a wall
         }
     }
 }
