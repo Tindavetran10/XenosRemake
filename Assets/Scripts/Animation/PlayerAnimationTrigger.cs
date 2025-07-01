@@ -8,4 +8,5 @@ public class PlayerAnimationTrigger : MonoBehaviour
     public void CurrentStateTrigger() => _player.CallAnimationTrigger();
     public void CurrentVelocityStateTrigger() => _player.CallVelocityAnimationTrigger();
     public void StopVelocityStateTrigger() => _player.CallStopVelocityAnimationTrigger();
+    public void SkipAnimationTrigger() => _player.SkipAnimationTrigger();
 }

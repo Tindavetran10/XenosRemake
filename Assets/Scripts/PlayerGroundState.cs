@@ -35,8 +35,6 @@
             if (!Input.Player.Jump.WasPerformedThisFrame() || !Player.CanCoyoteJump()) return;
             Player.ConsumeCoyoteJump();
             StateMachine.ChangeState(Player.jumpState);
-            
-            
         }
     }
 }

@@ -12,7 +12,7 @@ public abstract class EntityState
     protected StateMachine StateMachine;    // Reference to the state machine
     protected string AnimBoolName;          // Animation boolean parameter name
     
-    protected Animator Animator;    // Cached animator reference
+    protected Animator Anim;    // Cached animator reference
     protected Rigidbody2D Rb;
     protected PlayerInputSet Input;
 
@@ -21,6 +21,7 @@ public abstract class EntityState
     protected bool TriggerCalled;
     protected bool VelocityTriggerCalled;
     protected bool StopVelocityTriggerCalled;
+    protected bool SkipAnimationTriggerCalled;
 
     /// <summary>
     /// Constructor to initialize the state
@@ -32,7 +33,7 @@ public abstract class EntityState
         AnimBoolName = animBoolName;
         
         // Cache commonly used components
-        Animator = Player.animator;
+        Anim = Player.animator;
         Rb = Player.rb;    
         Input = Player.input;
     }
@@ -45,7 +46,7 @@ public abstract class EntityState
         TriggerCalled = false;
         
         // Activate this state's animation
-        Animator.SetBool(AnimBoolName, true);
+        Anim.SetBool(AnimBoolName, true);
     }
 
     /// <summary>
@@ -54,7 +55,7 @@ public abstract class EntityState
     public virtual void Update()
     {
         StateTimer -= Time.deltaTime;
-        Animator.SetFloat(YVelocity, Rb.linearVelocity.y);
+        Anim.SetFloat(YVelocity, Rb.linearVelocity.y);
         
         if(Input.Player.Dash.WasPerformedThisFrame() && CanDash())
             StateMachine.ChangeState(Player.dashState);
@@ -64,12 +65,22 @@ public abstract class EntityState
     /// Called when exiting this state
     /// </summary>
     public virtual void Exit() => 
-        Animator.SetBool(AnimBoolName, false); // Deactivate this state's animation
+        Anim.SetBool(AnimBoolName, false); // Deactivate this state's animation
 
 
     public void CallAnimationTrigger() => TriggerCalled = true;
     public void CallVelocityAnimationTrigger() => VelocityTriggerCalled = true;
     public void CallStopVelocityAnimationTrigger() => StopVelocityTriggerCalled = true;
+    public void SkipAnimationTrigger()
+    {
+        if(Input.Player.Attack.IsPressed())
+        {
+            Debug.Log("Attack button is pressed");
+
+            Debug.Log("Attack input detected during SkipAnimationTrigger");
+            SkipAnimationTriggerCalled = true;
+        }
+    }
 
     private bool CanDash()
     {

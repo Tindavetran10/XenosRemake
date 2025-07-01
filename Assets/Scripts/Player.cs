@@ -52,6 +52,8 @@ public class Player : MonoBehaviour
     [Header("Attack details")] 
     public Vector2 attackVelocity;
     public float attackVelocityDuration = 0.1f;
+    public float comboResetTime = 0.2f;
+    
     
     [Header("Collision Detection")]
     [SerializeField] private LayerMask groundLayer;             // Layer mask for ground detection
@@ -156,6 +158,7 @@ public class Player : MonoBehaviour
     public void CallAnimationTrigger() => _stateMachine.currentState.CallAnimationTrigger();
     public void CallVelocityAnimationTrigger() => _stateMachine.currentState.CallVelocityAnimationTrigger();
     public void CallStopVelocityAnimationTrigger() => _stateMachine.currentState.CallStopVelocityAnimationTrigger();
+    public void SkipAnimationTrigger() => _stateMachine.currentState.SkipAnimationTrigger();
 
     /// <summary>
     /// Sets the VERTICAL velocity of the player with smooth movement transitions
