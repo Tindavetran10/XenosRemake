@@ -23,7 +23,6 @@ public class PlayerIdleState : PlayerGroundState
         // Only set velocity if there's drift or external forces
         if (Mathf.Abs(Rb.linearVelocity.x) > 0.01f)
             Player.SetVelocityX(0, Rb.linearVelocity.y);
-
         
         // Check if you should transition to a move state
         if (Player.moveInput.x != 0)

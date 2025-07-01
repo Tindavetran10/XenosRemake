@@ -33,13 +33,11 @@ namespace DefaultNamespace
             base.Update();
             HandleAttackVelocity();
             
+            if(SkipAnimationTriggerCalled) 
+                TriggerCalled = true;
+            
             if(TriggerCalled)
                 StateMachine.ChangeState(Player.idleState);
-            
-            if(SkipAnimationTriggerCalled)
-            {
-                TriggerCalled = true;
-            }
         }
         
         public override void Exit()

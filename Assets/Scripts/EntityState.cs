@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Base class for all entity states, providing common state functionality
 /// </summary>
-public abstract class EntityState
+public abstract class  EntityState
 {
     private static readonly int YVelocity = Animator.StringToHash("yVelocity");
 
