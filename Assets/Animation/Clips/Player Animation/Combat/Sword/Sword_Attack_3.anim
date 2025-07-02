@@ -137,15 +137,8 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.48
-    functionName: SkipAnimationTrigger
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.52
-    functionName: SkipAnimationTrigger
+  - time: 0.56
+    functionName: SkipCurrentStateTrigger
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -153,20 +146,6 @@ AnimationClip:
     messageOptions: 0
   - time: 0.56
     functionName: StopVelocityStateTrigger
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.56
-    functionName: SkipAnimationTrigger
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.6
-    functionName: SkipAnimationTrigger
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

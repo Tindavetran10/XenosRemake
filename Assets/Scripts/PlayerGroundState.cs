@@ -23,7 +23,7 @@
             base.Update();
             
             // Change to basic attack state if there is attack input
-            if(Input.Player.Attack.IsPressed())
+            if(Input.Player.Attack.WasPressedThisFrame())
                 StateMachine.ChangeState(Player.basicAttackState);
             
             // Change to fall state if the player is not on the ground

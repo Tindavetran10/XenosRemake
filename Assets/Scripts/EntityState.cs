@@ -19,9 +19,9 @@ public abstract class  EntityState
     protected float StateTimer;
     
     protected bool TriggerCalled;
+    protected bool SkipTriggerCalled;
     protected bool VelocityTriggerCalled;
     protected bool StopVelocityTriggerCalled;
-    protected bool SkipAnimationTriggerCalled;
 
     /// <summary>
     /// Constructor to initialize the state
@@ -44,6 +44,7 @@ public abstract class  EntityState
     public virtual void Enter()
     {
         TriggerCalled = false;
+        SkipTriggerCalled = false;
         
         // Activate this state's animation
         Anim.SetBool(AnimBoolName, true);
@@ -69,18 +70,10 @@ public abstract class  EntityState
 
 
     public void CallAnimationTrigger() => TriggerCalled = true;
+    public void SkipCallAnimationTrigger() => SkipTriggerCalled = true;
+
     public void CallVelocityAnimationTrigger() => VelocityTriggerCalled = true;
     public void CallStopVelocityAnimationTrigger() => StopVelocityTriggerCalled = true;
-    public void SkipAnimationTrigger()
-    {
-        if(Input.Player.Attack.IsPressed())
-        {
-            Debug.Log("Attack button is pressed");
-
-            Debug.Log("Attack input detected during SkipAnimationTrigger");
-            SkipAnimationTriggerCalled = true;
-        }
-    }
 
     private bool CanDash()
     {

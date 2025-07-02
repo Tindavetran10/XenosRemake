@@ -1,3 +1,4 @@
+using System.Collections;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -50,9 +51,10 @@ public class Player : MonoBehaviour
     public Vector2 wallJumpForce = new(6f, 12f);            // Force applied when jumping off a wall
 
     [Header("Attack details")] 
-    public Vector2 attackVelocity;
+    public Vector2[] attackVelocity;
     public float attackVelocityDuration = 0.1f;
     public float comboResetTime = 0.2f;
+    private Coroutine _queuedAttackCoroutine;
     
     
     [Header("Collision Detection")]
@@ -128,6 +130,32 @@ public class Player : MonoBehaviour
     #endregion
     
     #region Methods
+    #region Attack Methods
+    // This coroutine delays the transition to the attack state by one frame
+    private IEnumerator EnterAttackStateWithDelayCoroutine()
+    {
+        // Wait until the end of the current frame before proceeding
+        yield return new WaitForEndOfFrame();
+    
+        // Change the current state to the basic attack state
+        _stateMachine.ChangeState(basicAttackState);
+    }
+
+    // This method manages the queueing of attack state transitions
+    public void EnterAttackStateWithDelay()
+    {
+        // If there's already a queued attack coroutine running
+        if(_queuedAttackCoroutine != null)
+            // Stop the existing coroutine to prevent multiple queued attacks
+            StopCoroutine(_queuedAttackCoroutine);
+    
+        // Start a new coroutine to enter the attack state with a delay
+        // and store the reference to allow stopping it if needed
+        _queuedAttackCoroutine = StartCoroutine(EnterAttackStateWithDelayCoroutine());
+    }
+
+    #endregion
+    
     #region Movement Methods
     /// <summary>
     /// Sets the HORIZONTAL velocity of the player with smooth movement transitions
@@ -156,9 +184,9 @@ public class Player : MonoBehaviour
     }
 
     public void CallAnimationTrigger() => _stateMachine.currentState.CallAnimationTrigger();
+    public void SkipCallAnimationTrigger() => _stateMachine.currentState.SkipCallAnimationTrigger();
     public void CallVelocityAnimationTrigger() => _stateMachine.currentState.CallVelocityAnimationTrigger();
     public void CallStopVelocityAnimationTrigger() => _stateMachine.currentState.CallStopVelocityAnimationTrigger();
-    public void SkipAnimationTrigger() => _stateMachine.currentState.SkipAnimationTrigger();
 
     /// <summary>
     /// Sets the VERTICAL velocity of the player with smooth movement transitions

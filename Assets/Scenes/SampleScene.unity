@@ -579,8 +579,12 @@ MonoBehaviour:
   jumpBufferTime: 0.2
   coyoteTime: 0.2
   wallJumpForce: {x: 6, y: 12}
-  attackVelocity: {x: 2, y: 0}
+  attackVelocity:
+  - {x: 3, y: 0}
+  - {x: 1, y: 0}
+  - {x: 2.75, y: 0}
   attackVelocityDuration: 0.1
+  comboResetTime: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
