@@ -12,6 +12,11 @@
         {
             base.Enter();
             _dashDirection = Player.moveInput.x != 0 ? (int)Player.moveInput.x : Player.facingDirection;
+            // Flip the player if dash direction does not match facing direction
+            if (_dashDirection != Player.facingDirection)
+            {
+                Player.Flip();
+            }
             StateTimer = Player.dashDuration;
             _originalGravityScale = Rb.gravityScale;
             Rb.gravityScale = 0;
