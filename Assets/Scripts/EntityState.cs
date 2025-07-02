@@ -74,6 +74,8 @@ public abstract class  EntityState
 
     public void CallVelocityAnimationTrigger() => VelocityTriggerCalled = true;
     public void CallStopVelocityAnimationTrigger() => StopVelocityTriggerCalled = true;
+    
+    public void CallFlipTrigger() => Player.HandleFlip(Player.moveInput.x);
 
     private bool CanDash()
     {

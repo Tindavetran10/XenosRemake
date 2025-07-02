@@ -153,6 +153,9 @@ public class Player : MonoBehaviour
         // and store the reference to allow stopping it if needed
         _queuedAttackCoroutine = StartCoroutine(EnterAttackStateWithDelayCoroutine());
     }
+    // Used to skip the current attack animation if there is an input during the animation
+    public void SkipCallAnimationTrigger() => _stateMachine.currentState.SkipCallAnimationTrigger();
+    public void CheckIfShouldFlipTrigger() => _stateMachine.currentState.CallFlipTrigger();
 
     #endregion
     
@@ -184,7 +187,6 @@ public class Player : MonoBehaviour
     }
 
     public void CallAnimationTrigger() => _stateMachine.currentState.CallAnimationTrigger();
-    public void SkipCallAnimationTrigger() => _stateMachine.currentState.SkipCallAnimationTrigger();
     public void CallVelocityAnimationTrigger() => _stateMachine.currentState.CallVelocityAnimationTrigger();
     public void CallStopVelocityAnimationTrigger() => _stateMachine.currentState.CallStopVelocityAnimationTrigger();
 
@@ -195,7 +197,8 @@ public class Player : MonoBehaviour
     #endregion
     
     #region Flip Character Method
-    private void HandleFlip(float xVelocity)
+
+    public void HandleFlip(float xVelocity)
     {
         // if (moving right and currently facing left) or (moving left and currently facing right), 
         // Flip the character

@@ -11,7 +11,7 @@
         public override void Enter()
         {
             base.Enter();
-            _dashDirection = Player.facingDirection;
+            _dashDirection = Player.moveInput.x != 0 ? (int)Player.moveInput.x : Player.facingDirection;
             StateTimer = Player.dashDuration;
             _originalGravityScale = Rb.gravityScale;
             Rb.gravityScale = 0;

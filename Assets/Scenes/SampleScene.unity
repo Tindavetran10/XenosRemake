@@ -570,7 +570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   smoothTime: 0.09
-  stopSmoothTime: 0.065
+  stopSmoothTime: 0.055
   inAirMoveMultiplier: 0.75
   wallSlideMultiplier: 0.7
   dashDuration: 0.25
@@ -582,9 +582,9 @@ MonoBehaviour:
   attackVelocity:
   - {x: 3, y: 0}
   - {x: 1, y: 0}
-  - {x: 2.75, y: 0}
+  - {x: 3, y: 0}
   attackVelocityDuration: 0.1
-  comboResetTime: 0.2
+  comboResetTime: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 64

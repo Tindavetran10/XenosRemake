@@ -8,7 +8,8 @@ namespace DefaultNamespace
         private float _attackVelocityTimer;
         
         private const int FirstComboIndex = 1; // We start combo Index with 1, this parameter is used in the Animator
-        private int _comboLimit = 3;
+        private int _attackDirection;
+        private readonly int _comboLimit = 3;
         private int _comboIndex = 1;
         
         private float _lastTimeAttacked;
@@ -18,9 +19,11 @@ namespace DefaultNamespace
         public PlayerBasicAttackState(Player player, StateMachine stateMachine, string animBoolName) :
             base(player, stateMachine, animBoolName)
         {
-            if (_comboLimit.Equals(Player.attackVelocity.Length)) return;
-            Debug.LogWarning("I've adjusted combo limit, according to attack velocity array length.");
-            _comboLimit = Player.attackVelocity.Length;
+            if (!_comboLimit.Equals(Player.attackVelocity.Length))
+            {
+                Debug.LogWarning("I've adjusted combo limit, according to attack velocity array length.");
+                _comboLimit = Player.attackVelocity.Length;
+            }
         }
 
         public override void Enter()
@@ -35,6 +38,11 @@ namespace DefaultNamespace
             
             _comboAttackQueued = false;
             _shouldSkipAnimation = false;
+            
+            _attackDirection = Player.moveInput.x != 0 ? (int)Player.moveInput.x : Player.facingDirection; 
+            
+            /*if(Player.moveInput.x != 0)
+                Player.Flip();*/
             
             // Set the current combo index in the animator
             Anim.SetInteger(BasicAttackIndex, _comboIndex);
@@ -54,31 +62,30 @@ namespace DefaultNamespace
             }
 
             // Handle state transitions
-            if(SkipTriggerCalled && _shouldSkipAnimation)
-            {
-                if(_comboAttackQueued)
-                {
-                    // Reset animation and queue the next attack
-                    Anim.SetBool(AnimBoolName, false);
-                    Player.EnterAttackStateWithDelay();
-                    return;
-                }
-                StateMachine.ChangeState(Player.idleState);
-                return;
-            }
+            if(SkipTriggerCalled && _shouldSkipAnimation) HandleSkipStateExit();
             
             // Handle normal animation end
-            if (TriggerCalled)
-            {
-                if (_comboAttackQueued)
-                {
-                    Anim.SetBool(AnimBoolName, false);
-                    Player.EnterAttackStateWithDelay();
-                }
-                else StateMachine.ChangeState(Player.idleState);
-            }
+            if (TriggerCalled) HandleStateExit();
         }
-        
+
+        private void HandleSkipStateExit()
+        {
+            if (!_comboAttackQueued) return;
+            // Reset animation and queue the next attack
+            Anim.SetBool(AnimBoolName, false);
+            Player.EnterAttackStateWithDelay();
+        }
+
+        private void HandleStateExit()
+        {
+            if (_comboAttackQueued)
+            {
+                Anim.SetBool(AnimBoolName, false);
+                Player.EnterAttackStateWithDelay();
+            }
+            else StateMachine.ChangeState(Player.idleState);
+        }
+
         public override void Exit()
         {
             base.Exit();
@@ -107,19 +114,18 @@ namespace DefaultNamespace
             if(VelocityTriggerCalled)
                 ApplyAttackVelocity();
             
-            if(StopVelocityTriggerCalled)
-                Player.SetVelocityY(0, Rb.linearVelocity.y);
-            
-            if(_attackVelocityTimer < 0)
+            if(StopVelocityTriggerCalled || _attackVelocityTimer < 0)
                 Player.SetVelocityY(0, Rb.linearVelocity.y);
         }
 
         private void ApplyAttackVelocity()
         {
-            Vector2 attackVelocity = Player.attackVelocity[_comboIndex - 1];
-            
+            // Clamp the index to a valid range
+            int index = Mathf.Clamp(_comboIndex - 1, 0, Player.attackVelocity.Length - 1);
+            var attackVelocity = Player.attackVelocity[index];
+
             _attackVelocityTimer = Player.attackVelocityDuration;
-            Player.SetVelocityY(attackVelocity.x * Player.facingDirection, attackVelocity.y);
+            Player.SetVelocityY(attackVelocity.x * _attackDirection, attackVelocity.y);
         }
     }
 }
