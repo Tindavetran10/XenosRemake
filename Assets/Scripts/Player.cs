@@ -60,6 +60,8 @@ public class Player : MonoBehaviour
     [Header("Collision Detection")]
     [SerializeField] private LayerMask groundLayer;             // Layer mask for ground detection
     [SerializeField] private float groundCheckDistance = 0.4f;  // Length of the raycast used for ground detection
+    [SerializeField] private Transform primaryGroundCheckPosition;    // Position to check for ground
+    [SerializeField] private Transform secondaryGroundCheckPosition;  // Position to check for ground
     
     [SerializeField] private LayerMask wallLayer;               // Layer mask for wall detection
     [SerializeField] private float wallCheckDistance = 0.4f;    // Length of the raycast used for wall detection
@@ -226,8 +228,10 @@ public class Player : MonoBehaviour
     private void HandleWallDetection()
     {
         // Check if the player hit a wall
-        wallDetected = Physics2D.Raycast(transform.position, Vector2.right * facingDirection, 
-            wallCheckDistance, wallLayer);
+        wallDetected = Physics2D.Raycast(primaryGroundCheckPosition.position, Vector2.right * facingDirection, 
+                           wallCheckDistance, wallLayer) 
+                       && Physics2D.Raycast(secondaryGroundCheckPosition.position, Vector2.right * facingDirection, 
+                            wallCheckDistance, wallLayer); 
     }
     #endregion
     
@@ -307,7 +311,8 @@ public class Player : MonoBehaviour
     #region Gizmos
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * wallCheckDistance * facingDirection);
+        Gizmos.DrawLine(primaryGroundCheckPosition.position, primaryGroundCheckPosition.position + Vector3.right * wallCheckDistance * facingDirection);
+        Gizmos.DrawLine(secondaryGroundCheckPosition.position, secondaryGroundCheckPosition.position + Vector3.right * wallCheckDistance * facingDirection);
         
         if (!showDebugGizmos) return;
         

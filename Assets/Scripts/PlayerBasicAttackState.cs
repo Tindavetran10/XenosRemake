@@ -41,9 +41,6 @@ namespace DefaultNamespace
             
             _attackDirection = Player.moveInput.x != 0 ? (int)Player.moveInput.x : Player.facingDirection; 
             
-            /*if(Player.moveInput.x != 0)
-                Player.Flip();*/
-            
             // Set the current combo index in the animator
             Anim.SetInteger(BasicAttackIndex, _comboIndex);
         }
@@ -67,7 +64,17 @@ namespace DefaultNamespace
             // Handle normal animation end
             if (TriggerCalled) HandleStateExit();
         }
-
+        
+        public override void Exit()
+        {
+            base.Exit();
+            _comboIndex++;
+            
+            // Remember the time when we attacked
+            _lastTimeAttacked = Time.time;
+        }
+        
+        #region Attack's State Methods
         private void HandleSkipStateExit()
         {
             if (!_comboAttackQueued) return;
@@ -84,15 +91,6 @@ namespace DefaultNamespace
                 Player.EnterAttackStateWithDelay();
             }
             else StateMachine.ChangeState(Player.idleState);
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
-            _comboIndex++;
-            
-            // Remember the time when we attacked
-            _lastTimeAttacked = Time.time;
         }
 
         private void QueueNextAttack()
@@ -127,5 +125,6 @@ namespace DefaultNamespace
             _attackVelocityTimer = Player.attackVelocityDuration;
             Player.SetVelocityY(attackVelocity.x * _attackDirection, attackVelocity.y);
         }
+        #endregion
     }
 }
