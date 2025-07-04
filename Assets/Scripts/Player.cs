@@ -50,6 +50,10 @@ public class Player : MonoBehaviour
     
     public Vector2 wallJumpForce = new(6f, 12f);            // Force applied when jumping off a wall
 
+    [Header("Multi-Jump")]
+    public int maxJumps = 2; // Settable in Inspector for double jump, triple jump, etc.
+    [HideInInspector] public int currentJumps = 0;
+
     [Header("Attack details")] 
     public Vector2[] attackVelocity;
     public float attackVelocityDuration = 0.1f;
@@ -75,6 +79,8 @@ public class Player : MonoBehaviour
     [SerializeField] private bool showDebugInfo = true;         // Whether to draw debug lines
     [SerializeField] private bool showDebugGizmos = true;       // Whether to draw debug gizmos
     private GUIStyle _debugTextStyle;                           // Style for debug lines
+
+    
     #endregion
 
     #region Unity Callback Methods

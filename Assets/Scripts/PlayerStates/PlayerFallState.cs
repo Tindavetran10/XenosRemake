@@ -19,10 +19,10 @@
                 return;
             }
 
-            // Allow jumping during coyote time
-            if (Input.Player.Jump.WasPerformedThisFrame() && Player.CanCoyoteJump())
+            // Allow jumping during coyote time or if extra jumps remain
+            if (Input.Player.Jump.WasPerformedThisFrame() && (Player.CanCoyoteJump() || Player.currentJumps < Player.maxJumps))
             {
-                Player.ConsumeCoyoteJump();
+                if (Player.CanCoyoteJump()) Player.ConsumeCoyoteJump();
                 StateMachine.ChangeState(Player.jumpState);
                 return;
             }

@@ -14,6 +14,7 @@
         {
             base.Enter();
             _jumpInputReleased = false;
+            Player.currentJumps++;
             // Make object go up, increase Y velocity
             Player.SetVelocityY(Rb.linearVelocity.x, Player.jumpForce);
         }
