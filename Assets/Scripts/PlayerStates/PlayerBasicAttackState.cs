@@ -19,11 +19,9 @@ namespace DefaultNamespace
         public PlayerBasicAttackState(Player player, StateMachine stateMachine, string animBoolName) :
             base(player, stateMachine, animBoolName)
         {
-            if (!_comboLimit.Equals(Player.attackVelocity.Length))
-            {
-                Debug.LogWarning("I've adjusted combo limit, according to attack velocity array length.");
-                _comboLimit = Player.attackVelocity.Length;
-            }
+            if (_comboLimit.Equals(Player.attackVelocity.Length)) return;
+            Debug.LogWarning("I've adjusted combo limit, according to attack velocity array length.");
+            _comboLimit = Player.attackVelocity.Length;
         }
 
         public override void Enter()

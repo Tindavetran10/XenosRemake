@@ -36,10 +36,11 @@ namespace DefaultNamespace
             
             // If the player touches the ground while wall sliding
             if (!Player.groundDetected) return;
-            // Change to idle state since we're on the ground
             StateMachine.ChangeState(Player.idleState);
             // Flip the player's direction since they were facing the wall
-            Player.Flip();
+            if(!Mathf.Approximately(Player.facingDirection, Player.moveInput.x))
+                Player.Flip();
+            // Change to idle state since we're on the ground
         }
         
         // Handles the wall sliding movement mechanics
