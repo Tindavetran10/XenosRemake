@@ -3,7 +3,7 @@
     /// <summary>
     /// Base class for all states in the Air, providing common state functionality
     /// </summary>
-    public class PlayerAirState : EntityState
+    public class PlayerAirState : PlayerState
     {
         protected PlayerAirState(Player player, StateMachine stateMachine, string animBoolName) 
             : base(player, stateMachine, animBoolName) {}

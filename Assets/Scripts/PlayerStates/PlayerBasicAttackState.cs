@@ -2,7 +2,7 @@
 
 namespace DefaultNamespace
 {
-    public class PlayerBasicAttackState : EntityState
+    public class PlayerBasicAttackState : PlayerState
     {
         private static readonly int BasicAttackIndex = Animator.StringToHash("basicAttackIndex");
         private float _attackVelocityTimer;

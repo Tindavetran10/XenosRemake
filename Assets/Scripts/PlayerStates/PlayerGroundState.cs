@@ -3,7 +3,7 @@
     /// <summary>
     /// Class for all state of when standing on the ground
     /// </summary>
-    public class PlayerGroundState : EntityState
+    public class PlayerGroundState : PlayerState
     {
         protected PlayerGroundState(Player player, StateMachine stateMachine, string animBoolName) 
             : base(player, stateMachine, animBoolName) {}

@@ -3,7 +3,7 @@
 namespace DefaultNamespace
 {
     // This class handles the state when a player is sliding along a wall
-    public class PlayerWallSlideState : EntityState
+    public class PlayerWallSlideState : PlayerState
     {
         private const float MinSlideSpeed = 0.1f;
 

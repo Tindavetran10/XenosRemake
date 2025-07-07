@@ -3,7 +3,7 @@
     /// <summary>
     /// Handles player state when he's making a wall jump
     /// </summary>
-    public class PlayerWallJumpState : EntityState
+    public class PlayerWallJumpState : PlayerState
     {
         private bool _wallJumpPerformed;
         private int _wallJumpDirection;

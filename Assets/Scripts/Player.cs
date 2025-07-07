@@ -3,22 +3,18 @@ using DefaultNamespace;
 using UnityEngine;
 
 /// <summary>
-/// Main player class that handles initialization and core player functionality
+/// Main player class that handles initialization, input, and core player functionality.
+/// Inherits from Entity and adds player-specific states, input handling, and gameplay logic.
 /// </summary>
-public class Player : MonoBehaviour
+public class Player : Entity
 {
     #region Variables
-    // Core components
-    public Animator animator { get; private set; }    // Reference to the player's animator component
-    public Rigidbody2D rb { get; private set; }       // Reference to the player's rigidbody2D component
-    public PlayerInputSet input { get; private set; } // Reference to the player's input system
-    
-    private StateMachine _stateMachine;               // Manages player states
-    private Vector2 _currentVelocity;                 // Used for SmoothDamp calculations of player on-ground movement
+    // Reference to the player's input system (handles all input actions)
+    public PlayerInputSet input { get; private set; }
     #endregion
 
     #region Properties
-    // State references
+    // State references for the player's state machine
     public PlayerIdleState idleState { get; private set; }   // Player's idle state instance
     public PlayerMoveState moveState { get; private set; }   // Player's movement state instance
     public PlayerJumpState jumpState { get; private set; }   // Player's jump state instance
@@ -27,19 +23,16 @@ public class Player : MonoBehaviour
     public PlayerWallJumpState wallJumpState { get; private set; }   // Player's wall jump state instance
     public PlayerDashState dashState { get; private set; }   // Player's dash state instance
     public PlayerBasicAttackState basicAttackState { get; private set; }    // Player's basic attack state instance
-    
-    public Vector2 moveInput { get; private set; }           // Current movement input values
+    // Current movement input values (Vector2: x = horizontal, y = vertical)
+    public Vector2 moveInput { get; private set; }
 
     [Header("Movement details")]
     public float moveSpeed = 10f;                           // Base movement speed
-    public float smoothTime = 0.1f;                         // Time to smooth movement transitions
-    public float stopSmoothTime = 0.1f;                     // Time to smooth movement when no input is active
-
     [Range(0, 1)] public float inAirMoveMultiplier = 0.5f;  // Multiplier applied to movement speed when in the air
     [Range(0, 1)] public float wallSlideMultiplier = 0.7f;  // Multiplier applied to movement speed when wall sliding
-    [Space(10)] public float dashDuration = 0.25f;    // Speed of the dash
+    [Space(10)] public float dashDuration = 0.25f;    // Duration of the dash
     public float dashSpeed = 10f;                           // Speed of the dash
-    
+
     [Header("Jump details")]
     public float jumpForce = 10f;                           // Force applied when jumping
     public float jumpBufferTime = 0.2f;                     // Time to wait before jumping again after landing
@@ -47,214 +40,154 @@ public class Player : MonoBehaviour
     public float coyoteTime = 0.2f;                         // Time since last jump
     private float _coyoteTimeCounter;                       // Counter for coyote time
     private bool _canCoyoteJump;                            // Flag to prevent double coyote jumps
-    
     public Vector2 wallJumpForce = new(6f, 12f);            // Force applied when jumping off a wall
 
     [Header("Multi-Jump")]
     public int maxJumps = 2; // Settable in Inspector for double jump, triple jump, etc.
-    [HideInInspector] public int currentJumps = 0;
+    [HideInInspector] public int currentJumps;              // Tracks current jump count
 
-    [Header("Attack details")] 
-    public Vector2[] attackVelocity;
-    public float attackVelocityDuration = 0.1f;
-    public float comboResetTime = 0.2f;
-    private Coroutine _queuedAttackCoroutine;
-    
-    
-    [Header("Collision Detection")]
-    [SerializeField] private LayerMask groundLayer;             // Layer mask for ground detection
-    [SerializeField] private float groundCheckDistance = 0.4f;  // Length of the raycast used for ground detection
-    [SerializeField] private Transform primaryGroundCheckPosition;    // Position to check for ground
-    [SerializeField] private Transform secondaryGroundCheckPosition;  // Position to check for ground
-    
-    [SerializeField] private LayerMask wallLayer;               // Layer mask for wall detection
-    [SerializeField] private float wallCheckDistance = 0.4f;    // Length of the raycast used for wall detection
-    public bool groundDetected { get; private set; }            // Whether the player is grounded
-    public bool wallDetected { get; private set; }              // Whether the player is on a wall
+    [Header("Attack details")]
+    public Vector2[] attackVelocity;                        // Array of velocities for attack combos
+    public float attackVelocityDuration = 0.1f;             // Duration for which attack velocity is applied
+    public float comboResetTime = 0.2f;                     // Time to reset attack combo
+    private Coroutine _queuedAttackCoroutine;               // Reference to queued attack coroutine
 
-    public int facingDirection { get; private set; } = 1;       // 1 for right, -1 for the left
-    public bool facingRight { get; private set; } = true;       // Whether the player is facing right or left
-    
     [Header("Debug")]
     [SerializeField] private bool showDebugInfo = true;         // Whether to draw debug lines
     [SerializeField] private bool showDebugGizmos = true;       // Whether to draw debug gizmos
     private GUIStyle _debugTextStyle;                           // Style for debug lines
-
-    
     #endregion
 
     #region Unity Callback Methods
-    private void Awake()
+    /// <summary>
+    /// Called when the script instance is being loaded.
+    /// Initializes input system and player-specific states.
+    /// </summary>
+    protected override void Awake()
     {
-        // Initialize components
-        animator = GetComponentInChildren<Animator>();
-        rb = GetComponent<Rigidbody2D>();
-        
-        // Set up state machine and input
-        _stateMachine = new StateMachine(); 
+        base.Awake();
         input = new PlayerInputSet();
-
-        // Create state instances
-        idleState = new PlayerIdleState(this, _stateMachine, "idle");
-        moveState = new PlayerMoveState(this, _stateMachine, "move");
-        jumpState = new PlayerJumpState(this, _stateMachine, "jumpFall");
-        fallState = new PlayerFallState(this, _stateMachine, "jumpFall");
-        wallSlideState = new PlayerWallSlideState(this, _stateMachine, "wallSlide");
-        wallJumpState = new PlayerWallJumpState(this, _stateMachine, "jumpFall");
-        dashState = new PlayerDashState(this, _stateMachine, "dash");
-        basicAttackState = new PlayerBasicAttackState(this, _stateMachine, "basicAttack");
+        // Create state instances for the player
+        idleState = new PlayerIdleState(this, StateMachine, "idle");
+        moveState = new PlayerMoveState(this, StateMachine, "move");
+        jumpState = new PlayerJumpState(this, StateMachine, "jumpFall");
+        fallState = new PlayerFallState(this, StateMachine, "jumpFall");
+        wallSlideState = new PlayerWallSlideState(this, StateMachine, "wallSlide");
+        wallJumpState = new PlayerWallJumpState(this, StateMachine, "jumpFall");
+        dashState = new PlayerDashState(this, StateMachine, "dash");
+        basicAttackState = new PlayerBasicAttackState(this, StateMachine, "basicAttack");
     }
 
+    /// <summary>
+    /// Called when the object becomes enabled and active.
+    /// Sets up input callbacks.
+    /// </summary>
     private void OnEnable()
     {
         // Enable input system
         input.Enable();
-
-        // Setup input callbacks
+        // Setup input callbacks for movement
         input.Player.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();  // When movement input is active
         input.Player.Movement.canceled += _ => moveInput = Vector2.zero;                 // When movement input stops
     }
 
-    private void OnDisable() => input.Disable();  // Disable the input system when the object is disabled
-    
-    private void Start()
+    /// <summary>
+    /// Called when the object becomes disabled or inactive.
+    /// Disables the input system.
+    /// </summary>
+    private void OnDisable() => input.Disable();
+
+    /// <summary>
+    /// Called before the first frame update.
+    /// Initializes state machine and debug style.
+    /// </summary>
+    protected override void Start()
     {
+        base.Start();
         // Start in an idle state
-        _stateMachine.Initialize(idleState);
-        // Initialize debug style
+        StateMachine.Initialize(idleState);
+        // Initialize debug style for GUI
         InitDebugStyle();
     }
 
-    private void Update()
+    /// <summary>
+    /// Called once per frame.
+    /// Updates jump buffer and coyote time logic.
+    /// </summary>
+    protected override void Update()
     {
-        HandleGroundDetection();
-        HandleWallDetection();
+        base.Update();
         UpdateJumpBuffer();
         UpdateCoyoteTime();
-        
-        // Update the current state every frame
-        _stateMachine.UpdateActiveState();
     }
     #endregion
     
     #region Methods
     #region Attack Methods
-    // This coroutine delays the transition to the attack state by one frame
+    /// <summary>
+    /// Coroutine that delays the transition to the attack state by one frame.
+    /// Used to ensure animation and state sync.
+    /// </summary>
     private IEnumerator EnterAttackStateWithDelayCoroutine()
     {
         // Wait until the end of the current frame before proceeding
         yield return new WaitForEndOfFrame();
-    
         // Change the current state to the basic attack state
-        _stateMachine.ChangeState(basicAttackState);
+        StateMachine.ChangeState(basicAttackState);
     }
 
-    // This method manages the queueing of attack state transitions
+    /// <summary>
+    /// Manages the queueing of attack state transitions.
+    /// Ensures only one queued attack coroutine runs at a time.
+    /// </summary>
     public void EnterAttackStateWithDelay()
     {
-        // If there's already a queued attack coroutine running
+        // If there's already a queued attack coroutine running, stop it
         if(_queuedAttackCoroutine != null)
-            // Stop the existing coroutine to prevent multiple queued attacks
             StopCoroutine(_queuedAttackCoroutine);
-    
         // Start a new coroutine to enter the attack state with a delay
-        // and store the reference to allow stopping it if needed
         _queuedAttackCoroutine = StartCoroutine(EnterAttackStateWithDelayCoroutine());
     }
-    // Used to skip the current attack animation if there is an input during the animation
-    public void SkipCallAnimationTrigger() => _stateMachine.currentState.SkipCallAnimationTrigger();
-    public void CheckIfShouldFlipTrigger() => _stateMachine.currentState.CallFlipTrigger();
-
-    #endregion
-    
-    #region Movement Methods
     /// <summary>
-    /// Sets the HORIZONTAL velocity of the player with smooth movement transitions
+    /// Used to skip the current attack animation if there is an input during the animation.
     /// </summary>
-    /// <param name="xVelocity">Desired horizontal velocity</param>
-    /// <param name="yVelocity">Desired vertical velocity</param>
-    public void SetVelocityX(float xVelocity, float yVelocity)
-    {
-        // Create a new Vector2 combining the desired horizontal and vertical velocities
-        var targetVelocity = new Vector2(xVelocity, yVelocity);
-        
-        // Choose which smooth time to use:
-        // - Use stopSmoothTime for quick stops when target velocity is zero
-        // - Use regular smoothTime for normal movement
-        var currentSmoothTime = targetVelocity == Vector2.zero ? stopSmoothTime : smoothTime;
-        
-        // SmoothDamp gradually changes linearVelocity towards targetVelocity:
-        // - rb.linearVelocity: Current velocity
-        // - targetVelocity: Desired final velocity
-        // - _currentVelocity: Reference velocity (modified by SmoothDamp internally)
-        // - currentSmoothTime: Time to reach target velocity
-        rb.linearVelocity = Vector2.SmoothDamp(rb.linearVelocity, targetVelocity, ref _currentVelocity, currentSmoothTime);
-        
-        // Update the player's facing direction based on horizontal movement
-        HandleFlip(xVelocity);
-    }
-
-    public void CallAnimationTrigger() => _stateMachine.currentState.CallAnimationTrigger();
-    public void CallVelocityAnimationTrigger() => _stateMachine.currentState.CallVelocityAnimationTrigger();
-    public void CallStopVelocityAnimationTrigger() => _stateMachine.currentState.CallStopVelocityAnimationTrigger();
-
+    public void SkipCallAnimationTrigger() => StateMachine.currentState.SkipCallAnimationTrigger();
+    
     /// <summary>
-    /// Sets the VERTICAL velocity of the player with smooth movement transitions
+    /// Checks if the player should flip based on input during attack.
     /// </summary>
-    public void SetVelocityY(float xVelocity, float yVelocity) => rb.linearVelocity = new Vector2(xVelocity, yVelocity);
-    #endregion
-    
-    #region Flip Character Method
-
-    public void HandleFlip(float xVelocity)
-    {
-        // if (moving right and currently facing left) or (moving left and currently facing right), 
-        // Flip the character
-        if (xVelocity > 0 && !facingRight || xVelocity < 0 && facingRight)
-            Flip();
-    }
-    
-    public void Flip()
-    {
-        transform.Rotate(0f, 180f, 0f);
-        facingRight = !facingRight;
-        facingDirection *= -1;
-    }
-    #endregion
-
-    #region Environment Detection
-    // Shoot a ray downward from the character position with the length of groundCheckDistance to detect the value of groundLayer
-    private void HandleGroundDetection()
-    {
-        // Check if the player is grounded
-        groundDetected = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance,
-            groundLayer);
-    }
-
-    private void HandleWallDetection()
-    {
-        // Check if the player hit a wall
-        wallDetected = Physics2D.Raycast(primaryGroundCheckPosition.position, Vector2.right * facingDirection, 
-                           wallCheckDistance, wallLayer) 
-                       && Physics2D.Raycast(secondaryGroundCheckPosition.position, Vector2.right * facingDirection, 
-                            wallCheckDistance, wallLayer); 
-    }
+    public void CheckIfShouldFlipTrigger() => StateMachine.currentState.CallFlipTrigger();
     #endregion
     
     #region JumpBuffer 
+    /// <summary>
+    /// Updates the jump buffer timer based on input.
+    /// Allows for more forgiving jump input timing.
+    /// </summary>
     private void UpdateJumpBuffer()
     {
-        //If jump was pressed this frame, start the buffer timer
+        // If jump was pressed this frame, start the buffer timer
         if (input.Player.Jump.WasPerformedThisFrame())
             _jumpBufferCounter = jumpBufferTime;
         else _jumpBufferCounter -= Time.deltaTime;
     }
     
+    /// <summary>
+    /// Returns true if the jump buffer is active.
+    /// </summary>
     public bool HasJumpBuffer() => _jumpBufferCounter > 0;
+    
+    /// <summary>
+    /// Consumes the jump buffer (sets it to zero).
+    /// </summary>
     public void ConsumeJumpBuffer() => _jumpBufferCounter = 0;
     #endregion
     
     #region CoyoteTime
+    /// <summary>
+    /// Updates the coyote time timer based on ground detection.
+    /// Allows for more forgiving jump timing after leaving ground.
+    /// </summary>
     private void UpdateCoyoteTime()
     {
         if (groundDetected)
@@ -265,9 +198,15 @@ public class Player : MonoBehaviour
         else _coyoteTimeCounter -= Time.deltaTime;
     }
     
+    /// <summary>
+    /// Returns true if the player can perform a coyote jump.
+    /// </summary>
     public bool CanCoyoteJump() => 
         groundDetected || (_coyoteTimeCounter > 0 && _canCoyoteJump);
-
+    
+    /// <summary>
+    /// Consumes the coyote jump (prevents further coyote jumps until grounded).
+    /// </summary>
     public void ConsumeCoyoteJump()
     {
         _coyoteTimeCounter = 0;
@@ -277,6 +216,9 @@ public class Player : MonoBehaviour
     #endregion
     
     #region GUI Methods
+    /// <summary>
+    /// Initializes the debug text style for GUI display.
+    /// </summary>
     private void InitDebugStyle()
     {
         _debugTextStyle = new GUIStyle
@@ -287,26 +229,24 @@ public class Player : MonoBehaviour
         };
     }
 
+    /// <summary>
+    /// Draws debug information on the screen (jump buffer, state, ground, etc.).
+    /// </summary>
     private void OnGUI()
     {
         if(!showDebugInfo) return;
-
         if (Camera.main == null) return;
         var screenPos = Camera.main.WorldToScreenPoint(transform.position);
         var debugPosition = new Vector2(screenPos.x, Screen.height - screenPos.y);
-    
         // Display jump buffer time
         GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 60, 200, 20), 
             $"Jump Buffer: {_jumpBufferCounter:F3}", _debugTextStyle);
-    
         // Display current state
         GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 40, 200, 20), 
-            $"State: {_stateMachine.currentState.GetType().Name}", _debugTextStyle);
-    
+            $"State: {StateMachine.currentState.GetType().Name}", _debugTextStyle);
         // Display ground state
         GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 20, 200, 20), 
             $"Grounded: {groundDetected}", _debugTextStyle);
-            
         GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 80, 200, 20), 
             $"Coyote Time: {_coyoteTimeCounter:F3}", _debugTextStyle);
         GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 100, 200, 20), 
@@ -315,20 +255,20 @@ public class Player : MonoBehaviour
     #endregion
     
     #region Gizmos
+    /// <summary>
+    /// Draws gizmos in the editor for debugging ground/wall checks, jump buffer, and coyote time.
+    /// </summary>
     private void OnDrawGizmos()
     {
+        // Draw wall check lines
         Gizmos.DrawLine(primaryGroundCheckPosition.position, primaryGroundCheckPosition.position + Vector3.right * wallCheckDistance * facingDirection);
         Gizmos.DrawLine(secondaryGroundCheckPosition.position, secondaryGroundCheckPosition.position + Vector3.right * wallCheckDistance * facingDirection);
-        
         if (!showDebugGizmos) return;
-        
         // Ground check visualization
         Gizmos.color = groundDetected ? Color.green : Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * groundCheckDistance);
-        
         // Only show if the game is started
         if (!Application.isPlaying) return;
-        
         // Jump Buffer visualization
         if (_jumpBufferCounter > 0)
         {
@@ -337,7 +277,6 @@ public class Player : MonoBehaviour
             var circleSize = 0.5f * bufferRatio;
             Gizmos.DrawWireSphere(transform.position, circleSize);
         }
-        
         // Coyote time visualization
         if (_coyoteTimeCounter > 0)
         {
@@ -346,7 +285,6 @@ public class Player : MonoBehaviour
             // Draw a shrinking circle representing remaining coyote time
             Gizmos.DrawWireSphere(transform.position, 0.7f * coyoteRatio);
         }
-        
         // Can coyote jump indicator
         if (!_canCoyoteJump) return;
         Gizmos.color = new Color(0f, 1f, 1f, 1f); // Cyan
