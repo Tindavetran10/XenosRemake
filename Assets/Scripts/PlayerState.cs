@@ -59,19 +59,19 @@ public abstract class PlayerState : EntityState
     /// <summary>
     /// Sets the skip animation trigger flag (used to skip current animation if needed).
     /// </summary>
-    public void SkipCallAnimationTrigger() => SkipTriggerCalled = true;
+    public override void SkipCallAnimationTrigger() => SkipTriggerCalled = true;
     /// <summary>
     /// Sets the velocity animation trigger flag (used for velocity-based animation events).
     /// </summary>
-    public void CallVelocityAnimationTrigger() => VelocityTriggerCalled = true;
+    public override void CallVelocityAnimationTrigger() => VelocityTriggerCalled = true;
     /// <summary>
     /// Sets the stop velocity animation trigger flag (used to stop velocity-based animation events).
     /// </summary>
-    public void CallStopVelocityAnimationTrigger() => StopVelocityTriggerCalled = true;
+    public override void CallStopVelocityAnimationTrigger() => StopVelocityTriggerCalled = true;
     /// <summary>
-    /// Calls the player's flip logic based on current movement input (used for flipping sprite direction).
+    /// Calls the player's flip logic based on current movement input (used for flipping the sprite direction).
     /// </summary>
-    public void CallFlipTrigger() => Player.HandleFlip(Player.moveInput.x);
+    public override void CallFlipTrigger() => Player.HandleFlip(Player.moveInput.x);
 
     /// <summary>
     /// Determines if the player can dash (not on a wall and not already dashing).

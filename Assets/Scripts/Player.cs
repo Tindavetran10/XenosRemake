@@ -49,7 +49,7 @@ public class Player : Entity
     [Header("Attack details")]
     public Vector2[] attackVelocity;                        // Array of velocities for attack combos
     public float attackVelocityDuration = 0.1f;             // Duration for which attack velocity is applied
-    public float comboResetTime = 0.2f;                     // Time to reset attack combo
+    public float comboResetTime = 0.2f;                     // Time to reset the attack combo
     private Coroutine _queuedAttackCoroutine;               // Reference to queued attack coroutine
 
     [Header("Debug")]
@@ -61,11 +61,12 @@ public class Player : Entity
     #region Unity Callback Methods
     /// <summary>
     /// Called when the script instance is being loaded.
-    /// Initializes input system and player-specific states.
+    /// Initializes the input system and player-specific states.
     /// </summary>
     protected override void Awake()
     {
         base.Awake();
+        
         input = new PlayerInputSet();
         // Create state instances for the player
         idleState = new PlayerIdleState(this, StateMachine, "idle");
@@ -148,6 +149,17 @@ public class Player : Entity
         // Start a new coroutine to enter the attack state with a delay
         _queuedAttackCoroutine = StartCoroutine(EnterAttackStateWithDelayCoroutine());
     }
+    
+    /// <summary>
+    /// Calls the velocity animation trigger for the current state.
+    /// </summary>
+    public void CallVelocityAnimationTrigger() => StateMachine.currentState.CallVelocityAnimationTrigger();
+        
+    /// <summary>
+    /// Calls the stop velocity animation trigger for the current state.
+    /// </summary>
+    public void CallStopVelocityAnimationTrigger() => StateMachine.currentState.CallStopVelocityAnimationTrigger();
+    
     /// <summary>
     /// Used to skip the current attack animation if there is an input during the animation.
     /// </summary>
@@ -173,7 +185,7 @@ public class Player : Entity
     }
     
     /// <summary>
-    /// Returns true if the jump buffer is active.
+    /// Returns true if the jump buffer is active
     /// </summary>
     public bool HasJumpBuffer() => _jumpBufferCounter > 0;
     
@@ -186,7 +198,7 @@ public class Player : Entity
     #region CoyoteTime
     /// <summary>
     /// Updates the coyote time timer based on ground detection.
-    /// Allows for more forgiving jump timing after leaving ground.
+    /// Allows for more forgiving jump timing after leaving the ground.
     /// </summary>
     private void UpdateCoyoteTime()
     {

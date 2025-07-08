@@ -137,16 +137,6 @@ namespace DefaultNamespace
         /// Calls the animation trigger for the current state (delegated to the state machine).
         /// </summary>
         public void CallAnimationTrigger() => StateMachine.currentState.CallAnimationTrigger();
-        
-        /// <summary>
-        /// Calls the velocity animation trigger for the current state.
-        /// </summary>
-        public void CallVelocityAnimationTrigger() => StateMachine.currentState.CallVelocityAnimationTrigger();
-        
-        /// <summary>
-        /// Calls the stop velocity animation trigger for the current state.
-        /// </summary>
-        public void CallStopVelocityAnimationTrigger() => StateMachine.currentState.CallStopVelocityAnimationTrigger();
         #endregion
 
         #region Environment Detection
@@ -170,5 +160,7 @@ namespace DefaultNamespace
         }
         #endregion
         #endregion // Methods
+
+        
     }
 }
