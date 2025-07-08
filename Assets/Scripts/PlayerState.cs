@@ -5,7 +5,7 @@ using UnityEngine;
 /// Abstract base class for all player-specific states (e.g., player idle, move, jump).
 /// Inherits from EntityState and adds player-specific logic, input handling, and state transitions.
 /// </summary>
-public abstract class PlayerState : EntityState
+public abstract class PlayerState : EntityState, IPlayerAnimationTriggers
 {
     // Animator parameter hash for vertical velocity (used for animation blending)
     private static readonly int YVelocity = Animator.StringToHash("yVelocity");
@@ -59,19 +59,19 @@ public abstract class PlayerState : EntityState
     /// <summary>
     /// Sets the skip animation trigger flag (used to skip current animation if needed).
     /// </summary>
-    public override void SkipCallAnimationTrigger() => SkipTriggerCalled = true;
+    public void SkipCallAnimationTrigger() => SkipTriggerCalled = true;
     /// <summary>
     /// Sets the velocity animation trigger flag (used for velocity-based animation events).
     /// </summary>
-    public override void CallVelocityAnimationTrigger() => VelocityTriggerCalled = true;
+    public void CallVelocityAnimationTrigger() => VelocityTriggerCalled = true;
     /// <summary>
     /// Sets the stop velocity animation trigger flag (used to stop velocity-based animation events).
     /// </summary>
-    public override void CallStopVelocityAnimationTrigger() => StopVelocityTriggerCalled = true;
+    public void CallStopVelocityAnimationTrigger() => StopVelocityTriggerCalled = true;
     /// <summary>
     /// Calls the player's flip logic based on current movement input (used for flipping the sprite direction).
     /// </summary>
-    public override void CallFlipTrigger() => Player.HandleFlip(Player.moveInput.x);
+    public void CallFlipTrigger() => Player.HandleFlip(Player.moveInput.x);
 
     /// <summary>
     /// Determines if the player can dash (not on a wall and not already dashing).
@@ -83,4 +83,12 @@ public abstract class PlayerState : EntityState
             return false;
         return StateMachine.currentState != Player.dashState;
     }
+}
+
+public interface IPlayerAnimationTriggers
+{
+    void CallVelocityAnimationTrigger();
+    void CallStopVelocityAnimationTrigger();
+    void SkipCallAnimationTrigger();
+    void CallFlipTrigger();
 }

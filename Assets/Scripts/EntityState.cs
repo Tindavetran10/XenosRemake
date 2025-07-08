@@ -61,21 +61,5 @@ namespace DefaultNamespace
         /// Sets the animation trigger flag, which can be used by derived states to respond to animation events.
         /// </summary>
         public virtual void CallAnimationTrigger() => TriggerCalled = true;
-        /// <summary>
-        /// Virtual method for velocity animation trigger. Override in derived classes if needed.
-        /// </summary>
-        public virtual void CallVelocityAnimationTrigger() { }
-        /// <summary>
-        /// Virtual method for stop velocity animation trigger. Override in derived classes if needed.
-        /// </summary>
-        public virtual void CallStopVelocityAnimationTrigger() { }
-        /// <summary>
-        /// Virtual method for flip trigger. Override in derived classes if needed.
-        /// </summary>
-        public virtual void CallFlipTrigger() { }
-        /// <summary>
-        /// Virtual method for skip animation trigger. Override in derived classes if needed.
-        /// </summary>
-        public virtual void SkipCallAnimationTrigger() { }
     }
 }

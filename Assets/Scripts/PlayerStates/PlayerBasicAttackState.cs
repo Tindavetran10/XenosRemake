@@ -29,7 +29,6 @@ namespace DefaultNamespace
             base.Enter();
             
             HandleComboLimit();
-            Debug.Log($"Entering attack state with combo index: {_comboIndex}");
             
             VelocityTriggerCalled = false;
             StopVelocityTriggerCalled = false;

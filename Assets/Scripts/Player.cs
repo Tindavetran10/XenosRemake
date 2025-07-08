@@ -153,22 +153,38 @@ public class Player : Entity
     /// <summary>
     /// Calls the velocity animation trigger for the current state.
     /// </summary>
-    public void CallVelocityAnimationTrigger() => StateMachine.currentState.CallVelocityAnimationTrigger();
+    public void CallVelocityAnimationTrigger()
+    {
+        if (StateMachine.currentState is IPlayerAnimationTriggers triggers)
+            triggers.CallVelocityAnimationTrigger();
+    }
         
     /// <summary>
     /// Calls the stop velocity animation trigger for the current state.
     /// </summary>
-    public void CallStopVelocityAnimationTrigger() => StateMachine.currentState.CallStopVelocityAnimationTrigger();
+    public void CallStopVelocityAnimationTrigger()
+    {
+        if (StateMachine.currentState is IPlayerAnimationTriggers triggers)
+            triggers.CallStopVelocityAnimationTrigger();
+    }
     
     /// <summary>
     /// Used to skip the current attack animation if there is an input during the animation.
     /// </summary>
-    public void SkipCallAnimationTrigger() => StateMachine.currentState.SkipCallAnimationTrigger();
+    public void SkipCallAnimationTrigger()
+    {
+        if (StateMachine.currentState is IPlayerAnimationTriggers triggers)
+            triggers.SkipCallAnimationTrigger();
+    }
     
     /// <summary>
     /// Checks if the player should flip based on input during attack.
     /// </summary>
-    public void CheckIfShouldFlipTrigger() => StateMachine.currentState.CallFlipTrigger();
+    public void CheckIfShouldFlipTrigger()
+    {
+        if (StateMachine.currentState is IPlayerAnimationTriggers triggers)
+            triggers.CallFlipTrigger();
+    }
     #endregion
     
     #region JumpBuffer 
