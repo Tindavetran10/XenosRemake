@@ -5,8 +5,7 @@
     /// </summary>
     public class PlayerFallState : PlayerAirState
     {
-        public PlayerFallState(Player player, StateMachine stateMachine, string animBoolName) 
-            : base(player, stateMachine, animBoolName) {}
+        public PlayerFallState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName) {}
         
         public override void Update()
         {
