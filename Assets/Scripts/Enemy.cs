@@ -10,7 +10,7 @@ namespace Scripts
         [Header("Movement Details")] 
         public float idleTime;
         public float moveSpeed;
-        
+        [Range(0,2)] public float moveAnimSpeedMultiplier;
         
     }
 }

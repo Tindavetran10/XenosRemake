@@ -8,16 +8,20 @@ namespace Scripts
         {
         }
         
+        public override void Enter()
+        {
+            base.Enter();
+            if(Enemy.groundDetected == false || Enemy.wallDetected)
+                Enemy.Flip();
+        }
+        
         public override void Update()
         {
             base.Update();
             Enemy.SetVelocityX(Enemy.moveSpeed * Enemy.facingDirection, Rb.linearVelocity.y);
             
-            if(Enemy.groundDetected == false)
-            {
+            if(Enemy.groundDetected == false || Enemy.wallDetected) 
                 StateMachine.ChangeState(Enemy.IdleState);
-                Enemy.Flip();
-            }
         }
     }
 }
