@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DefaultNamespace
+namespace Scripts.PlayerStates
 {
     // This class handles the state when a player is sliding along a wall
     public class PlayerWallSlideState : PlayerState

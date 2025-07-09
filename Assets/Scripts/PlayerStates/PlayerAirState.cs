@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace Scripts.PlayerStates
 {
     /// <summary>
     /// Base class for all states in the Air, providing common state functionality

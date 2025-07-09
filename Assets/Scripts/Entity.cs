@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DefaultNamespace
+namespace Scripts
 {
     /// <summary>
     /// Base class for all entities in the game (e.g., Player, Enemy).
@@ -159,7 +159,7 @@ namespace DefaultNamespace
                                wallCheckDistance, wallLayer); 
         }
         #endregion
-        #endregion // Methods
+        #endregion
 
         
     }

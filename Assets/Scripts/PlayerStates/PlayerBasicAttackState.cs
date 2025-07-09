@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DefaultNamespace
+namespace Scripts.PlayerStates
 {
     public class PlayerBasicAttackState : PlayerState
     {

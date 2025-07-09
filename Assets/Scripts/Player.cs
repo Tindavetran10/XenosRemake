@@ -1,5 +1,6 @@
 using System.Collections;
-using DefaultNamespace;
+using Scripts;
+using Scripts.PlayerStates;
 using UnityEngine;
 
 /// <summary>

@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace Scripts.PlayerStates
 {
     /// <summary>
     /// Handles player state when he's making a wall jump

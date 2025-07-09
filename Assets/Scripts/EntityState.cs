@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DefaultNamespace
+namespace Scripts
 {
     /// <summary>
     /// Abstract base class for all entity states (e.g., idle, move, attack).
@@ -46,10 +46,7 @@ namespace DefaultNamespace
         /// <summary>
         /// Called every frame while in this state. Decrements the state timer.
         /// </summary>
-        public virtual void Update()
-        {
-            StateTimer -= Time.deltaTime;
-        }
+        public virtual void Update() => StateTimer -= Time.deltaTime;
 
         /// <summary>
         /// Called when exiting this state. Deactivates the state's animation.

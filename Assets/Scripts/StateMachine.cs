@@ -1,4 +1,6 @@
-using DefaultNamespace;
+
+
+using Scripts;
 
 public class StateMachine 
 {

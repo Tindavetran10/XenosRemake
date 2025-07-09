@@ -1,4 +1,4 @@
-using DefaultNamespace;
+using Scripts.PlayerStates;
 
 /// <summary>
 /// Handles player movement state logic

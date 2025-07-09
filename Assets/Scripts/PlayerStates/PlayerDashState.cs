@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace Scripts.PlayerStates
 {
     public class PlayerDashState : PlayerState
     {

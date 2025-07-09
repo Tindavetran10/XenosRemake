@@ -1,4 +1,4 @@
-using DefaultNamespace;
+using Scripts;
 using UnityEngine;
 
 /// <summary>

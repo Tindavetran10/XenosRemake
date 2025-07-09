@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace
+﻿namespace Scripts.PlayerStates
 {
     /// <summary>
     /// Class for all state of when the player falling

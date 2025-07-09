@@ -1,4 +1,4 @@
-using DefaultNamespace;
+using Scripts.PlayerStates;
 using UnityEngine;
 
 /// <summary>
