@@ -53,10 +53,7 @@ public class Player : Entity
     public float comboResetTime = 0.2f;                     // Time to reset the attack combo
     private Coroutine _queuedAttackCoroutine;               // Reference to queued attack coroutine
 
-    [Header("Debug")]
-    [SerializeField] private bool showDebugInfo = true;         // Whether to draw debug lines
-    [SerializeField] private bool showDebugGizmos = true;       // Whether to draw debug gizmos
-    private GUIStyle _debugTextStyle;                           // Style for debug lines
+    
     #endregion
 
     #region Unity Callback Methods
@@ -257,7 +254,7 @@ public class Player : Entity
     /// </summary>
     private void InitDebugStyle()
     {
-        _debugTextStyle = new GUIStyle
+        DebugTextStyle = new GUIStyle
         {
             normal = { textColor = Color.white },
             fontSize = 16,
@@ -276,17 +273,17 @@ public class Player : Entity
         var debugPosition = new Vector2(screenPos.x, Screen.height - screenPos.y);
         // Display jump buffer time
         GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 60, 200, 20), 
-            $"Jump Buffer: {_jumpBufferCounter:F3}", _debugTextStyle);
+            $"Jump Buffer: {_jumpBufferCounter:F3}", DebugTextStyle);
         // Display current state
         GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 40, 200, 20), 
-            $"State: {StateMachine.currentState.GetType().Name}", _debugTextStyle);
+            $"State: {StateMachine.currentState.GetType().Name}", DebugTextStyle);
         // Display ground state
         GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 20, 200, 20), 
-            $"Grounded: {groundDetected}", _debugTextStyle);
+            $"Grounded: {groundDetected}", DebugTextStyle);
         GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 80, 200, 20), 
-            $"Coyote Time: {_coyoteTimeCounter:F3}", _debugTextStyle);
+            $"Coyote Time: {_coyoteTimeCounter:F3}", DebugTextStyle);
         GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 100, 200, 20), 
-            $"Can Coyote Jump: {_canCoyoteJump}", _debugTextStyle);
+            $"Can Coyote Jump: {_canCoyoteJump}", DebugTextStyle);
     }
     #endregion
     
@@ -294,15 +291,9 @@ public class Player : Entity
     /// <summary>
     /// Draws gizmos in the editor for debugging ground/wall checks, jump buffer, and coyote time.
     /// </summary>
-    private void OnDrawGizmos()
+    protected override void OnDrawGizmos()
     {
-        // Draw wall check lines
-        Gizmos.DrawLine(primaryGroundCheckPosition.position, primaryGroundCheckPosition.position + Vector3.right * wallCheckDistance * facingDirection);
-        Gizmos.DrawLine(secondaryGroundCheckPosition.position, secondaryGroundCheckPosition.position + Vector3.right * wallCheckDistance * facingDirection);
-        if (!showDebugGizmos) return;
-        // Ground check visualization
-        Gizmos.color = groundDetected ? Color.green : Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * groundCheckDistance);
+        base.OnDrawGizmos();
         // Only show if the game is started
         if (!Application.isPlaying) return;
         // Jump Buffer visualization

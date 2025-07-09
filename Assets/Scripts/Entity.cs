@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Scripts
 {
@@ -32,10 +33,12 @@ namespace Scripts
         [SerializeField] private LayerMask groundLayer;
         // Length of the raycast used for ground detection
         [SerializeField] protected float groundCheckDistance = 0.4f;
+
+        [SerializeField] protected Transform groundCheck;
         // Primary position to check for ground (usually under the feet)
-        [SerializeField] protected Transform primaryGroundCheckPosition;
+        [FormerlySerializedAs("primaryGroundCheckPosition")] [SerializeField] protected Transform primaryWallCheckPosition;
         // Secondary position to check for ground (for more robust detection)
-        [SerializeField] protected Transform secondaryGroundCheckPosition;
+        [FormerlySerializedAs("secondaryGroundCheckPosition")] [SerializeField] protected Transform secondaryWallCheckPosition;
         // Layer mask for wall detection
         [SerializeField] private LayerMask wallLayer;
         // Length of the raycast used for wall detection
@@ -46,6 +49,13 @@ namespace Scripts
         public bool wallDetected { get; private set; }
         #endregion
 
+        #region Debug Variables
+        [Header("Debug")]
+        [SerializeField] protected bool showDebugInfo = true;         // Whether to draw debug lines
+        [SerializeField] protected bool showDebugGizmos = true;       // Whether to draw debug gizmos
+        protected GUIStyle DebugTextStyle;                           // Style for debug lines
+        #endregion
+        
         #region Unity Callback Methods
         /// <summary>
         /// Called when the script instance is being loaded.
@@ -145,7 +155,7 @@ namespace Scripts
         /// Updates the groundDetected property.
         /// </summary>
         private void HandleGroundDetection() => 
-            groundDetected = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
+            groundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
 
         /// <summary>
         /// Checks if the entity is touching a wall by casting rays from two positions.
@@ -153,14 +163,25 @@ namespace Scripts
         /// </summary>
         private void HandleWallDetection()
         {
-            wallDetected = Physics2D.Raycast(primaryGroundCheckPosition.position, Vector2.right * facingDirection, 
+            wallDetected = Physics2D.Raycast(primaryWallCheckPosition.position, Vector2.right * facingDirection, 
                                wallCheckDistance, wallLayer) 
-                           && Physics2D.Raycast(secondaryGroundCheckPosition.position, Vector2.right * facingDirection, 
+                           && Physics2D.Raycast(secondaryWallCheckPosition.position, Vector2.right * facingDirection, 
                                wallCheckDistance, wallLayer); 
         }
         #endregion
         #endregion
 
-        
+        #region Gizmos
+        protected virtual void OnDrawGizmos()
+        {
+            // Draw wall check lines
+            Gizmos.DrawLine(primaryWallCheckPosition.position, primaryWallCheckPosition.position + Vector3.right * wallCheckDistance * facingDirection);
+            Gizmos.DrawLine(secondaryWallCheckPosition.position, secondaryWallCheckPosition.position + Vector3.right * wallCheckDistance * facingDirection);
+            if (!showDebugGizmos) return;
+            // Ground check visualization
+            Gizmos.color = groundDetected ? Color.green : Color.red;
+            Gizmos.DrawLine(groundCheck.position, groundCheck.position + Vector3.down * groundCheckDistance);
+        }
+        #endregion
     }
 }
