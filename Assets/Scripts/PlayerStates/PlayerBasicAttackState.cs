@@ -120,7 +120,16 @@ namespace Scripts.PlayerStates
             var attackVelocity = Player.attackVelocity[index];
 
             _attackVelocityTimer = Player.attackVelocityDuration;
-            Player.SetVelocityY(attackVelocity.x * _attackDirection, attackVelocity.y);
+            Player.SetVelocityY(attackVelocity.x * Player.facingDirection, attackVelocity.y);
+        }
+
+        // Add this method to allow velocity update on flip
+        public void UpdateAttackVelocity()
+        {
+            // Clamp the index to a valid range
+            int index = Mathf.Clamp(_comboIndex - 1, 0, Player.attackVelocity.Length - 1);
+            var attackVelocity = Player.attackVelocity[index];
+            Player.SetVelocityY(attackVelocity.x * Player.facingDirection, attackVelocity.y);
         }
         #endregion
     }

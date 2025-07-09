@@ -186,6 +186,13 @@ public class Player : Entity
         if (StateMachine.currentState is IPlayerAnimationTriggers triggers)
             triggers.CallFlipTrigger();
     }
+    
+    public override void Flip()
+    {
+        base.Flip();
+        if (StateMachine.currentState is PlayerBasicAttackState attackState) 
+            attackState.UpdateAttackVelocity();
+    }
     #endregion
     
     #region JumpBuffer 

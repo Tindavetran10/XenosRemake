@@ -124,7 +124,7 @@ namespace Scripts
         /// <summary>
         /// Flips the entity's facing direction (rotates 180 degrees on Y axis).
         /// </summary>
-        public void Flip()
+        public virtual void Flip()
         {
             transform.Rotate(0f, 180f, 0f);
             facingRight = !facingRight;
