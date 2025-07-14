@@ -12,7 +12,7 @@
             base.Update();
             
             // Change back to idle when the player is on the ground
-            if(Player.groundDetected)
+            if(Player.GroundDetected)
             {
                 StateMachine.ChangeState(Player.idleState);
                 return;
@@ -27,7 +27,7 @@
             }
 
             // Check for the opposite wall during wall jump
-            if (!Player.wallDetected) return;
+            if (!Player.WallDetected) return;
             // If the player presses Jump while detecting a wall
             if(Input.Player.Jump.WasPerformedThisFrame())
             {

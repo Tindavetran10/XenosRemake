@@ -15,15 +15,15 @@
         {
             base.Enter();
             _wallJumpPerformed = false;
-            _wallJumpDirection = -Player.facingDirection;
+            _wallJumpDirection = -Player.FacingDirection;
             
             // Apply the wall jump force to the opposite side
             Player.SetVelocityY(Player.wallJumpForce.x * _wallJumpDirection, 
                                 Player.wallJumpForce.y);
             
             // Flip the player to face the direction they're jumping
-            if((_wallJumpDirection == 1 && !Player.facingRight) || 
-               (_wallJumpDirection == -1 && Player.facingRight)) 
+            if((_wallJumpDirection == 1 && !Player.FacingRight) || 
+               (_wallJumpDirection == -1 && Player.FacingRight)) 
                 Player.Flip();
 
         }
@@ -39,7 +39,7 @@
             }
             
             //Check for the opposite wall during wall jump
-            if (Player.wallDetected)
+            if (Player.WallDetected)
             {
                 if (Input.Player.Jump.WasPerformedThisFrame() && !_wallJumpPerformed)
                 {

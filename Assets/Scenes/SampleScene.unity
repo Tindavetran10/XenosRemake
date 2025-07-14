@@ -304,7 +304,8 @@ GameObject:
   - component: {fileID: 154039732}
   - component: {fileID: 154039735}
   - component: {fileID: 154039734}
-  m_Layer: 7
+  - component: {fileID: 154039736}
+  m_Layer: 9
   m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,6 +404,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &154039736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154039731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc4a61e6c27e6f4a8891c82b9809c06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &237190808
 GameObject:
   m_ObjectHideFlags: 0
@@ -3260,9 +3273,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 1
   far clip plane: 1000
-  field of view: 65
+  field of view: 45
   orthographic: 0
   orthographic size: 7
   m_Depth: -1
@@ -3288,8 +3301,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.000027656555, y: 2.548281, z: -6}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.000027656555, y: 0, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3315,7 +3328,7 @@ MonoBehaviour:
   UpdateMethod: 0
   BlendUpdateMethod: 1
   LensModeOverride:
-    Enabled: 0
+    Enabled: 1
     DefaultMode: 2
   DefaultBlend:
     Style: 1
@@ -3338,7 +3351,7 @@ GameObject:
   - component: {fileID: 604689634}
   - component: {fileID: 604689635}
   - component: {fileID: 604689636}
-  - component: {fileID: 604689637}
+  - component: {fileID: 604689638}
   m_Layer: 7
   m_Name: Animator
   m_TagString: Untagged
@@ -3438,7 +3451,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &604689637
+--- !u!114 &604689638
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3447,7 +3460,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 604689633}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fc4a61e6c27e6f4a8891c82b9809c06, type: 3}
+  m_Script: {fileID: 11500000, guid: b017a5f3449d46c1a794aa8a1e4207d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &619394800
@@ -3546,7 +3559,7 @@ GameObject:
   - component: {fileID: 623898841}
   - component: {fileID: 623898840}
   - component: {fileID: 623898842}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy_Ronin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3675,7 +3688,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 759378212}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3751,7 +3764,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1230214389}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: PrimaryWallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3784,6 +3797,7 @@ GameObject:
   - component: {fileID: 1246993332}
   - component: {fileID: 1246993331}
   - component: {fileID: 1246993330}
+  - component: {fileID: 1246993334}
   - component: {fileID: 1246993333}
   m_Layer: 0
   m_Name: CinemachineCamera
@@ -3807,7 +3821,7 @@ MonoBehaviour:
   CameraDistance: 10
   DeadZoneDepth: 0
   Composition:
-    ScreenPosition: {x: 0.000001357868, y: 0.2}
+    ScreenPosition: {x: 0.000001357868, y: 0}
     DeadZone:
       Enabled: 1
       Size: {x: 0.05, y: 0.125}
@@ -3836,7 +3850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
+    Enabled: 1
     m_Value: 0
   OutputChannel: 1
   StandbyUpdate: 2
@@ -3847,12 +3861,12 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 65
+    FieldOfView: 45
     OrthographicSize: 7
-    NearClipPlane: 0.3
+    NearClipPlane: 1
     FarClipPlane: 1000
     Dutch: 0
-    ModeOverride: 0
+    ModeOverride: 2
     PhysicalProperties:
       GateFit: 2
       SensorSize: {x: 21.946, y: 16.002}
@@ -3875,7 +3889,7 @@ Transform:
   m_GameObject: {fileID: 1246993329}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.000027656555, y: 2.548281, z: -6}
+  m_LocalPosition: {x: -0.00003105402, y: 0, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3901,6 +3915,18 @@ MonoBehaviour:
     MaxWindowSize: 0
     Padding: 0
   m_LegacyMaxWindowSize: -2
+--- !u!114 &1246993334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246993329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8a05de0ac134f4f9d01bef6b9da077, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1252338777
 GameObject:
   m_ObjectHideFlags: 0
@@ -4718,7 +4744,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2120432011}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: SecondaryWallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}

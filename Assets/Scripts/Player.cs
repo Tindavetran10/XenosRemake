@@ -223,7 +223,7 @@ public class Player : Entity
     /// </summary>
     private void UpdateCoyoteTime()
     {
-        if (groundDetected)
+        if (GroundDetected)
         {
             _coyoteTimeCounter = coyoteTime;
             _canCoyoteJump = true;
@@ -235,7 +235,7 @@ public class Player : Entity
     /// Returns true if the player can perform a coyote jump.
     /// </summary>
     public bool CanCoyoteJump() => 
-        groundDetected || (_coyoteTimeCounter > 0 && _canCoyoteJump);
+        GroundDetected || (_coyoteTimeCounter > 0 && _canCoyoteJump);
     
     /// <summary>
     /// Consumes the coyote jump (prevents further coyote jumps until grounded).
@@ -279,7 +279,7 @@ public class Player : Entity
             $"State: {StateMachine.currentState.GetType().Name}", DebugTextStyle);
         // Display ground state
         GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 20, 200, 20), 
-            $"Grounded: {groundDetected}", DebugTextStyle);
+            $"Grounded: {GroundDetected}", DebugTextStyle);
         GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 80, 200, 20), 
             $"Coyote Time: {_coyoteTimeCounter:F3}", DebugTextStyle);
         GUI.Label(new Rect(debugPosition.x + 50, debugPosition.y - 100, 200, 20), 

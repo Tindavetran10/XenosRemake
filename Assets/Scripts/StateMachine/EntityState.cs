@@ -57,6 +57,6 @@ namespace Scripts
         /// <summary>
         /// Sets the animation trigger flag, which can be used by derived states to respond to animation events.
         /// </summary>
-        public virtual void CallAnimationTrigger() => TriggerCalled = true;
+        public void CallAnimationTrigger() => TriggerCalled = true;
     }
 }

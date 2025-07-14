@@ -12,15 +12,15 @@ namespace Scripts
     {
         #region Variables
         // Animator component for controlling entity animations
-        public Animator animator { get; private set; }
+        public Animator Animator { get; private set; }
         // Rigidbody2D component for physics-based movement
-        public Rigidbody2D rb { get; private set; }
+        public Rigidbody2D Rb { get; private set; }
         // State machine to manage entity states (idle, moving, attacking, etc.)
         protected StateMachine StateMachine;
         // Current facing direction: 1 for right, -1 for the left
-        public int facingDirection { get; private set; } = 1;
+        public int FacingDirection { get; private set; } = 1;
         // Whether the entity is currently facing right
-        public bool facingRight { get; private set; } = true;
+        public bool FacingRight { get; private set; } = true;
         // Used for smooth movement transitions (SmoothDamp reference velocity)
         private Vector2 _currentVelocity;
         // Time to smooth movement transitions
@@ -44,9 +44,9 @@ namespace Scripts
         // Length of the raycast used for wall detection
         [SerializeField] protected float wallCheckDistance = 0.4f;
         // Whether the entity is currently grounded
-        public bool groundDetected { get; private set; }
+        public bool GroundDetected { get; private set; }
         // Whether the entity is currently touching a wall
-        public bool wallDetected { get; private set; }
+        public bool WallDetected { get; private set; }
         #endregion
 
         #region Debug Variables
@@ -64,8 +64,8 @@ namespace Scripts
         protected virtual void Awake()
         {
             // Get references to required components
-            animator = GetComponentInChildren<Animator>();
-            rb = GetComponent<Rigidbody2D>();
+            Animator = GetComponentInChildren<Animator>();
+            Rb = GetComponent<Rigidbody2D>();
             // Initialize the state machine (states are added in derived classes)
             StateMachine = new StateMachine(); 
         }
@@ -106,7 +106,7 @@ namespace Scripts
             // - Use regular smoothTime for normal movement
             var currentSmoothTime = targetVelocity == Vector2.zero ? stopSmoothTime : smoothTime;
             // SmoothDamp gradually changes linearVelocity towards targetVelocity
-            rb.linearVelocity = Vector2.SmoothDamp(rb.linearVelocity, targetVelocity, ref _currentVelocity, currentSmoothTime);
+            Rb.linearVelocity = Vector2.SmoothDamp(Rb.linearVelocity, targetVelocity, ref _currentVelocity, currentSmoothTime);
             // Update the entity's facing direction based on horizontal movement
             HandleFlip(xVelocity);
         }
@@ -116,7 +116,7 @@ namespace Scripts
         /// </summary>
         /// <param name="xVelocity">Desired horizontal velocity</param>
         /// <param name="yVelocity">Desired vertical velocity</param>
-        public void SetVelocityY(float xVelocity, float yVelocity) => rb.linearVelocity = new Vector2(xVelocity, yVelocity);
+        public void SetVelocityY(float xVelocity, float yVelocity) => Rb.linearVelocity = new Vector2(xVelocity, yVelocity);
         #endregion
         
         #region Flip Methods
@@ -127,7 +127,7 @@ namespace Scripts
         public void HandleFlip(float xVelocity)
         {
             // If moving right and facing left, or moving left and facing right, flip the entity
-            if (xVelocity > 0 && !facingRight || xVelocity < 0 && facingRight)
+            if (xVelocity > 0 && !FacingRight || xVelocity < 0 && FacingRight)
                 Flip();
         }
         
@@ -137,8 +137,8 @@ namespace Scripts
         public virtual void Flip()
         {
             transform.Rotate(0f, 180f, 0f);
-            facingRight = !facingRight;
-            facingDirection *= -1;
+            FacingRight = !FacingRight;
+            FacingDirection *= -1;
         }
         #endregion
         
@@ -147,6 +147,9 @@ namespace Scripts
         /// Calls the animation trigger for the current state (delegated to the state machine).
         /// </summary>
         public void CallAnimationTrigger() => StateMachine.currentState.CallAnimationTrigger();
+        
+        
+        
         #endregion
 
         #region Environment Detection
@@ -155,7 +158,7 @@ namespace Scripts
         /// Updates the groundDetected property.
         /// </summary>
         private void HandleGroundDetection() => 
-            groundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
+            GroundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
 
         /// <summary>
         /// Checks if the entity is touching a wall by casting rays from two positions.
@@ -163,9 +166,9 @@ namespace Scripts
         /// </summary>
         private void HandleWallDetection()
         {
-            wallDetected = Physics2D.Raycast(primaryWallCheckPosition.position, Vector2.right * facingDirection, 
+            WallDetected = Physics2D.Raycast(primaryWallCheckPosition.position, Vector2.right * FacingDirection, 
                                wallCheckDistance, wallLayer) 
-                           && Physics2D.Raycast(secondaryWallCheckPosition.position, Vector2.right * facingDirection, 
+                           && Physics2D.Raycast(secondaryWallCheckPosition.position, Vector2.right * FacingDirection, 
                                wallCheckDistance, wallLayer); 
         }
         #endregion
@@ -175,11 +178,11 @@ namespace Scripts
         protected virtual void OnDrawGizmos()
         {
             // Draw wall check lines
-            Gizmos.DrawLine(primaryWallCheckPosition.position, primaryWallCheckPosition.position + Vector3.right * wallCheckDistance * facingDirection);
-            Gizmos.DrawLine(secondaryWallCheckPosition.position, secondaryWallCheckPosition.position + Vector3.right * wallCheckDistance * facingDirection);
+            Gizmos.DrawLine(primaryWallCheckPosition.position, primaryWallCheckPosition.position + Vector3.right * wallCheckDistance * FacingDirection);
+            Gizmos.DrawLine(secondaryWallCheckPosition.position, secondaryWallCheckPosition.position + Vector3.right * wallCheckDistance * FacingDirection);
             if (!showDebugGizmos) return;
             // Ground check visualization
-            Gizmos.color = groundDetected ? Color.green : Color.red;
+            Gizmos.color = GroundDetected ? Color.green : Color.red;
             Gizmos.DrawLine(groundCheck.position, groundCheck.position + Vector3.down * groundCheckDistance);
         }
         #endregion

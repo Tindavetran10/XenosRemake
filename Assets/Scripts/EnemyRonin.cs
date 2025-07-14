@@ -9,6 +9,7 @@ namespace Scripts
             base.Awake();
             IdleState = new EnemyIdleState(this, StateMachine, "idle");
             MoveState = new EnemyMoveState(this, StateMachine, "move");
+            AttackState = new EnemyAttackState(this, StateMachine, "attack");
         }
 
         protected override void Start()

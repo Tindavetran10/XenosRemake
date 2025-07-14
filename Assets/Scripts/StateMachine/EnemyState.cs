@@ -11,8 +11,8 @@ namespace Scripts
         {
             Enemy = enemy;
 
-            Rb = enemy.rb;
-            Anim = enemy.animator;
+            Rb = enemy.Rb;
+            Anim = enemy.Animator;
         }
 
         public override void Enter()

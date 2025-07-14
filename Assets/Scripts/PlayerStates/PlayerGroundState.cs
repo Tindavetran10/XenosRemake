@@ -28,7 +28,7 @@
             
             // Change to fall state if the player is not on the ground
             // Prevent the player staying in idle state
-            if(!Player.groundDetected && Rb.linearVelocity.y < 0)
+            if(!Player.GroundDetected && Rb.linearVelocity.y < 0)
                 StateMachine.ChangeState(Player.fallState);
 
             // Allow the player able to jump after leaving the ground for a short time

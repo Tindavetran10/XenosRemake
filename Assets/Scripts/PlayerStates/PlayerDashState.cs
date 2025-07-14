@@ -11,10 +11,10 @@
         public override void Enter()
         {
             base.Enter();
-            _dashDirection = Player.moveInput.x != 0 ? (int)Player.moveInput.x : Player.facingDirection;
+            _dashDirection = Player.moveInput.x != 0 ? (int)Player.moveInput.x : Player.FacingDirection;
             
             // Flip the player if the dash direction does not match the facing direction
-            if (_dashDirection != Player.facingDirection) 
+            if (_dashDirection != Player.FacingDirection) 
                 Player.Flip();
             
             StateTimer = Player.dashDuration;
@@ -32,7 +32,7 @@
             Player.SetVelocityY(Player.dashSpeed * _dashDirection, 0);
 
             if (!(StateTimer < 0)) return;
-            if(Player.groundDetected)
+            if(Player.GroundDetected)
                 StateMachine.ChangeState(Player.idleState);
             else
                 StateMachine.ChangeState(Player.fallState);
@@ -47,8 +47,8 @@
 
         private void CancelDashIfNeeded()
         {
-            if (!Player.wallDetected) return;
-            if(Player.groundDetected) 
+            if (!Player.WallDetected) return;
+            if(Player.GroundDetected) 
                 StateMachine.ChangeState(Player.idleState);
             else
                 StateMachine.ChangeState(Player.wallSlideState);

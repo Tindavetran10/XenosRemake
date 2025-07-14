@@ -36,7 +36,7 @@ namespace Scripts.PlayerStates
             _comboAttackQueued = false;
             _shouldSkipAnimation = false;
             
-            _attackDirection = Player.moveInput.x != 0 ? (int)Player.moveInput.x : Player.facingDirection; 
+            _attackDirection = Player.moveInput.x != 0 ? (int)Player.moveInput.x : Player.FacingDirection; 
             
             // Set the current combo index in the animator
             Anim.SetInteger(BasicAttackIndex, _comboIndex);
@@ -120,7 +120,7 @@ namespace Scripts.PlayerStates
             var attackVelocity = Player.attackVelocity[index];
 
             _attackVelocityTimer = Player.attackVelocityDuration;
-            Player.SetVelocityY(attackVelocity.x * Player.facingDirection, attackVelocity.y);
+            Player.SetVelocityY(attackVelocity.x * Player.FacingDirection, attackVelocity.y);
         }
 
         // Add this method to allow velocity update on flip
@@ -129,7 +129,7 @@ namespace Scripts.PlayerStates
             // Clamp the index to a valid range
             int index = Mathf.Clamp(_comboIndex - 1, 0, Player.attackVelocity.Length - 1);
             var attackVelocity = Player.attackVelocity[index];
-            Player.SetVelocityY(attackVelocity.x * Player.facingDirection, attackVelocity.y);
+            Player.SetVelocityY(attackVelocity.x * Player.FacingDirection, attackVelocity.y);
         }
         #endregion
     }

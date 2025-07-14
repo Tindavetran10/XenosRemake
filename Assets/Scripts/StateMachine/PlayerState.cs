@@ -29,8 +29,8 @@ public abstract class PlayerState : EntityState, IPlayerAnimationTriggers
     {
         Player = player;
         // Cache commonly used components for performance and convenience
-        Anim = Player.animator;
-        Rb = Player.rb;
+        Anim = Player.Animator;
+        Rb = Player.Rb;
         Input = Player.input;
     }
 
@@ -79,7 +79,7 @@ public abstract class PlayerState : EntityState, IPlayerAnimationTriggers
     /// <returns>True if dashing is allowed, false otherwise.</returns>
     private bool CanDash()
     {
-        if(Player.wallDetected)
+        if(Player.WallDetected)
             return false;
         return StateMachine.currentState != Player.dashState;
     }

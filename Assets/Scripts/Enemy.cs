@@ -6,6 +6,7 @@ namespace Scripts
     {
         public EnemyIdleState IdleState;
         public EnemyMoveState MoveState;
+        public EnemyAttackState AttackState;
 
         [Header("Movement Details")] 
         public float idleTime;

@@ -11,16 +11,16 @@ namespace Scripts
         public override void Enter()
         {
             base.Enter();
-            if(Enemy.groundDetected == false || Enemy.wallDetected)
+            if(Enemy.GroundDetected == false || Enemy.WallDetected)
                 Enemy.Flip();
         }
         
         public override void Update()
         {
             base.Update();
-            Enemy.SetVelocityX(Enemy.moveSpeed * Enemy.facingDirection, Rb.linearVelocity.y);
+            Enemy.SetVelocityX(Enemy.moveSpeed * Enemy.FacingDirection, Rb.linearVelocity.y);
             
-            if(Enemy.groundDetected == false || Enemy.wallDetected) 
+            if(Enemy.GroundDetected == false || Enemy.WallDetected) 
                 StateMachine.ChangeState(Enemy.IdleState);
         }
     }

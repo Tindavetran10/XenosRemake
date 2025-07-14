@@ -13,7 +13,7 @@ public class PlayerMoveState : PlayerGroundState
         base.Update();
 
         // Check if you should transition to an idle state
-        if (Player.moveInput.x == 0 || Player.wallDetected)
+        if (Player.moveInput.x == 0 || Player.WallDetected)
             StateMachine.ChangeState(Player.idleState);
         
         // Calculate and apply movement

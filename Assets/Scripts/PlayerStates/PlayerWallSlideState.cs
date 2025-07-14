@@ -31,14 +31,14 @@ namespace Scripts.PlayerStates
 
             // If the player is no longer detecting a wall
             // transition to the fall state since they're in the air
-            if(!Player.wallDetected)
+            if(!Player.WallDetected)
                 StateMachine.ChangeState(Player.fallState);
             
             // If the player touches the ground while wall sliding
-            if (!Player.groundDetected) return;
+            if (!Player.GroundDetected) return;
             StateMachine.ChangeState(Player.idleState);
             // Flip the player's direction since they were facing the wall
-            if(!Mathf.Approximately(Player.facingDirection, Player.moveInput.x))
+            if(!Mathf.Approximately(Player.FacingDirection, Player.moveInput.x))
                 Player.Flip();
             // Change to idle state since we're on the ground
         }
