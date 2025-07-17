@@ -7,6 +7,6 @@ public class EntityAnimationTrigger : MonoBehaviour
     private bool _shouldSkipRemainingAnimation;
     
     public virtual void Awake() => _entity = GetComponentInParent<Entity>();
-    public virtual void CurrentStateTrigger() => _entity.CallAnimationTrigger();
+    public virtual void CurrentStateTrigger() => _entity.CurrentStateAnimationTrigger();
     
 }

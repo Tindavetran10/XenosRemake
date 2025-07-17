@@ -46,7 +46,11 @@ namespace Scripts
         /// <summary>
         /// Called every frame while in this state. Decrements the state timer.
         /// </summary>
-        public virtual void Update() => StateTimer -= Time.deltaTime;
+        public virtual void Update()
+        {
+            StateTimer -= Time.deltaTime;
+            UpdateAnimationParameters();
+        }
 
         /// <summary>
         /// Called when exiting this state. Deactivates the state's animation.
@@ -57,6 +61,11 @@ namespace Scripts
         /// <summary>
         /// Sets the animation trigger flag, which can be used by derived states to respond to animation events.
         /// </summary>
-        public void CallAnimationTrigger() => TriggerCalled = true;
+        public void AnimationTrigger() => TriggerCalled = true;
+
+        public virtual void UpdateAnimationParameters()
+        {
+            
+        }
     }
 }

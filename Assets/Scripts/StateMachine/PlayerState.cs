@@ -49,13 +49,18 @@ public abstract class PlayerState : EntityState, IPlayerAnimationTriggers
     public override void Update()
     {
         base.Update();
-        // Update the animator with the current vertical velocity for animation blending
-        Anim.SetFloat(YVelocity, Rb.linearVelocity.y);
         // If dash input is pressed and dashing is allowed, transition to dash state
         if(Input.Player.Dash.WasPerformedThisFrame() && CanDash())
             StateMachine.ChangeState(Player.dashState);
     }
-    
+
+    public override void UpdateAnimationParameters()
+    {
+        base.UpdateAnimationParameters();
+        // Update the animator with the current vertical velocity for animation blending
+        Anim.SetFloat(YVelocity, Rb.linearVelocity.y);
+    }
+
     /// <summary>
     /// Sets the skip animation trigger flag (used to skip current animation if needed).
     /// </summary>

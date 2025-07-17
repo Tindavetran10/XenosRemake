@@ -14,12 +14,19 @@ namespace Scripts
         public float moveSpeed;
         [Range(0,2)] public float moveAnimSpeedMultiplier;
 
+        [Header("Battle Details")]
+        public float battleMoveSpeed = 5f;
+        public float attackDistance = 2f;
+        public float battleTimeDuration = 5f;
+        public float minRetreatDistance = 1f;
+        public Vector2 retreatVelocity;
+        
         [Header("Player detection")]
         [SerializeField] private LayerMask whatIsPlayer;
         [SerializeField] private Transform playerCheck;
         [SerializeField] private float playerCheckDistance = 10f;
 
-        public RaycastHit2D PlayerDetection()
+        public RaycastHit2D PlayerDetected()
         {
             var hit = Physics2D.Raycast(playerCheck.position, Vector2.right * FacingDirection, 
                 playerCheckDistance, whatIsPlayer | groundLayer);
@@ -36,6 +43,14 @@ namespace Scripts
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(playerCheck.position, new Vector3(playerCheck.position.x + FacingDirection * 
                 playerCheckDistance, playerCheck.position.y));
+            
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(playerCheck.position, new Vector3(playerCheck.position.x + FacingDirection * 
+                attackDistance, playerCheck.position.y));
+            
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(playerCheck.position, new Vector3(playerCheck.position.x + FacingDirection * 
+                minRetreatDistance, playerCheck.position.y));
         }
     }
 }

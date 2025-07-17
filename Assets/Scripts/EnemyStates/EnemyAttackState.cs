@@ -13,7 +13,7 @@ namespace Scripts
             base.Update();
             
             if(TriggerCalled)
-                StateMachine.ChangeState(Enemy.IdleState);;
+                StateMachine.ChangeState(Enemy.BattleState);
         }
     }
 }

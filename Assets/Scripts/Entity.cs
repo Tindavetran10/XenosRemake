@@ -147,10 +147,7 @@ namespace Scripts
         /// <summary>
         /// Calls the animation trigger for the current state (delegated to the state machine).
         /// </summary>
-        public void CallAnimationTrigger() => StateMachine.currentState.CallAnimationTrigger();
-        
-        
-        
+        public void CurrentStateAnimationTrigger() => StateMachine.currentState.AnimationTrigger();
         #endregion
 
         #region Environment Detection

@@ -14,7 +14,7 @@ namespace Scripts
             
             // If enemy detects Player
             // State machine switch to battle state
-            if(Enemy.PlayerDetection())
+            if(Enemy.PlayerDetected())
                 StateMachine.ChangeState(Enemy.BattleState);;
         }
     }
