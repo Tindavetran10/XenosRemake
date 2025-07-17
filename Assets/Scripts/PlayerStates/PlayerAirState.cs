@@ -13,8 +13,8 @@
             base.Update();
             
             // Apply horizontal movement while in the air so that the player can move left or right
-            if(Player.moveInput.x != 0)
-                Player.SetVelocityX(Player.moveInput.x * 
+            if(Player.MoveInput.x != 0)
+                Player.SetVelocityX(Player.MoveInput.x * 
                                     Player.moveSpeed * 
                                     Player.inAirMoveMultiplier, 
                     Rb.linearVelocity.y);

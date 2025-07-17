@@ -11,21 +11,21 @@ public class Player : Entity
 {
     #region Variables
     // Reference to the player's input system (handles all input actions)
-    public PlayerInputSet input { get; private set; }
+    public PlayerInputSet Input { get; private set; }
     #endregion
 
     #region Properties
     // State references for the player's state machine
-    public PlayerIdleState idleState { get; private set; }   // Player's idle state instance
-    public PlayerMoveState moveState { get; private set; }   // Player's movement state instance
-    public PlayerJumpState jumpState { get; private set; }   // Player's jump state instance
-    public PlayerFallState fallState { get; private set; }   // Player's fall state instance
-    public PlayerWallSlideState wallSlideState { get; private set; }   // Player's wall slide state instance
-    public PlayerWallJumpState wallJumpState { get; private set; }   // Player's wall jump state instance
-    public PlayerDashState dashState { get; private set; }   // Player's dash state instance
-    public PlayerBasicAttackState basicAttackState { get; private set; }    // Player's basic attack state instance
+    public PlayerIdleState IdleState { get; private set; }   // Player's idle state instance
+    public PlayerMoveState MoveState { get; private set; }   // Player's movement state instance
+    public PlayerJumpState JumpState { get; private set; }   // Player's jump state instance
+    public PlayerFallState FallState { get; private set; }   // Player's fall state instance
+    public PlayerWallSlideState WallSlideState { get; private set; }   // Player's wall slide state instance
+    public PlayerWallJumpState WallJumpState { get; private set; }   // Player's wall jump state instance
+    public PlayerDashState DashState { get; private set; }   // Player's dash state instance
+    public PlayerBasicAttackState BasicAttackState { get; private set; }    // Player's basic attack state instance
     // Current movement input values (Vector2: x = horizontal, y = vertical)
-    public Vector2 moveInput { get; private set; }
+    public Vector2 MoveInput { get; private set; }
 
     [Header("Movement details")]
     public float moveSpeed = 10f;                           // Base movement speed
@@ -52,8 +52,6 @@ public class Player : Entity
     public float attackVelocityDuration = 0.1f;             // Duration for which attack velocity is applied
     public float comboResetTime = 0.2f;                     // Time to reset the attack combo
     private Coroutine _queuedAttackCoroutine;               // Reference to queued attack coroutine
-
-    
     #endregion
 
     #region Unity Callback Methods
@@ -65,16 +63,16 @@ public class Player : Entity
     {
         base.Awake();
         
-        input = new PlayerInputSet();
+        Input = new PlayerInputSet();
         // Create state instances for the player
-        idleState = new PlayerIdleState(this, StateMachine, "idle");
-        moveState = new PlayerMoveState(this, StateMachine, "move");
-        jumpState = new PlayerJumpState(this, StateMachine, "jumpFall");
-        fallState = new PlayerFallState(this, StateMachine, "jumpFall");
-        wallSlideState = new PlayerWallSlideState(this, StateMachine, "wallSlide");
-        wallJumpState = new PlayerWallJumpState(this, StateMachine, "jumpFall");
-        dashState = new PlayerDashState(this, StateMachine, "dash");
-        basicAttackState = new PlayerBasicAttackState(this, StateMachine, "basicAttack");
+        IdleState = new PlayerIdleState(this, StateMachine, "idle");
+        MoveState = new PlayerMoveState(this, StateMachine, "move");
+        JumpState = new PlayerJumpState(this, StateMachine, "jumpFall");
+        FallState = new PlayerFallState(this, StateMachine, "jumpFall");
+        WallSlideState = new PlayerWallSlideState(this, StateMachine, "wallSlide");
+        WallJumpState = new PlayerWallJumpState(this, StateMachine, "jumpFall");
+        DashState = new PlayerDashState(this, StateMachine, "dash");
+        BasicAttackState = new PlayerBasicAttackState(this, StateMachine, "basicAttack");
     }
 
     /// <summary>
@@ -84,17 +82,17 @@ public class Player : Entity
     private void OnEnable()
     {
         // Enable input system
-        input.Enable();
+        Input.Enable();
         // Setup input callbacks for movement
-        input.Player.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();  // When movement input is active
-        input.Player.Movement.canceled += _ => moveInput = Vector2.zero;                 // When movement input stops
+        Input.Player.Movement.performed += ctx => MoveInput = ctx.ReadValue<Vector2>();  // When movement input is active
+        Input.Player.Movement.canceled += _ => MoveInput = Vector2.zero;                 // When movement input stops
     }
 
     /// <summary>
     /// Called when the object becomes disabled or inactive.
     /// Disables the input system.
     /// </summary>
-    private void OnDisable() => input.Disable();
+    private void OnDisable() => Input.Disable();
 
     /// <summary>
     /// Called before the first frame update.
@@ -104,7 +102,7 @@ public class Player : Entity
     {
         base.Start();
         // Start in an idle state
-        StateMachine.Initialize(idleState);
+        StateMachine.Initialize(IdleState);
         // Initialize debug style for GUI
         InitDebugStyle();
     }
@@ -132,7 +130,7 @@ public class Player : Entity
         // Wait until the end of the current frame before proceeding
         yield return new WaitForEndOfFrame();
         // Change the current state to the basic attack state
-        StateMachine.ChangeState(basicAttackState);
+        StateMachine.ChangeState(BasicAttackState);
     }
 
     /// <summary>
@@ -200,7 +198,7 @@ public class Player : Entity
     private void UpdateJumpBuffer()
     {
         // If jump was pressed this frame, start the buffer timer
-        if (input.Player.Jump.WasPerformedThisFrame())
+        if (Input.Player.Jump.WasPerformedThisFrame())
             _jumpBufferCounter = jumpBufferTime;
         else _jumpBufferCounter -= Time.deltaTime;
     }

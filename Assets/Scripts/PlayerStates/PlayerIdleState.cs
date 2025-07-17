@@ -24,11 +24,11 @@ public class PlayerIdleState : PlayerGroundState
         if (Mathf.Abs(Rb.linearVelocity.x) > 0.01f)
             Player.SetVelocityX(0, Rb.linearVelocity.y);
         
-        if(Mathf.Approximately(Player.moveInput.x, Player.FacingDirection) && Player.WallDetected)
+        if(Mathf.Approximately(Player.MoveInput.x, Player.FacingDirection) && Player.WallDetected)
             return;
         
         // Check if you should transition to a move state
-        if (Player.moveInput.x != 0)
-            StateMachine.ChangeState(Player.moveState);
+        if (Player.MoveInput.x != 0)
+            StateMachine.ChangeState(Player.MoveState);
     }
 }

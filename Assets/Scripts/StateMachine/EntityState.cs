@@ -63,9 +63,6 @@ namespace Scripts
         /// </summary>
         public void AnimationTrigger() => TriggerCalled = true;
 
-        public virtual void UpdateAnimationParameters()
-        {
-            
-        }
+        protected virtual void UpdateAnimationParameters() {}
     }
 }

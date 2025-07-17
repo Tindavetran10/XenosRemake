@@ -8,7 +8,6 @@ namespace Scripts.PlayerStates
         private float _attackVelocityTimer;
         
         private const int FirstComboIndex = 1; // We start combo Index with 1, this parameter is used in the Animator
-        private int _attackDirection;
         private readonly int _comboLimit = 3;
         private int _comboIndex = 1;
         
@@ -35,9 +34,7 @@ namespace Scripts.PlayerStates
             
             _comboAttackQueued = false;
             _shouldSkipAnimation = false;
-            
-            _attackDirection = Player.moveInput.x != 0 ? (int)Player.moveInput.x : Player.FacingDirection; 
-            
+
             // Set the current combo index in the animator
             Anim.SetInteger(BasicAttackIndex, _comboIndex);
         }
@@ -87,7 +84,7 @@ namespace Scripts.PlayerStates
                 Anim.SetBool(AnimBoolName, false);
                 Player.EnterAttackStateWithDelay();
             }
-            else StateMachine.ChangeState(Player.idleState);
+            else StateMachine.ChangeState(Player.IdleState);
         }
 
         private void QueueNextAttack()

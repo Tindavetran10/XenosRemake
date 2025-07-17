@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Scripts
+﻿namespace Scripts
 {
     public class EnemyGroundedState : EnemyState
     {
@@ -15,7 +13,7 @@ namespace Scripts
             // If enemy detects Player
             // State machine switch to battle state
             if(Enemy.PlayerDetected())
-                StateMachine.ChangeState(Enemy.BattleState);;
+                StateMachine.ChangeState(Enemy.BattleState);
         }
     }
 }

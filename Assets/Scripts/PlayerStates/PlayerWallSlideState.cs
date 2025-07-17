@@ -25,20 +25,20 @@ namespace Scripts.PlayerStates
             
             if(Input.Player.Jump.WasPressedThisFrame())
             {
-                StateMachine.ChangeState(Player.wallJumpState);
+                StateMachine.ChangeState(Player.WallJumpState);
                 return;
             }
 
             // If the player is no longer detecting a wall
             // transition to the fall state since they're in the air
             if(!Player.WallDetected)
-                StateMachine.ChangeState(Player.fallState);
+                StateMachine.ChangeState(Player.FallState);
             
             // If the player touches the ground while wall sliding
             if (!Player.GroundDetected) return;
-            StateMachine.ChangeState(Player.idleState);
+            StateMachine.ChangeState(Player.IdleState);
             // Flip the player's direction since they were facing the wall
-            if(!Mathf.Approximately(Player.FacingDirection, Player.moveInput.x))
+            if(!Mathf.Approximately(Player.FacingDirection, Player.MoveInput.x))
                 Player.Flip();
             // Change to idle state since we're on the ground
         }
@@ -46,13 +46,13 @@ namespace Scripts.PlayerStates
         // Handles the wall sliding movement mechanics
         private void HandleWallSlide()
         {
-            var targetVelocity = Player.moveInput.y < 0 
+            var targetVelocity = Player.MoveInput.y < 0 
                 ? Rb.linearVelocity.y 
                 : Rb.linearVelocity.y * Player.wallSlideMultiplier;
 
             // Only update velocity if there's a significant change
             if (Mathf.Abs(targetVelocity - Rb.linearVelocity.y) > MinSlideSpeed)
-                Player.SetVelocityY(Player.moveInput.x, targetVelocity);
+                Player.SetVelocityY(Player.MoveInput.x, targetVelocity);
 
         }
     }

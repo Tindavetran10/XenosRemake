@@ -34,7 +34,7 @@
             // If the player jumps to the air and falling, change to fall state afterward
             if(Rb.linearVelocity.y < 0)
             {
-                StateMachine.ChangeState(Player.fallState);
+                StateMachine.ChangeState(Player.FallState);
                 return;
             }
             
@@ -45,12 +45,12 @@
                 {
                     _wallJumpPerformed = true;
                     // Change to wall jump state
-                    StateMachine.ChangeState(Player.wallJumpState);
+                    StateMachine.ChangeState(Player.WallJumpState);
                     return;
                 }
 
                 // Change to the player's wall slide state if he doesn't have any jump input
-                StateMachine.ChangeState(Player.wallSlideState);
+                StateMachine.ChangeState(Player.WallSlideState);
             }
             // If the player presses Jump while detecting a wall
         }

@@ -11,7 +11,7 @@
         public override void Enter()
         {
             base.Enter();
-            _dashDirection = Player.moveInput.x != 0 ? (int)Player.moveInput.x : Player.FacingDirection;
+            _dashDirection = Player.MoveInput.x != 0 ? (int)Player.MoveInput.x : Player.FacingDirection;
             
             // Flip the player if the dash direction does not match the facing direction
             if (_dashDirection != Player.FacingDirection) 
@@ -33,9 +33,9 @@
 
             if (!(StateTimer < 0)) return;
             if(Player.GroundDetected)
-                StateMachine.ChangeState(Player.idleState);
+                StateMachine.ChangeState(Player.IdleState);
             else
-                StateMachine.ChangeState(Player.fallState);
+                StateMachine.ChangeState(Player.FallState);
         }
         
         public override void Exit()
@@ -49,9 +49,9 @@
         {
             if (!Player.WallDetected) return;
             if(Player.GroundDetected) 
-                StateMachine.ChangeState(Player.idleState);
+                StateMachine.ChangeState(Player.IdleState);
             else
-                StateMachine.ChangeState(Player.wallSlideState);
+                StateMachine.ChangeState(Player.WallSlideState);
         }
     }
 }

@@ -31,7 +31,7 @@ public abstract class PlayerState : EntityState, IPlayerAnimationTriggers
         // Cache commonly used components for performance and convenience
         Anim = Player.Animator;
         Rb = Player.Rb;
-        Input = Player.input;
+        Input = Player.Input;
     }
 
     /// <summary>
@@ -51,10 +51,10 @@ public abstract class PlayerState : EntityState, IPlayerAnimationTriggers
         base.Update();
         // If dash input is pressed and dashing is allowed, transition to dash state
         if(Input.Player.Dash.WasPerformedThisFrame() && CanDash())
-            StateMachine.ChangeState(Player.dashState);
+            StateMachine.ChangeState(Player.DashState);
     }
 
-    public override void UpdateAnimationParameters()
+    protected override void UpdateAnimationParameters()
     {
         base.UpdateAnimationParameters();
         // Update the animator with the current vertical velocity for animation blending
@@ -76,7 +76,7 @@ public abstract class PlayerState : EntityState, IPlayerAnimationTriggers
     /// <summary>
     /// Calls the player's flip logic based on current movement input (used for flipping the sprite direction).
     /// </summary>
-    public void CallFlipTrigger() => Player.HandleFlip(Player.moveInput.x);
+    public void CallFlipTrigger() => Player.HandleFlip(Player.MoveInput.x);
 
     /// <summary>
     /// Determines if the player can dash (not on a wall and not already dashing).
@@ -86,7 +86,7 @@ public abstract class PlayerState : EntityState, IPlayerAnimationTriggers
     {
         if(Player.WallDetected)
             return false;
-        return StateMachine.currentState != Player.dashState;
+        return StateMachine.currentState != Player.DashState;
     }
 }
 

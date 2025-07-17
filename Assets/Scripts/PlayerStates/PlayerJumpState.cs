@@ -25,7 +25,7 @@
 
             if (Rb.linearVelocity.y < 0)
             {
-                StateMachine.ChangeState(Player.fallState);
+                StateMachine.ChangeState(Player.FallState);
                 return;
             }
 

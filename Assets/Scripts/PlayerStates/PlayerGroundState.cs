@@ -15,7 +15,7 @@
             // Allow the player to jump when the player is really near the ground after making a jump and there is a jump input
             if (!Player.HasJumpBuffer()) return;
             Player.ConsumeJumpBuffer();
-            StateMachine.ChangeState(Player.jumpState);
+            StateMachine.ChangeState(Player.JumpState);
         }
         
         public override void Update()
@@ -24,17 +24,17 @@
             
             // Change to basic attack state if there is attack input
             if(Input.Player.Attack.WasPressedThisFrame())
-                StateMachine.ChangeState(Player.basicAttackState);
+                StateMachine.ChangeState(Player.BasicAttackState);
             
             // Change to fall state if the player is not on the ground
             // Prevent the player staying in idle state
             if(!Player.GroundDetected && Rb.linearVelocity.y < 0)
-                StateMachine.ChangeState(Player.fallState);
+                StateMachine.ChangeState(Player.FallState);
 
             // Allow the player able to jump after leaving the ground for a short time
             if (!Input.Player.Jump.WasPerformedThisFrame() || (!Player.CanCoyoteJump() && Player.currentJumps >= Player.maxJumps)) return;
             if (Player.CanCoyoteJump()) Player.ConsumeCoyoteJump();
-            StateMachine.ChangeState(Player.jumpState);
+            StateMachine.ChangeState(Player.JumpState);
         }
     }
 }

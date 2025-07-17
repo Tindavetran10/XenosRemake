@@ -14,7 +14,7 @@
             // Change back to idle when the player is on the ground
             if(Player.GroundDetected)
             {
-                StateMachine.ChangeState(Player.idleState);
+                StateMachine.ChangeState(Player.IdleState);
                 return;
             }
 
@@ -22,7 +22,7 @@
             if (Input.Player.Jump.WasPerformedThisFrame() && (Player.CanCoyoteJump() || Player.currentJumps < Player.maxJumps))
             {
                 if (Player.CanCoyoteJump()) Player.ConsumeCoyoteJump();
-                StateMachine.ChangeState(Player.jumpState);
+                StateMachine.ChangeState(Player.JumpState);
                 return;
             }
 
@@ -32,11 +32,11 @@
             if(Input.Player.Jump.WasPerformedThisFrame())
             {
                 // Change to wall jump state
-                StateMachine.ChangeState(Player.wallJumpState);
+                StateMachine.ChangeState(Player.WallJumpState);
                 return;
             }
             // If there is no jump input, change to wall slide state
-            StateMachine.ChangeState(Player.wallSlideState);
+            StateMachine.ChangeState(Player.WallSlideState);
         }
     }
 }

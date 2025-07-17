@@ -13,11 +13,11 @@ public class PlayerMoveState : PlayerGroundState
         base.Update();
 
         // Check if you should transition to an idle state
-        if (Player.moveInput.x == 0 || Player.WallDetected)
-            StateMachine.ChangeState(Player.idleState);
+        if (Player.MoveInput.x == 0 || Player.WallDetected)
+            StateMachine.ChangeState(Player.IdleState);
         
         // Calculate and apply movement
-        var targetXVelocity = Player.moveInput.x * Player.moveSpeed;  // Calculate horizontal velocity based on input
+        var targetXVelocity = Player.MoveInput.x * Player.moveSpeed;  // Calculate horizontal velocity based on input
         Player.SetVelocityX(targetXVelocity, Rb.linearVelocity.y);    // Apply movement while preserving vertical velocity
     }
 }

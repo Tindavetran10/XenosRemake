@@ -34,7 +34,7 @@ namespace Scripts
             if(BattleTimeIsOver())
                 StateMachine.ChangeState(Enemy.IdleState);
             
-            if(WithinAttackRange() && Enemy.PlayerDetected())
+            if(WithinAttackRange()&& Enemy.PlayerDetected())
                 StateMachine.ChangeState(Enemy.AttackState);
             else Enemy.SetVelocityX(Enemy.battleMoveSpeed * DirectionToPlayer(), Rb.linearVelocity.y);
             
