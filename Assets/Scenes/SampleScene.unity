@@ -3679,6 +3679,11 @@ MonoBehaviour:
   idleTime: 2
   moveSpeed: 3.5
   moveAnimSpeedMultiplier: 1.5
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 128
+  playerCheck: {fileID: 623898838}
+  playerCheckDistance: 4.5
 --- !u!1 &759378211
 GameObject:
   m_ObjectHideFlags: 0

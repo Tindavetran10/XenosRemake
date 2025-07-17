@@ -2,7 +2,7 @@
 
 namespace Scripts
 {
-    public class EnemyIdleState : EnemyState
+    public class EnemyIdleState : EnemyGroundedState
     {
         public EnemyIdleState(Enemy enemy, StateMachine stateMachine, string animBoolName) : base(enemy, stateMachine, animBoolName)
         {

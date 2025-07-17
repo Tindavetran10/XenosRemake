@@ -30,7 +30,8 @@ namespace Scripts
 
         [Header("Collision Detection")]
         // Layer mask for ground detection
-        [SerializeField] private LayerMask groundLayer;
+        [SerializeField]
+        protected LayerMask groundLayer;
         // Length of the raycast used for ground detection
         [SerializeField] protected float groundCheckDistance = 0.4f;
 

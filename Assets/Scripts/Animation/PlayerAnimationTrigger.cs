@@ -5,7 +5,6 @@
         private Player _player;
 
         public override void Awake() => _player = GetComponentInParent<Player>();
-
         public override void CurrentStateTrigger() => _player.CallAnimationTrigger();
 
         public void SkipCurrentStateTrigger() => _player.SkipCallAnimationTrigger();
