@@ -3,11 +3,18 @@
     public class PlayerAnimationTrigger : EntityAnimationTrigger
     {
         private Player _player;
+        private PlayerCombat _playerCombat;
 
-        public override void Awake() => _player = GetComponentInParent<Player>();
+        public override void Awake()
+        {
+            _player = GetComponentInParent<Player>();
+            _playerCombat = GetComponentInParent<PlayerCombat>();
+        }
+
         public override void CurrentStateTrigger() => _player.CurrentStateAnimationTrigger();
         public override void CurrentVelocityStateTrigger() => _player.CallVelocityAnimationTrigger();
         public override void StopVelocityStateTrigger() => _player.CallStopVelocityAnimationTrigger();
+        public override void AttackTrigger() => _playerCombat.PerformAttack();
 
         public void SkipCurrentStateTrigger() => _player.SkipCallAnimationTrigger();
         

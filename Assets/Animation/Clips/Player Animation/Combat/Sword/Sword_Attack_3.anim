@@ -193,15 +193,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.56
-    functionName: SkipCurrentStateTrigger
+  - time: 0.4
+    functionName: AttackTrigger
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.44
+    functionName: StopVelocityStateTrigger
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.56
-    functionName: StopVelocityStateTrigger
+    functionName: SkipCurrentStateTrigger
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
