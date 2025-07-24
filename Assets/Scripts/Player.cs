@@ -48,9 +48,6 @@ public class Player : Entity
     [HideInInspector] public int currentJumps;              // Tracks current jump count
 
     [Header("Attack details")]
-    public Vector2[] attackVelocity;                        // Array of velocities for attack combos
-    public float attackVelocityDuration = 0.1f;             // Duration for which attack velocity is applied
-    public float comboResetTime = 0.2f;                     // Time to reset the attack combo
     private Coroutine _queuedAttackCoroutine;               // Reference to queued attack coroutine
     #endregion
 
@@ -144,24 +141,6 @@ public class Player : Entity
             StopCoroutine(_queuedAttackCoroutine);
         // Start a new coroutine to enter the attack state with a delay
         _queuedAttackCoroutine = StartCoroutine(EnterAttackStateWithDelayCoroutine());
-    }
-    
-    /// <summary>
-    /// Calls the velocity animation trigger for the current state.
-    /// </summary>
-    public void CallVelocityAnimationTrigger()
-    {
-        if (StateMachine.currentState is IPlayerAnimationTriggers triggers)
-            triggers.CallVelocityAnimationTrigger();
-    }
-        
-    /// <summary>
-    /// Calls the stop velocity animation trigger for the current state.
-    /// </summary>
-    public void CallStopVelocityAnimationTrigger()
-    {
-        if (StateMachine.currentState is IPlayerAnimationTriggers triggers)
-            triggers.CallStopVelocityAnimationTrigger();
     }
     
     /// <summary>

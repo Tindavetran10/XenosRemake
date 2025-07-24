@@ -554,6 +554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smoothTime: 0.09
   stopSmoothTime: 0.055
+  comboResetTime: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -3663,6 +3664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smoothTime: 0.1
   stopSmoothTime: 0.1
+  comboResetTime: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -3684,7 +3686,6 @@ MonoBehaviour:
   battleTimeDuration: 1
   minRetreatDistance: 0.35
   retreatVelocity: {x: 3, y: 3}
-  comboResetTime: 2
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 128

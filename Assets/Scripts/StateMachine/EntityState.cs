@@ -21,7 +21,17 @@ namespace Scripts
         protected float StateTimer;
         // Flag to indicate if an animation trigger has been called
         protected bool TriggerCalled;
+        
+        protected bool VelocityTriggerCalled;
+        protected bool StopVelocityTriggerCalled;
 
+        
+        #region Attack Details
+        protected const int FirstComboIndex = 1; // We start combo Index with 1, this parameter is used in the Animator
+        protected int ComboLimit = 3;
+        protected int ComboIndex = 1;
+        #endregion
+        
         /// <summary>
         /// Constructor to initialize the state with its state machine and animation bool name.
         /// </summary>
@@ -62,6 +72,15 @@ namespace Scripts
         /// Sets the animation trigger flag, which can be used by derived states to respond to animation events.
         /// </summary>
         public void AnimationTrigger() => TriggerCalled = true;
+        
+        /// <summary>
+        /// Sets the velocity animation trigger flag (used for velocity-based animation events).
+        /// </summary>
+        public void CallVelocityAnimationTrigger() => VelocityTriggerCalled = true;
+        /// <summary>
+        /// Sets the stop velocity animation trigger flag (used to stop velocity-based animation events).
+        /// </summary>
+        public void CallStopVelocityAnimationTrigger() => StopVelocityTriggerCalled = true;
 
         protected virtual void UpdateAnimationParameters() {}
     }

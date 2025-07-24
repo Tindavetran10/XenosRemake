@@ -20,7 +20,7 @@ namespace Scripts
         public float battleTimeDuration = 5f;
         public float minRetreatDistance = 1f;
         public Vector2 retreatVelocity;
-        public float comboResetTime;
+        
         
         [Header("Player detection")]
         [SerializeField] private LayerMask whatIsPlayer;

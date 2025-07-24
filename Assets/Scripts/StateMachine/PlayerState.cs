@@ -16,9 +16,7 @@ public abstract class PlayerState : EntityState, IPlayerAnimationTriggers
     protected PlayerInputSet Input;
     // Flags for various animation triggers and state transitions
     protected bool SkipTriggerCalled;
-    protected bool VelocityTriggerCalled;
-    protected bool StopVelocityTriggerCalled;
-
+    
     /// <summary>
     /// Constructor to initialize the player state with references to the player, state machine, and animation bool name.
     /// </summary>
@@ -65,14 +63,7 @@ public abstract class PlayerState : EntityState, IPlayerAnimationTriggers
     /// Sets the skip animation trigger flag (used to skip current animation if needed).
     /// </summary>
     public void SkipCallAnimationTrigger() => SkipTriggerCalled = true;
-    /// <summary>
-    /// Sets the velocity animation trigger flag (used for velocity-based animation events).
-    /// </summary>
-    public void CallVelocityAnimationTrigger() => VelocityTriggerCalled = true;
-    /// <summary>
-    /// Sets the stop velocity animation trigger flag (used to stop velocity-based animation events).
-    /// </summary>
-    public void CallStopVelocityAnimationTrigger() => StopVelocityTriggerCalled = true;
+    
     /// <summary>
     /// Calls the player's flip logic based on current movement input (used for flipping the sprite direction).
     /// </summary>
@@ -92,8 +83,6 @@ public abstract class PlayerState : EntityState, IPlayerAnimationTriggers
 
 public interface IPlayerAnimationTriggers
 {
-    void CallVelocityAnimationTrigger();
-    void CallStopVelocityAnimationTrigger();
     void SkipCallAnimationTrigger();
     void CallFlipTrigger();
 }

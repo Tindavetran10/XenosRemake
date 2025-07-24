@@ -27,6 +27,12 @@ namespace Scripts
         public float smoothTime = 0.1f;
         // Time to smooth movement when no input is active
         public float stopSmoothTime = 0.1f;
+        // Time to reset the attack combo
+        public float comboResetTime = 0.2f;
+        
+        [Header("Attack details")]
+        public Vector2[] attackVelocity;                        // Array of velocities for attack combos
+        public float attackVelocityDuration = 0.1f;             // Duration for which attack velocity is applied
 
         [Header("Collision Detection")]
         // Layer mask for ground detection
@@ -148,6 +154,9 @@ namespace Scripts
         /// Calls the animation trigger for the current state (delegated to the state machine).
         /// </summary>
         public void CurrentStateAnimationTrigger() => StateMachine.currentState.AnimationTrigger();
+        public void CallVelocityAnimationTrigger() => StateMachine.currentState.CallVelocityAnimationTrigger();
+        public void CallStopVelocityAnimationTrigger() => StateMachine.currentState.CallStopVelocityAnimationTrigger();
+        
         #endregion
 
         #region Environment Detection

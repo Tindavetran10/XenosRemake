@@ -7,10 +7,6 @@ namespace Scripts.PlayerStates
         private static readonly int BasicAttackIndex = Animator.StringToHash("basicAttackIndex");
         private float _attackVelocityTimer;
         
-        private const int FirstComboIndex = 1; // We start combo Index with 1, this parameter is used in the Animator
-        private readonly int _comboLimit = 3;
-        private int _comboIndex = 1;
-        
         private float _lastTimeAttacked;
         private bool _comboAttackQueued;
         private bool _shouldSkipAnimation;
@@ -18,9 +14,9 @@ namespace Scripts.PlayerStates
         public PlayerBasicAttackState(Player player, StateMachine stateMachine, string animBoolName) :
             base(player, stateMachine, animBoolName)
         {
-            if (_comboLimit.Equals(Player.attackVelocity.Length)) return;
+            if (ComboLimit.Equals(Player.attackVelocity.Length)) return;
             Debug.LogWarning("I've adjusted combo limit, according to attack velocity array length.");
-            _comboLimit = Player.attackVelocity.Length;
+            ComboLimit = Player.attackVelocity.Length;
         }
 
         public override void Enter()
@@ -36,7 +32,7 @@ namespace Scripts.PlayerStates
             _shouldSkipAnimation = false;
 
             // Set the current combo index in the animator
-            Anim.SetInteger(BasicAttackIndex, _comboIndex);
+            Anim.SetInteger(BasicAttackIndex, ComboIndex);
         }
         
         public override void Update()
@@ -62,7 +58,7 @@ namespace Scripts.PlayerStates
         public override void Exit()
         {
             base.Exit();
-            _comboIndex++;
+            ComboIndex++;
             
             // Remember the time when we attacked
             _lastTimeAttacked = Time.time;
@@ -89,14 +85,14 @@ namespace Scripts.PlayerStates
 
         private void QueueNextAttack()
         {
-            if(_comboIndex < _comboLimit)
+            if(ComboIndex < ComboLimit)
                 _comboAttackQueued = true;
         }
 
         private void HandleComboLimit()
         {
-            if(_comboIndex > _comboLimit || Time.time > _lastTimeAttacked + Player.comboResetTime)
-                _comboIndex = FirstComboIndex;
+            if(ComboIndex > ComboLimit || Time.time > _lastTimeAttacked + Player.comboResetTime)
+                ComboIndex = FirstComboIndex;
         }
 
         private void HandleAttackVelocity()
@@ -113,7 +109,7 @@ namespace Scripts.PlayerStates
         private void ApplyAttackVelocity()
         {
             // Clamp the index to a valid range
-            int index = Mathf.Clamp(_comboIndex - 1, 0, Player.attackVelocity.Length - 1);
+            int index = Mathf.Clamp(ComboIndex - 1, 0, Player.attackVelocity.Length - 1);
             var attackVelocity = Player.attackVelocity[index];
 
             _attackVelocityTimer = Player.attackVelocityDuration;
@@ -124,7 +120,7 @@ namespace Scripts.PlayerStates
         public void UpdateAttackVelocity()
         {
             // Clamp the index to a valid range
-            int index = Mathf.Clamp(_comboIndex - 1, 0, Player.attackVelocity.Length - 1);
+            int index = Mathf.Clamp(ComboIndex - 1, 0, Player.attackVelocity.Length - 1);
             var attackVelocity = Player.attackVelocity[index];
             Player.SetVelocityY(attackVelocity.x * Player.FacingDirection, attackVelocity.y);
         }

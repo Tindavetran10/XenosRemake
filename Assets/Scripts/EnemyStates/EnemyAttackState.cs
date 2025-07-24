@@ -5,11 +5,8 @@ namespace Scripts
     public class EnemyAttackState : EnemyState
     {
         private static readonly int AttackIndex = Animator.StringToHash("attackIndex");
-        private const int FirstComboIndex = 1; // We start combo Index with 1, this parameter is used in the Animator
-        private const int ComboLimit = 3;
-        private int _comboIndex = 1;
-        
         private float _lastTimeAttacked;
+        private float _attackVelocityTimer;
         
         public EnemyAttackState(Enemy enemy, StateMachine stateMachine, string animBoolName) : base(enemy, stateMachine, animBoolName)
         {
@@ -19,12 +16,13 @@ namespace Scripts
         {
             base.Enter();
             HandleComboLimit();
-            Anim.SetInteger(AttackIndex, _comboIndex);
+            Anim.SetInteger(AttackIndex, ComboIndex);
         }
 
         public override void Update()
         {
             base.Update();
+            HandleAttackVelocity();
             
             if(TriggerCalled)
                 StateMachine.ChangeState(Enemy.BattleState);
@@ -33,14 +31,35 @@ namespace Scripts
         public override void Exit()
         {
             base.Exit();
-            _comboIndex++;
+            ComboIndex++;
             _lastTimeAttacked = Time.time;
         }
         
         private void HandleComboLimit()
         {
-            if(_comboIndex > ComboLimit || Time.time > _lastTimeAttacked + Enemy.comboResetTime)
-                _comboIndex = FirstComboIndex;
+            if(ComboIndex > ComboLimit || Time.time > _lastTimeAttacked + Enemy.comboResetTime)
+                ComboIndex = FirstComboIndex;
+        }
+        
+        private void HandleAttackVelocity()
+        {
+            _attackVelocityTimer -= Time.deltaTime;
+            
+            if(VelocityTriggerCalled)
+                ApplyAttackVelocity();
+            
+            if(StopVelocityTriggerCalled || _attackVelocityTimer < 0)
+                Enemy.SetVelocityY(0, Rb.linearVelocity.y);
+        }
+
+        private void ApplyAttackVelocity()
+        {
+            // Clamp the index to a valid range
+            int index = Mathf.Clamp(ComboIndex - 1, 0, Enemy.attackVelocity.Length - 1);
+            var attackVelocity = Enemy.attackVelocity[index];
+
+            _attackVelocityTimer = Enemy.attackVelocityDuration;
+            Enemy.SetVelocityY(attackVelocity.x * Enemy.FacingDirection, attackVelocity.y);
         }
     }
 }
