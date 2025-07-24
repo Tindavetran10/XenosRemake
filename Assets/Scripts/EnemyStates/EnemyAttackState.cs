@@ -17,6 +17,10 @@ namespace Scripts
             base.Enter();
             HandleComboLimit();
             Anim.SetInteger(AttackIndex, ComboIndex);
+            
+            // Reset velocity triggers for each attack
+            VelocityTriggerCalled = false;
+            StopVelocityTriggerCalled = false;
         }
 
         public override void Update()
@@ -58,7 +62,7 @@ namespace Scripts
             int index = Mathf.Clamp(ComboIndex - 1, 0, Enemy.attackVelocity.Length - 1);
             var attackVelocity = Enemy.attackVelocity[index];
 
-            _attackVelocityTimer = Enemy.attackVelocityDuration;
+            _attackVelocityTimer = Enemy.attackVelocityDuration; // ✅ FIXED: Use Enemy instead of Player
             Enemy.SetVelocityY(attackVelocity.x * Enemy.FacingDirection, attackVelocity.y);
         }
     }
