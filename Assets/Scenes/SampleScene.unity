@@ -665,8 +665,11 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 512
-  targetDetectionRadius: 0.5
   targetCheck: {fileID: 1874980269}
+  attackDataArray:
+  - {fileID: 11400000, guid: 2506fcd520eec91428be834d97ee90f2, type: 2}
+  - {fileID: 11400000, guid: 972225b2803d8d9429828b4467dc1831, type: 2}
+  - {fileID: 11400000, guid: 59080d4225b55e84eba1b7e76a46e724, type: 2}
 --- !u!1 &320045916
 GameObject:
   m_ObjectHideFlags: 0
@@ -3725,14 +3728,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 623898837}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b386d43fea2c45358a2278573e98564a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f7546c7777446469c5ac0ec702803e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
-  targetDetectionRadius: 0.5
   targetCheck: {fileID: 795971879}
+  attackDataArray:
+  - {fileID: 11400000, guid: 37406e0021355884085630496f71659a, type: 2}
+  - {fileID: 11400000, guid: 5c2ddd5bb8b02ba46b1e92c4841b6ae1, type: 2}
+  - {fileID: 11400000, guid: 207393d19bba47e49b9dec0d6a9ce20c, type: 2}
 --- !u!1 &759378211
 GameObject:
   m_ObjectHideFlags: 0
@@ -3789,7 +3795,7 @@ Transform:
   m_GameObject: {fileID: 795971878}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.75, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4661,7 +4667,7 @@ Transform:
   m_GameObject: {fileID: 1874980268}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
