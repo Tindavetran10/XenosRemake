@@ -514,8 +514,10 @@ GameObject:
   - component: {fileID: 274070544}
   - component: {fileID: 274070546}
   - component: {fileID: 274070547}
+  - component: {fileID: 274070550}
   - component: {fileID: 274070545}
   - component: {fileID: 274070548}
+  - component: {fileID: 274070549}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -662,14 +664,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93a3b86645404525aaf56821d36e30be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
   targetLayer:
     serializedVersion: 2
     m_Bits: 512
+  targetDetectionRadius: 1
   targetCheck: {fileID: 1874980269}
-  attackDataArray:
-  - {fileID: 11400000, guid: 2506fcd520eec91428be834d97ee90f2, type: 2}
-  - {fileID: 11400000, guid: 972225b2803d8d9429828b4467dc1831, type: 2}
-  - {fileID: 11400000, guid: 59080d4225b55e84eba1b7e76a46e724, type: 2}
+--- !u!114 &274070549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274070542}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aaf3e5fa15a41c99e1da19534192362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showAttackGizmos: 0
+  showFacingIndicator: 1
+  showAttackLabels: 1
+  showOnlyActiveAttack: 1
+  activeAttackIndex: 0
+  showWireframe: 1
+  showFilled: 1
+  labelOffset: 0.5
+  arrowLength: 0.5
+  arrowHeadSize: 0.1
+  facingIndicatorColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+--- !u!114 &274070550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274070542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 458bd617556c4087bc187508296ebf02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  isDead: 0
 --- !u!1 &320045916
 GameObject:
   m_ObjectHideFlags: 0
@@ -3580,8 +3617,10 @@ GameObject:
   - component: {fileID: 623898838}
   - component: {fileID: 623898841}
   - component: {fileID: 623898840}
+  - component: {fileID: 623898845}
   - component: {fileID: 623898842}
   - component: {fileID: 623898843}
+  - component: {fileID: 623898844}
   m_Layer: 9
   m_Name: Enemy_Ronin
   m_TagString: Untagged
@@ -3726,7 +3765,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 623898837}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f7546c7777446469c5ac0ec702803e8, type: 3}
   m_Name: 
@@ -3739,6 +3778,38 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 37406e0021355884085630496f71659a, type: 2}
   - {fileID: 11400000, guid: 5c2ddd5bb8b02ba46b1e92c4841b6ae1, type: 2}
   - {fileID: 11400000, guid: 207393d19bba47e49b9dec0d6a9ce20c, type: 2}
+--- !u!114 &623898844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623898837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b386d43fea2c45358a2278573e98564a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  targetDetectionRadius: 1
+  targetCheck: {fileID: 795971879}
+--- !u!114 &623898845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623898837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 458bd617556c4087bc187508296ebf02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  isDead: 0
 --- !u!1 &759378211
 GameObject:
   m_ObjectHideFlags: 0
@@ -3795,7 +3866,7 @@ Transform:
   m_GameObject: {fileID: 795971878}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.9, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4667,7 +4738,7 @@ Transform:
   m_GameObject: {fileID: 1874980268}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.95, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

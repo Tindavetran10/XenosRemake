@@ -4,6 +4,8 @@ namespace Scripts
 {
     public class EntityCombat : MonoBehaviour
     {
+        public float damage = 10;
+        
         [Header("Target detection")]
         [SerializeField] public LayerMask targetLayer;
         [SerializeField] public float targetDetectionRadius = 1f;
@@ -13,7 +15,9 @@ namespace Scripts
         {
             foreach (var target in GetDetectedColliders())
             {
-                Debug.Log(target.gameObject.name);
+                EntityHealth targetHealth = target.GetComponent<EntityHealth>();
+                
+                targetHealth?.TakeDamage(damage);
             }
         }
         

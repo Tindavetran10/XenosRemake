@@ -14,10 +14,11 @@
         public override void CurrentStateTrigger() => _player.CurrentStateAnimationTrigger();
         public override void CurrentVelocityStateTrigger() => _player.CallVelocityAnimationTrigger();
         public override void StopVelocityStateTrigger() => _player.CallStopVelocityAnimationTrigger();
-        //public override void AttackTrigger() => _playerCombat.PerformAttack();
+        public override void AttackTrigger() => _playerCombat.PerformAttack();
+        
         // Updated to support attack index
-        public override void AttackTrigger() => AttackTrigger(0);
-        public override void AttackTrigger(int attackIndex) => _playerCombat.PerformAttack(attackIndex);
+        /*public override void AttackTrigger() => AttackTrigger(0);
+        public override void AttackTrigger(int attackIndex) => _playerCombat.PerformAttack(attackIndex);*/
 
         public void SkipCurrentStateTrigger() => _player.SkipCallAnimationTrigger();
         
