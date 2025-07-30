@@ -9,7 +9,7 @@ namespace Scripts
         [SerializeField] public Transform targetCheck;
         [SerializeField] public AttackDataSO[] attackDataArray;
         
-        // Cache the entity reference for facing direction
+        // Cache the entity reference for the facing direction
         private Entity _entity;
 
         private void Awake()
@@ -44,7 +44,7 @@ namespace Scripts
             // Calculate attack position with a facing-direction-aware offset
             var attackPosition = GetAttackPosition(attackData);
             
-            // Calculate attack angle based on the facing direction
+            // Calculate the attack angle based on the facing direction
             var attackAngle = GetAttackAngle(attackData);
             
             // Get all colliders hit by this attack
@@ -72,7 +72,7 @@ namespace Scripts
             }
             else
             {
-                // Use raw offset with facing direction
+                // Use raw offset with the facing direction
                 facingAwareOffset = new Vector2(
                     attackData.offset.x * _entity.FacingDirection,
                     attackData.offset.y
@@ -114,7 +114,7 @@ namespace Scripts
                 
                 DrawRectangleGizmo(attackPosition, attackData, attackAngle);
                 
-                // Draw a small arrow to show facing direction
+                // Draw a small arrow to show the facing direction
                 DrawFacingIndicator(attackPosition);
             }
         }
