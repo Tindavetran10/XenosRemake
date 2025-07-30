@@ -7,7 +7,7 @@ namespace Scripts
         [SerializeField] protected float maxHealth = 100f;
         [SerializeField] protected bool isDead;
 
-        public virtual void TakeDamage(float damage)
+        public virtual void TakeDamage(float damage, Transform damageDealer = null)
         {
             if(isDead) return;
             ReducedHealth(damage);

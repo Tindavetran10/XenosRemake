@@ -15,9 +15,9 @@ namespace Scripts
         {
             foreach (var target in GetDetectedColliders())
             {
-                EntityHealth targetHealth = target.GetComponent<EntityHealth>();
+                var targetHealth = target.GetComponent<EntityHealth>();
                 
-                targetHealth?.TakeDamage(damage);
+                targetHealth?.TakeDamage(damage, transform);
             }
         }
         

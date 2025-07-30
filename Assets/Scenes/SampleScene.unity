@@ -517,7 +517,6 @@ GameObject:
   - component: {fileID: 274070550}
   - component: {fileID: 274070545}
   - component: {fileID: 274070548}
-  - component: {fileID: 274070549}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -562,7 +561,7 @@ MonoBehaviour:
   attackVelocity:
   - {x: 3, y: 0}
   - {x: 3, y: 0}
-  - {x: 3, y: 0}
+  - {x: 15, y: 0}
   attackVelocityDuration: 0.1
   groundLayer:
     serializedVersion: 2
@@ -670,29 +669,6 @@ MonoBehaviour:
     m_Bits: 512
   targetDetectionRadius: 1
   targetCheck: {fileID: 1874980269}
---- !u!114 &274070549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 274070542}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aaf3e5fa15a41c99e1da19534192362, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showAttackGizmos: 0
-  showFacingIndicator: 1
-  showAttackLabels: 1
-  showOnlyActiveAttack: 1
-  activeAttackIndex: 0
-  showWireframe: 1
-  showFilled: 1
-  labelOffset: 0.5
-  arrowLength: 0.5
-  arrowHeadSize: 0.1
-  facingIndicatorColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &274070550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3805,7 +3781,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 623898837}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 458bd617556c4087bc187508296ebf02, type: 3}
+  m_Script: {fileID: 11500000, guid: 69bb5b9efb9646289bea3e7e4b23813b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100

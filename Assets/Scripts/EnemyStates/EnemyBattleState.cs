@@ -4,7 +4,7 @@ namespace Scripts
 {
     public class EnemyBattleState : EnemyState
     {
-        private Transform _player;
+        private Transform _playerTransform;
         private float _lastTimeWasInBattle;
         public EnemyBattleState(Enemy enemy, StateMachine stateMachine, string animBoolName) : base(enemy, stateMachine, animBoolName)
         {
@@ -13,10 +13,10 @@ namespace Scripts
         public override void Enter()
         {
             base.Enter();
+            UpdateBattleTimer();
             
-            if(_player == null)
-                _player = Enemy.PlayerDetected().transform;
-
+            _playerTransform ??= Enemy.GetPlayerReference();
+            
             if (ShouldRetreat())
             {
                 Rb.linearVelocity = new Vector2(Enemy.retreatVelocity.x * -DirectionToPlayer(), Rb.linearVelocity.y);
@@ -48,16 +48,16 @@ namespace Scripts
 
         private float DistanceToPlayer()
         {
-            if (_player == null)
+            if (_playerTransform == null)
                 return float.MaxValue;
-            return Mathf.Abs(_player.position.x - Enemy.transform.position.x);
+            return Mathf.Abs(_playerTransform.position.x - Enemy.transform.position.x);
         }
 
         private int DirectionToPlayer()
         {
-            if (_player == null)
+            if (_playerTransform == null)
                 return 0;
-            return _player.position.x > Enemy.transform.position.x ? 1 : -1;
+            return _playerTransform.position.x > Enemy.transform.position.x ? 1 : -1;
         }
     }
 }

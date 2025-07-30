@@ -21,11 +21,27 @@ namespace Scripts
         public float minRetreatDistance = 1f;
         public Vector2 retreatVelocity;
         
-        
         [Header("Player detection")]
         [SerializeField] private LayerMask whatIsPlayer;
         [SerializeField] private Transform playerCheck;
         [SerializeField] private float playerCheckDistance = 10f;
+        public Transform PlayerTransform { get; private set; }
+
+        public void TryEnterBattleState(Transform player)
+        {
+            if (StateMachine.currentState == BattleState || StateMachine.currentState == AttackState) 
+                return;
+            
+            this.PlayerTransform = player;
+            StateMachine.ChangeState(BattleState);
+        }
+        
+        public Transform GetPlayerReference()
+        {
+            if (PlayerTransform == null)
+                PlayerTransform = PlayerDetected().transform;
+            return PlayerTransform;
+        }
 
         public RaycastHit2D PlayerDetected()
         {
