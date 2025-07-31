@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 274070544}
   - component: {fileID: 274070546}
   - component: {fileID: 274070547}
+  - component: {fileID: 274070551}
   - component: {fileID: 274070550}
   - component: {fileID: 274070545}
   - component: {fileID: 274070548}
@@ -683,6 +684,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   isDead: 0
+--- !u!114 &274070551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274070542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fa0ac5a6b4d6b54898079068d0a64a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDamageMaterial: {fileID: 2100000, guid: 01d1da861462d0e44a66dc4c4305fe14, type: 2}
+  onDamageDuration: 0.1
 --- !u!1 &320045916
 GameObject:
   m_ObjectHideFlags: 0
@@ -3593,6 +3608,7 @@ GameObject:
   - component: {fileID: 623898838}
   - component: {fileID: 623898841}
   - component: {fileID: 623898840}
+  - component: {fileID: 623898846}
   - component: {fileID: 623898845}
   - component: {fileID: 623898842}
   - component: {fileID: 623898843}
@@ -3786,6 +3802,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   isDead: 0
+--- !u!114 &623898846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623898837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fa0ac5a6b4d6b54898079068d0a64a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDamageMaterial: {fileID: 2100000, guid: 01d1da861462d0e44a66dc4c4305fe14, type: 2}
+  onDamageDuration: 0.1
 --- !u!1 &759378211
 GameObject:
   m_ObjectHideFlags: 0
