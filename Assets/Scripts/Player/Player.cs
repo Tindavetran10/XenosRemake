@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Scripts;
 using Scripts.PlayerStates;
@@ -10,6 +11,7 @@ using UnityEngine;
 public class Player : Entity
 {
     #region Variables
+    public static event Action OnPlayerDeath;
     // Reference to the player's input system (handles all input actions)
     public PlayerInputSet Input { get; private set; }
     #endregion
@@ -24,6 +26,8 @@ public class Player : Entity
     public PlayerWallJumpState WallJumpState { get; private set; }   // Player's wall jump state instance
     public PlayerDashState DashState { get; private set; }   // Player's dash state instance
     public PlayerBasicAttackState BasicAttackState { get; private set; }    // Player's basic attack state instance
+    public PlayerDeathState DeathState { get; private set; }    // Player's death state instance
+    
     // Current movement input values (Vector2: x = horizontal, y = vertical)
     public Vector2 MoveInput { get; private set; }
 
@@ -70,6 +74,7 @@ public class Player : Entity
         WallJumpState = new PlayerWallJumpState(this, StateMachine, "jumpFall");
         DashState = new PlayerDashState(this, StateMachine, "dash");
         BasicAttackState = new PlayerBasicAttackState(this, StateMachine, "basicAttack");
+        DeathState = new PlayerDeathState(this, StateMachine, "death");
     }
 
     /// <summary>
@@ -117,6 +122,16 @@ public class Player : Entity
     #endregion
     
     #region Methods
+
+    public override void EntityDeath()
+    {
+        base.EntityDeath();
+        
+        OnPlayerDeath?.Invoke();
+        // Change the current state to the death state
+        StateMachine.ChangeState(DeathState);
+    }
+    
     #region Attack Methods
     /// <summary>
     /// Coroutine that delays the transition to the attack state by one frame.

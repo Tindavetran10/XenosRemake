@@ -30,6 +30,7 @@ public abstract class PlayerState : EntityState, IPlayerAnimationTriggers
         Anim = Player.Animator;
         Rb = Player.Rb;
         Input = Player.Input;
+        SpriteRenderer = Player.SpriteRenderer;
     }
 
     /// <summary>

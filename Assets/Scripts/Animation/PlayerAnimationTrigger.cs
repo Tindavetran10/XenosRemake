@@ -15,6 +15,7 @@
         public override void CurrentVelocityStateTrigger() => _player.CallVelocityAnimationTrigger();
         public override void StopVelocityStateTrigger() => _player.CallStopVelocityAnimationTrigger();
         public override void AttackTrigger() => _playerCombat.PerformAttack();
+        public override void DeathTrigger() => _player.CallDeathAnimationTrigger();
         
         // Updated to support attack index
         /*public override void AttackTrigger() => AttackTrigger(0);

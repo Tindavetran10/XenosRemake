@@ -30,12 +30,17 @@ namespace Scripts
         [Header("Death Details")]
         public float deathDuration = 2f;
         public Transform PlayerTransform { get; private set; }
-
+        
+        private void OnEnable() => Player.OnPlayerDeath += HandlePlayerDeath;
+        private void OnDisable() => Player.OnPlayerDeath -= HandlePlayerDeath;
+        
         public override void EntityDeath()
         {
             base.EntityDeath();
             StateMachine.ChangeState(DeathState);
         }
+
+        public void HandlePlayerDeath() => StateMachine.ChangeState(IdleState);
 
         public void TryEnterBattleState(Transform player)
         {

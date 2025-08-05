@@ -683,7 +683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 5000
+  maxHealth: 10
   isDead: 0
   knockbackPower: {x: 1.5, y: 0}
   heavyKnockbackPower: {x: 2, y: 0}
