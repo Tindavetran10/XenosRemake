@@ -26,6 +26,9 @@ namespace Scripts
         [SerializeField] private LayerMask whatIsPlayer;
         [SerializeField] private Transform playerCheck;
         [SerializeField] private float playerCheckDistance = 10f;
+        
+        [Header("Death Details")]
+        public float deathDuration = 2f;
         public Transform PlayerTransform { get; private set; }
 
         public override void EntityDeath()
