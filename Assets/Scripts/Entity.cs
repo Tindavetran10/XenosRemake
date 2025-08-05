@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Scripts
@@ -54,6 +55,10 @@ namespace Scripts
         public bool GroundDetected { get; private set; }
         // Whether the entity is currently touching a wall
         public bool WallDetected { get; private set; }
+        
+        // Condition variables
+        private bool _isKnocked;
+        private Coroutine _knockedCoroutine;
         #endregion
 
         #region Debug Variables
@@ -98,6 +103,23 @@ namespace Scripts
         
         #region Methods
         #region Movement Methods
+
+        public void ReceiveKnockback(Vector2 knockback, float duration)
+        {
+            if(_knockedCoroutine != null) 
+                StopCoroutine(_knockedCoroutine);
+            _knockedCoroutine = StartCoroutine(KnockBackCoroutine(knockback, duration));
+        }
+        
+        private IEnumerator KnockBackCoroutine(Vector2 knockback, float duration)
+        {
+            _isKnocked = true;
+            Rb.linearVelocity = knockback;
+            yield return new WaitForSeconds(duration);
+            Rb.linearVelocity = Vector2.zero;
+            _isKnocked = false;
+        }
+        
         /// <summary>
         /// Sets the HORIZONTAL velocity of the entity with smooth movement transitions.
         /// Uses SmoothDamp for natural acceleration and deceleration.
@@ -106,6 +128,8 @@ namespace Scripts
         /// <param name="yVelocity">Desired vertical velocity</param>
         public void SetVelocityX(float xVelocity, float yVelocity)
         {
+            if(_isKnocked) return;
+            
             // Create a new Vector2 combining the desired horizontal and vertical velocities
             var targetVelocity = new Vector2(xVelocity, yVelocity);
             // Choose which smooth time to use:
@@ -156,7 +180,6 @@ namespace Scripts
         public void CurrentStateAnimationTrigger() => StateMachine.currentState.AnimationTrigger();
         public void CallVelocityAnimationTrigger() => StateMachine.currentState.CallVelocityAnimationTrigger();
         public void CallStopVelocityAnimationTrigger() => StateMachine.currentState.CallStopVelocityAnimationTrigger();
-        
         #endregion
 
         #region Environment Detection
