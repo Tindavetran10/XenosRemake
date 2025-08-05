@@ -42,9 +42,9 @@ namespace Scripts
         
         protected void ReducedHealth(float damage)
         {
-            maxHealth -= damage;
+            currentHealth -= damage;
 
-            if (maxHealth < 0)
+            if (currentHealth <= 0)
                 Die();
         }
 

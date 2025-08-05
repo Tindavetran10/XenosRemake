@@ -17,6 +17,8 @@ namespace Scripts
         protected Animator Anim;
         // Cached reference to the entity's Rigidbody2D component
         protected Rigidbody2D Rb;
+        // Cached reference to the entity's SpriteRenderer component
+        protected SpriteRenderer SpriteRenderer;
         // Timer for tracking time spent in this state (can be used for delays, cooldowns, etc.)
         protected float StateTimer;
         // Flag to indicate if an animation trigger has been called
@@ -80,6 +82,8 @@ namespace Scripts
         /// Sets the stop velocity animation trigger flag (used to stop velocity-based animation events).
         /// </summary>
         public void CallStopVelocityAnimationTrigger() => StopVelocityTriggerCalled = true;
+        
+        public void CallDeathAnimationTrigger() => SpriteRenderer.enabled = false;
 
         protected virtual void UpdateAnimationParameters() {}
     }

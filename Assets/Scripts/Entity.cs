@@ -16,6 +16,8 @@ namespace Scripts
         public Animator Animator { get; private set; }
         // Rigidbody2D component for physics-based movement
         public Rigidbody2D Rb { get; private set; }
+        // SpriteRenderer component for rendering the entity's sprite'
+        public SpriteRenderer SpriteRenderer { get; private set; }
         // State machine to manage entity states (idle, moving, attacking, etc.)
         protected StateMachine StateMachine;
         // Current facing direction: 1 for right, -1 for the left
@@ -78,6 +80,7 @@ namespace Scripts
             // Get references to required components
             Animator = GetComponentInChildren<Animator>();
             Rb = GetComponent<Rigidbody2D>();
+            SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
             // Initialize the state machine (states are added in derived classes)
             StateMachine = new StateMachine(); 
         }
@@ -102,10 +105,7 @@ namespace Scripts
         #endregion
         
         #region Methods
-        public virtual void EntityDeath()
-        {
-            
-        }
+        public virtual void EntityDeath() {}
         
         #region Movement Methods
         public void ReceiveKnockback(Vector2 knockback, float duration)
@@ -184,6 +184,7 @@ namespace Scripts
         public void CurrentStateAnimationTrigger() => StateMachine.currentState.AnimationTrigger();
         public void CallVelocityAnimationTrigger() => StateMachine.currentState.CallVelocityAnimationTrigger();
         public void CallStopVelocityAnimationTrigger() => StateMachine.currentState.CallStopVelocityAnimationTrigger();
+        public void CallDeathAnimationTrigger() => StateMachine.currentState.CallDeathAnimationTrigger();
         #endregion
 
         #region Environment Detection

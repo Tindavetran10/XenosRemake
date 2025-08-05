@@ -11,7 +11,7 @@ namespace Scripts
         public override void Enter()
         {
             base.Enter();
-            
+            StateMachine.SwitchOffStateMachine();
             Debug.Log("Enter Death state");
         }
     }

@@ -17,6 +17,7 @@ public class EntityAnimationTrigger : MonoBehaviour
     public virtual void CurrentStateTrigger() => _entity.CurrentStateAnimationTrigger();
     public virtual void CurrentVelocityStateTrigger() => _entity.CallVelocityAnimationTrigger();
     public virtual void StopVelocityStateTrigger() => _entity.CallStopVelocityAnimationTrigger();
+    public virtual void DeathTrigger() => _entity.CallDeathAnimationTrigger();
     public virtual void AttackTrigger() => _entityCombat.PerformAttack();
     
     // Updated to support attack index

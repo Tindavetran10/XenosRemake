@@ -15,6 +15,7 @@ namespace Scripts
 
             Rb = enemy.Rb;
             Anim = enemy.Animator;
+            SpriteRenderer = enemy.SpriteRenderer;
         }
 
         protected override void UpdateAnimationParameters()
