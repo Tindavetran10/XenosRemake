@@ -102,8 +102,12 @@ namespace Scripts
         #endregion
         
         #region Methods
+        public virtual void EntityDeath()
+        {
+            
+        }
+        
         #region Movement Methods
-
         public void ReceiveKnockback(Vector2 knockback, float duration)
         {
             if(_knockedCoroutine != null) 

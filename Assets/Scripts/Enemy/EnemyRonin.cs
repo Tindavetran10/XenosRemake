@@ -9,6 +9,7 @@
             MoveState = new EnemyMoveState(this, StateMachine, "move");
             AttackState = new EnemyAttackState(this, StateMachine, "attack");
             BattleState = new EnemyBattleState(this, StateMachine, "battle");
+            DeathState = new EnemyDeathState(this, StateMachine, "death");
         }
 
         protected override void Start()

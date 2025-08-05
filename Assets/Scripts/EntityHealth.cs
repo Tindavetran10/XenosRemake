@@ -51,7 +51,7 @@ namespace Scripts
         private void Die()
         {
             isDead = true;
-            Debug.Log("Dead");
+            _entity.EntityDeath();
         }
 
         private Vector2 CalculateKnockback(float damage, Transform damageDealer)

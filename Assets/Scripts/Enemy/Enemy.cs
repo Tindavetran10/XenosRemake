@@ -8,6 +8,7 @@ namespace Scripts
         public EnemyMoveState MoveState;
         public EnemyAttackState AttackState;
         public EnemyBattleState BattleState;
+        public EnemyDeathState DeathState;
 
         [Header("Movement Details")] 
         public float idleTime;
@@ -26,6 +27,12 @@ namespace Scripts
         [SerializeField] private Transform playerCheck;
         [SerializeField] private float playerCheckDistance = 10f;
         public Transform PlayerTransform { get; private set; }
+
+        public override void EntityDeath()
+        {
+            base.EntityDeath();
+            StateMachine.ChangeState(DeathState);
+        }
 
         public void TryEnterBattleState(Transform player)
         {

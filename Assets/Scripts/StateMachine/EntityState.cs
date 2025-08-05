@@ -24,7 +24,6 @@ namespace Scripts
         
         protected bool VelocityTriggerCalled;
         protected bool StopVelocityTriggerCalled;
-
         
         #region Attack Details
         protected const int FirstComboIndex = 1; // We start combo Index with 1, this parameter is used in the Animator
