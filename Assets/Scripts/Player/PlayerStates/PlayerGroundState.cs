@@ -26,6 +26,9 @@
             if(Input.Player.Attack.WasPressedThisFrame())
                 StateMachine.ChangeState(Player.BasicAttackState);
             
+            if(Input.Player.CounterAttack.WasPressedThisFrame())
+                StateMachine.ChangeState(Player.CounterAttackState);
+            
             // Change to fall state if the player is not on the ground
             // Prevent the player staying in idle state
             if(!Player.GroundDetected && Rb.linearVelocity.y < 0)

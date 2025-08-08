@@ -27,6 +27,7 @@ public class Player : Entity
     public PlayerDashState DashState { get; private set; }   // Player's dash state instance
     public PlayerBasicAttackState BasicAttackState { get; private set; }    // Player's basic attack state instance
     public PlayerDeathState DeathState { get; private set; }    // Player's death state instance
+    public PlayerCounterAttackState CounterAttackState { get; private set; }
     
     // Current movement input values (Vector2: x = horizontal, y = vertical)
     public Vector2 MoveInput { get; private set; }
@@ -75,6 +76,7 @@ public class Player : Entity
         DashState = new PlayerDashState(this, StateMachine, "dash");
         BasicAttackState = new PlayerBasicAttackState(this, StateMachine, "basicAttack");
         DeathState = new PlayerDeathState(this, StateMachine, "death");
+        CounterAttackState = new PlayerCounterAttackState(this, StateMachine, "counterAttack");
     }
 
     /// <summary>

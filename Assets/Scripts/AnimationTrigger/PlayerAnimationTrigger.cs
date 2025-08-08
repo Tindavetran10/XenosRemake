@@ -2,12 +2,12 @@
 {
     public class PlayerAnimationTrigger : EntityAnimationTrigger
     {
-        private Player _player;
+        private global::Player _player;
         private PlayerCombat _playerCombat;
 
         public override void Awake()
         {
-            _player = GetComponentInParent<Player>();
+            _player = GetComponentInParent<global::Player>();
             _playerCombat = GetComponentInParent<PlayerCombat>();
         }
 
