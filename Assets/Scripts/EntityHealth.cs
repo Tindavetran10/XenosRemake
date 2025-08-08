@@ -2,7 +2,7 @@
 
 namespace Scripts
 {
-    public class EntityHealth : MonoBehaviour
+    public class EntityHealth : MonoBehaviour, IDamageable
     {
         private Entity _entity;
         private EntityVFX _entityVFX;
