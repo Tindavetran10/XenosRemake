@@ -1,7 +1,3 @@
-
-
-using Scripts;
-
 public class StateMachine 
 {
     public EntityState currentState { get; private set; }

@@ -1,4 +1,3 @@
-using Scripts.PlayerStates;
 using UnityEngine;
 
 /// <summary>

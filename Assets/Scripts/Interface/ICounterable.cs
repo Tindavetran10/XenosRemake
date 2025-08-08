@@ -1,7 +1,5 @@
-﻿namespace Scripts
+﻿
+public interface ICounterable
 {
-    public interface ICounterable
-    {
-        public void HandleCounter();
-    }
+    public void HandleCounter();
 }

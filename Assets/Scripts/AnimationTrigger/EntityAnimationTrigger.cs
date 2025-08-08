@@ -1,4 +1,3 @@
-using Scripts;
 using UnityEngine;
 
 public class EntityAnimationTrigger : MonoBehaviour

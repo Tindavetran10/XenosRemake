@@ -1,7 +1,5 @@
-﻿namespace Scripts
+﻿
+public class PlayerCombat : EntityCombat
 {
-    public class PlayerCombat : EntityCombat
-    {
-        
-    }
+
 }

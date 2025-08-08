@@ -1,9 +1,5 @@
 ﻿using UnityEngine;
-
-namespace Scripts
+public interface IDamageable
 {
-    public interface IDamageable
-    {
-        public void TakeDamage(float damage, Transform damageDealer = null);
-    }
+    public void TakeDamage(float damage, Transform damageDealer = null);
 }

@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using Scripts;
-using Scripts.PlayerStates;
 using UnityEngine;
 
 /// <summary>
