@@ -1,4 +1,4 @@
-﻿namespace Scripts.Animation
+﻿namespace Scripts.AnimationTrigger
 {
     public class PlayerAnimationTrigger : EntityAnimationTrigger
     {

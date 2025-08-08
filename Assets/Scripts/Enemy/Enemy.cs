@@ -9,6 +9,7 @@ namespace Scripts
         public EnemyAttackState AttackState;
         public EnemyBattleState BattleState;
         public EnemyDeathState DeathState;
+        public EnemyStunnedState StunnedState;
 
         [Header("Movement Details")] 
         public float idleTime;
@@ -22,6 +23,11 @@ namespace Scripts
         public float minRetreatDistance = 1f;
         public Vector2 retreatVelocity;
         
+        [Header("Stunned State Details")]
+        public float stunnedDuration = 2f;
+        public Vector2 stunnedVelocity = new Vector2(7, 7);
+        [SerializeField] protected bool canBeStunned;
+        
         [Header("Player detection")]
         [SerializeField] private LayerMask whatIsPlayer;
         [SerializeField] private Transform playerCheck;
@@ -30,6 +36,8 @@ namespace Scripts
         [Header("Death Details")]
         public float deathDuration = 2f;
         public Transform PlayerTransform { get; private set; }
+        
+        public void EnableCounterWindow(bool enable) => canBeStunned = enable;
         
         private void OnEnable() => Player.OnPlayerDeath += HandlePlayerDeath;
         private void OnDisable() => Player.OnPlayerDeath -= HandlePlayerDeath;
@@ -47,7 +55,7 @@ namespace Scripts
             if (StateMachine.currentState == BattleState || StateMachine.currentState == AttackState) 
                 return;
             
-            this.PlayerTransform = player;
+            PlayerTransform = player;
             StateMachine.ChangeState(BattleState);
         }
         
